@@ -1,0 +1,6 @@
+export * from './Home'
+export * from './TvShows'
+export * from './Movies'
+export * from './TvShowDetails'
+export * from './MovieDetails'
+export * from './Profile'
