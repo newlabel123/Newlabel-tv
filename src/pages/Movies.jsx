@@ -1,7 +1,7 @@
-import { Box, Skeleton, Button } from '@chakra-ui/react'
+import { Box, Skeleton, Button, HStack } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner, ProductGrid } from '../components/common'
+import { Banner, Btn, ProductGrid } from '../components/common'
 import { getHomeData } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 
@@ -21,6 +21,15 @@ function Movies () {
       <Skeleton height="500px" isLoaded={!isLoading}>
         {data && <Banner bannerData={data.banner} />}
       </Skeleton>
+      <HStack spacing="2.5rem" my="2.5rem">
+        <Btn bg="#f00" borderColor="#f00" color="#fff">Features</Btn>
+        <Btn>Comedy</Btn>
+        <Btn>Action</Btn>
+        <Btn>Adventure</Btn>
+        <Btn>Biography</Btn>
+        <Btn>Documentary</Btn>
+        <Btn>Tech</Btn>
+      </HStack>
       <Box mt="6rem">
         <ProductGrid />
       </Box>
