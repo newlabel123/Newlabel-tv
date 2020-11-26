@@ -22,9 +22,13 @@ function TvShows () {
       <Skeleton height="500px" isLoaded={!isLoading}>
         {data && <Banner bannerData={data.banner} />}
       </Skeleton>
-      <ProductGrid />
+      <Box mt="6rem">
+        <ProductGrid />
+      </Box>
       <Recommended />
-      <ProductGrid />
+      <Box mt="10rem">
+        <ProductGrid />
+      </Box>
       <Box mt="8rem" textAlign="center">
         <Button mx="auto" fontSize="1.4rem" leftIcon={<AiOutlinePlus />} p="2rem 2.8rem" bg="#f00" opacity=".6" color="#fff" borderRadius="5px">Load More</Button>
       </Box>

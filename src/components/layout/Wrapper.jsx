@@ -9,7 +9,7 @@ function Wrapper ({ children }) {
       <Header />
       <Flex w="100%" overflowX="hidden">
         <Sidebar />
-        <Box w="100%" maxW="100%" pt="10rem" pl="15rem" pb="10rem">
+        <Box w="100%" maxW="100%" pt="12rem" pl="15rem" pb="10rem">
           {children}
         </Box>
       </Flex>

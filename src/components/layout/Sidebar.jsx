@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom'
 
 function Sidebar () {
   return (
-    <Box h="calc(100vh - 100px)" w="150px" position="fixed" left="0" top="10rem">
+    <Box h="calc(100vh - 100px)" w="150px" position="fixed" left="0" top="12rem">
       <VStack spacing="5.4rem">
         <NavItem to="/" text="Home" icon={<Home />} />
         <NavItem to="/movies" text="Movies" icon={<Video />} />

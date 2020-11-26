@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo.svg'
 
 function Header () {
   return (
-    <Flex align="center" w="100%" h="100px" pl="1.5rem" pr="10.7rem" position="fixed" left="0" top="0" zIndex="500" bg="brand.white">
+    <Flex align="center" w="100%" h="120px" pl="5.5rem" pr="10.7rem" position="fixed" left="0" top="0" zIndex="500" bg="brand.white">
       <Box>
         <Image src={logo} />
       </Box>

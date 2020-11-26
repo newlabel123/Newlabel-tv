@@ -5,11 +5,11 @@ import { Banner, Similar } from '../components/movie'
 
 function MovieDetails () {
   return (
-    <div>
+    <Box>
       <Banner />
       <Trailer />
       <Similar />
-    </div>
+    </Box>
   )
 }
 
