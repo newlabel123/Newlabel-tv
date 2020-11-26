@@ -6,7 +6,7 @@ import emailIcon from '../assets/icons/Email.svg'
 import locationIcon from '../assets/icons/Location.svg'
 import walletIcon from '../assets/icons/Wallet.svg'
 import { SectionWrapper } from '../components/layout'
-import { Popular } from '../components/home'
+import { ProductGrid } from '../components/common'
 
 function Profile () {
   return (
@@ -42,7 +42,7 @@ function Profile () {
       </Box>
       <Box>
         <SectionWrapper title="Your Feed" mt="0">
-          <Popular />
+          <ProductGrid />
         </SectionWrapper>
       </Box>
     </Flex>

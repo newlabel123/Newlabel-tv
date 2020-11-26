@@ -5,10 +5,17 @@ import styled from '@emotion/styled'
 import { FaPlayCircle } from 'react-icons/fa'
 import { BsClockHistory } from 'react-icons/bs'
 import { BiCart } from 'react-icons/bi'
+import { useHistory } from 'react-router-dom'
 
 function ProductWide ({ item, trailer }) {
+  const history = useHistory()
+
+  const handleClick = () => {
+    history.push('/series/1')
+  }
+
   return (
-    <Wrapper mr="1rem" key={item.name} minW="300px" h="56.25%" pos="relative" cursor="pointer">
+    <Wrapper onClick={handleClick} mr="1rem" key={item.name} minW="300px" h="56.25%" pos="relative" cursor="pointer">
       <Image src={item.image} alt="naruto" w="100%" maxW="300px" transition="all .5s" />
       <video autoPlay loop id="trailer">
         <source src={trailer} type="video/mp4" />

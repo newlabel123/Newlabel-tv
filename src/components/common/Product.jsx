@@ -3,10 +3,17 @@ import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 
 function Product ({ item }) {
+  const history = useHistory()
+
+  const handleClick = () => {
+    history.push('/movies/1')
+  }
+
   return (
-    <Box>
+    <Box onClick={handleClick}>
       <CardBox w="11vw" h="15vw" pos="relative" cursor="pointer" transition="all .5s">
       <Image src={item.image} alt="naruto" objectFit="cover" w="100%" h="100%" transition="all .5s" borderRadius="5px" />
       <Box id="overlay" transition="all .5s .4s">

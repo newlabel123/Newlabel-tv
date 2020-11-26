@@ -14,6 +14,22 @@ const theme = extendTheme({
         color: props.colorMode === 'dark' ? 'white' : 'gray.600',
         fontFamily: "'Fira Sans', sans-serif",
         background: 'brand.white'
+      },
+      '.active': {
+        '.navlnk-wrapper': {
+          background: 'rgba(244, 32, 32, 0.2)',
+
+          '.link-text': {
+            p: {
+              opacity: 1,
+              color: '#FF0202'
+            }
+          },
+
+          svg: {
+            stroke: '#FF0202'
+          }
+        }
       }
     })
   },

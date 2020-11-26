@@ -16,8 +16,8 @@ function Sidebar () {
         <NavItem to="/" text="Home" icon={<Home />} />
         <NavItem to="/movies" text="Movies" icon={<Video />} />
         <NavItem to="/series" text="Tv Shows" icon={<Screen />} />
-        <NavItem to="/" text="Library" icon={<Folder />} />
-        <NavItem to="/" text="Recent" icon={<TimeCircle />} />
+        <NavItem to="/profile" text="Library" icon={<Folder />} />
+        <NavItem to="/recent" text="Recent" icon={<TimeCircle />} />
       </VStack>
     </Box>
   )
@@ -27,8 +27,8 @@ export { Sidebar }
 
 function NavItem ({ icon, text, to }) {
   return (
-    <NavLink to={to}>
-      <NavWrapper cursor="ponter" justify="space-between" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="2rem">
+    <NavLink exact to={to}>
+      <NavWrapper className="navlnk-wrapper" cursor="ponter" justify="space-between" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="2rem">
         <IconBox>
           {icon}
         </IconBox>
