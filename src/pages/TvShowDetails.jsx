@@ -1,4 +1,5 @@
-import { HStack } from '@chakra-ui/react'
+import { Box, HStack } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 import React from 'react'
 import { Btn } from '../components/common'
 import { Banner, EpisodeGrid } from '../components/tvshow'
@@ -12,9 +13,51 @@ function TvShowDetails () {
         <Btn>Details</Btn>
         <Btn>Trailer</Btn>
       </HStack>
+      <Box my="2.5rem">
+        <Tabs>
+          <TabItem className="active">Season 1</TabItem>
+          <TabItem>Season 2</TabItem>
+          <TabItem>Season 3</TabItem>
+        </Tabs>
+      </Box>
       <EpisodeGrid />
     </div>
   )
 }
 
 export { TvShowDetails }
+
+const Tabs = styled.div`
+  display: flex;
+`
+
+const TabItem = styled.p`
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    width: 0%;
+    opacity: 0;
+    position: absolute;
+    height: 2px;
+    background: #f00;
+    left: 0;
+    bottom: -0.1rem;
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    border-bottom: 2px solid red;
+  }
+`
