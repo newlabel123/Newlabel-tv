@@ -4,6 +4,7 @@ import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
+import { truncate } from '../../util/helpers'
 
 function Product ({ item }) {
   const history = useHistory()
@@ -18,7 +19,7 @@ function Product ({ item }) {
       <Image src={item.image} alt="naruto" objectFit="cover" w="100%" h="100%" transition="all .5s" borderRadius="5px" />
       <Box id="overlay" transition="all .5s .4s">
         <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
-          <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">{item.name}</Text>
+          <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">{truncate(item.name, 15)}</Text>
           <Flex align="center">
             <HStack>
               <Icon color="#fff" as={BiCart} />
@@ -41,7 +42,7 @@ function Product ({ item }) {
       </Box>
     </CardBox>
       <Box id="outer-details" mt=".8rem" transition="all .5s">
-        <Text color="brand.gray300">{item.name}</Text>
+        <Text color="brand.gray300">{truncate(item.name, 15)}</Text>
         <Text color="brand.gray200">2020</Text>
       </Box>
     </Box>
