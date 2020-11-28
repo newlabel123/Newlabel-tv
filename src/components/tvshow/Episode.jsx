@@ -52,7 +52,7 @@ const EpisodeBox = styled(Box)`
     }
 
     .details {
-      transform: translateY(-10px);
+      transform: translateY(-5px);
     }
 
     .time {
