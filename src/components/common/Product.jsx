@@ -63,16 +63,18 @@ const CardBox = styled(Box)`
     z-index: 2;
   }
 
-  &:hover {
-    transform: scale(1.4);
-    z-index: 200;
+  @media(min-width: 768px) {
+    &:hover {
+      transform: scale(1.4);
+      z-index: 200;
 
-    #overlay {
-      opacity: 1;
-    }
+      #overlay {
+        opacity: 1;
+      }
 
-    #outer-details {
-      opacity: 0;
+      #outer-details {
+        opacity: 0;
+      }
     }
   }
 `

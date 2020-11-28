@@ -72,19 +72,21 @@ const Wrapper = styled(Box)`
     z-index: 2;
   }
 
-  &:hover {
-    width: 400px !important;
+  @media(min-width: 768px) {
+    &:hover {
+      width: 400px !important;
 
-    img {
-      max-width: 400px !important;
-    }
+      img {
+        max-width: 400px !important;
+      }
 
-    #trailer {
-      display: block;
-    }
+      #trailer {
+        display: block;
+      }
 
-    #overlay {
-      opacity: 1;
+      #overlay {
+        opacity: 1;
+      }
     }
   }
 `
