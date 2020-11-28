@@ -106,7 +106,7 @@ const EpisodeBox = styled(Box)`
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 50%,
-      rgba(255, 255, 255, 0.9) 100%
+      rgba(0, 0, 0, 0.9) 100%
     );
     opacity: 0;
     transition: 0.5s;
