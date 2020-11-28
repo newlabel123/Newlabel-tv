@@ -1,6 +1,6 @@
 import React from 'react'
 import Slider from 'react-slick'
-import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react'
 import { FaPlay } from 'react-icons/fa'
 import styled from '@emotion/styled'
 import { SectionWrapper } from '../layout'

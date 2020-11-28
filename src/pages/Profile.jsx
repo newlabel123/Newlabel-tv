@@ -12,7 +12,7 @@ import styled from '@emotion/styled'
 function Profile () {
   return (
     <PageWrapper >
-      <ProfileInfo w={['250px', 'auto']} mx="2rem" mb="5rem" >
+      <ProfileInfo w={['250px', 'auto']} mt="1rem" mx="2rem" mb="5rem" mr="10rem" >
         <Flex justify="center" align="center" h="235px" w="235px" bg="#f00" opacity=".6" borderRadius="5px">
           <Text fontSize="10rem" color="#fff" fontWeight="300">AE</Text>
         </Flex>
@@ -41,7 +41,7 @@ function Profile () {
           </HStack>
         </DetailsBox>
       </ProfileInfo>
-      <SectionWrapper title="Your Feed" mt="0">
+      <SectionWrapper title="Your Feed" mt="0" w="100%">
         <ProductGrid />
       </SectionWrapper>
     </PageWrapper>
@@ -51,31 +51,28 @@ function Profile () {
 export { Profile }
 
 const ProfileInfo = styled(Flex)`
-
-
   @media (max-width: 550px) {
     align-items:center;
     flex-direction: column;
     margin-left:auto;
-        margin-right:auto;
+    margin-right:auto;
   }
+
   @media (min-width: 900px) {
-    flex-direction: column;
-   
+    flex-direction: column; 
   }
 `
 
 const DetailsBox = styled(Box)`
- @media (min-width: 900px) {
-   margin:0
-   
+  @media (min-width: 900px) {
+    margin:0
   }
 `
 
 const PageWrapper = styled(Flex)`
-flex-direction:column;
- @media (min-width: 900px) {
+  flex-direction:column;
+
+  @media (min-width: 900px) {
     flex-direction: row;
-   
   }
 `
