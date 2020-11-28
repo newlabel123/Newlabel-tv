@@ -30,7 +30,7 @@ export { Sidebar }
 function NavItem ({ icon, text, to }) {
   return (
     <NavLink exact to={to}>
-      <NavWrapper className="navlnk-wrapper" cursor="ponter" justify="space-between" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="1rem">
+      <NavWrapper className="navlnk-wrapper" cursor="ponter" justify="space-between" align="center" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="1rem">
         <IconBox>
           {icon}
         </IconBox>
@@ -42,7 +42,7 @@ function NavItem ({ icon, text, to }) {
   )
 }
 
-const NavWrapper = styled(HStack)`
+const NavWrapper = styled(Flex)`
   &:hover {
     background: rgba(244, 32, 32, 0.2);
 
@@ -52,6 +52,7 @@ const NavWrapper = styled(HStack)`
       p {
         opacity: 1;
         color: #FF0202;
+        padding-left: 1rem;
       }
     }
 

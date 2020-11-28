@@ -41,19 +41,19 @@ function MobileNav () {
 
   return (
     <Flex justify="space-between" align="center" px="2rem" bg="#fff" d={isBelow768px ? 'flex' : 'none'} w="100%" h="65px" position="fixed" left="0" bottom="0" zIndex="500">
-      <MobileIcon to="/" text="Home">
+      <MobileIcon className="icon-box" to="/" text="Home">
         <Home />
       </MobileIcon>
-      <MobileIcon to="/movies">
+      <MobileIcon className="icon-box" to="/movies">
         <Video />
       </MobileIcon>
-      <MobileIcon to="/series">
+      <MobileIcon className="icon-box" to="/series">
         <Screen />
       </MobileIcon>
-      <MobileIcon to="/profile">
+      <MobileIcon className="icon-box" to="/profile">
         <Folder />
       </MobileIcon>
-      <MobileIcon to="/recent">
+      <MobileIcon className="icon-box" to="/recent">
         <TimeCircle />
       </MobileIcon>
     </Flex>

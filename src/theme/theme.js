@@ -16,6 +16,13 @@ const theme = extendTheme({
         background: 'brand.white'
       },
       '.active': {
+        '&.icon-box': {
+          background: 'rgba(244, 32, 32, 0.2)',
+          svg: {
+            stroke: 'rgba(0, 0, 0, 0.0)',
+            fill: '#FF0202'
+          }
+        },
         '.navlnk-wrapper': {
           background: 'rgba(244, 32, 32, 0.2)',
 
@@ -27,7 +34,8 @@ const theme = extendTheme({
           },
 
           svg: {
-            stroke: '#FF0202'
+            stroke: 'rgba(0, 0, 0, 0.0)',
+            fill: '#FF0202'
           }
         }
       }

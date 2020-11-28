@@ -7,15 +7,16 @@ import locationIcon from '../assets/icons/Location.svg'
 import walletIcon from '../assets/icons/Wallet.svg'
 import { SectionWrapper } from '../components/layout'
 import { ProductGrid } from '../components/common'
+import styled from '@emotion/styled'
 
 function Profile () {
   return (
-    <Flex>
-      <Box w="250px" mx="5rem">
+    <PageWrapper >
+      <ProfileInfo w={['250px', 'auto']} mx="2rem" mb="5rem" >
         <Flex justify="center" align="center" h="235px" w="235px" bg="#f00" opacity=".6" borderRadius="5px">
           <Text fontSize="10rem" color="#fff" fontWeight="300">AE</Text>
         </Flex>
-        <Box mx="auto">
+        <DetailsBox mx="auto">
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image src={profileIcon} />
             <Text>Aneri Emmax</Text>
@@ -38,15 +39,43 @@ function Profile () {
               <Text cursor="pointer" color="brand.gray300" fontWeight="bold" _hover={{ color: '#f00' }}>Top up</Text>
             </Box>
           </HStack>
-        </Box>
-      </Box>
-      <Box>
-        <SectionWrapper title="Your Feed" mt="0">
-          <ProductGrid />
-        </SectionWrapper>
-      </Box>
-    </Flex>
+        </DetailsBox>
+      </ProfileInfo>
+      <SectionWrapper title="Your Feed" mt="0">
+        <ProductGrid />
+      </SectionWrapper>
+    </PageWrapper>
   )
 }
 
 export { Profile }
+
+const ProfileInfo = styled(Flex)`
+
+
+  @media (max-width: 550px) {
+    align-items:center;
+    flex-direction: column;
+    margin-left:auto;
+        margin-right:auto;
+  }
+  @media (min-width: 900px) {
+    flex-direction: column;
+   
+  }
+`
+
+const DetailsBox = styled(Box)`
+ @media (min-width: 900px) {
+   margin:0
+   
+  }
+`
+
+const PageWrapper = styled(Flex)`
+flex-direction:column;
+ @media (min-width: 900px) {
+    flex-direction: row;
+   
+  }
+`
