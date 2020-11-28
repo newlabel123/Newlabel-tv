@@ -34,9 +34,8 @@ function Episode ({ shot }) {
 export { Episode }
 
 const EpisodeBox = styled(Box)`
-  width: 300px;
+  /* padding-top: 56.25%; */
   border-top: none;
-  margin: 1rem;
   transition: all 0.5s;
 
   &::first-of-type {

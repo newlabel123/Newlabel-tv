@@ -14,33 +14,33 @@ function Product ({ item }) {
   }
 
   return (
-    <Box onClick={handleClick}>
-      <CardBox w="11vw" h="15vw" pos="relative" cursor="pointer" transition="all .5s">
-      <Image src={item.image} alt="naruto" objectFit="cover" w="100%" h="100%" transition="all .5s" borderRadius="5px" />
-      <Box id="overlay" transition="all .5s .4s">
-        <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
-          <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">{truncate(item.name, 15)}</Text>
-          <Flex align="center">
-            <HStack>
-              <Icon color="#fff" as={BiCart} />
-              <Text color="#fff" fontSize="1rem">$35</Text>
-            </HStack>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
-            <HStack>
-              <Icon color="#fff" as={BsClockHistory} />
-              <Text color="#fff" fontSize="1.2rem">2hrs 10mins</Text>
-            </HStack>
-          </Flex>
-          <Flex align="center">
-            <Text color="#fff" fontSize="1rem">Action</Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
-            <Text color="#fff" fontSize="1rem">Drama</Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
-            <Text color="#fff" fontSize="1rem">Mystery</Text>
-          </Flex>
+    <Box pt="145.25%" position="relative" onClick={handleClick}>
+      <CardBox pos="absolute" top="0" left="0" w="100%" cursor="pointer" transition="all .5s">
+        <Image src={item.image} alt="naruto" objectFit="cover" w="100%" h="100%" transition="all .5s" borderRadius="5px" />
+        <Box id="overlay" transition="all .5s .4s">
+          <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
+            <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">{truncate(item.name, 15)}</Text>
+            <Flex align="center">
+              <HStack>
+                <Icon color="#fff" as={BiCart} />
+                <Text color="#fff" fontSize="1rem">$35</Text>
+              </HStack>
+              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
+              <HStack>
+                <Icon color="#fff" as={BsClockHistory} />
+                <Text color="#fff" fontSize="1.2rem">2hrs 10mins</Text>
+              </HStack>
+            </Flex>
+            <Flex align="center">
+              <Text color="#fff" fontSize="1rem">Action</Text>
+              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
+              <Text color="#fff" fontSize="1rem">Drama</Text>
+              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
+              <Text color="#fff" fontSize="1rem">Mystery</Text>
+            </Flex>
+          </Box>
         </Box>
-      </Box>
-    </CardBox>
+      </CardBox>
       <Box id="outer-details" mt=".8rem" transition="all .5s">
         <Text color="brand.gray300">{truncate(item.name, 15)}</Text>
         <Text color="brand.gray200">2020</Text>

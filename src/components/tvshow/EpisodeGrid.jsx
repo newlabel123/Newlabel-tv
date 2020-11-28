@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 import React from 'react'
 
 import ep1 from '../../assets/images/samples/ep1.jpg'
@@ -25,11 +25,11 @@ function EpisodeGrid () {
   ]
 
   return (
-    <Flex wrap="wrap">
+    <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="1.6rem">
       {episodes.map(ep => (
         <Episode key={ep} shot={ep} />
       ))}
-    </Flex>
+    </Grid>
   )
 }
 

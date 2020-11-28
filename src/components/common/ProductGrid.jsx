@@ -1,5 +1,5 @@
 import React from 'react'
-import { HStack } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 import { Product } from '../common'
 
 import avengers from '../../assets/images/samples/avengers.jpg'
@@ -38,11 +38,13 @@ function ProductGrid (props) {
   ]
 
   return (
-    <HStack {...props} spacing="1rem">
-      {items.map((item) => (
-        <Product key={item.name} item={item} />
-      ))}
-    </HStack>
+    <>
+      <Grid templateColumns="repeat(auto-fill, minmax(170px, 1fr))" gap="1.6rem">
+        {items.map((item) => (
+          <Product key={item.name} item={item} />
+        ))}
+      </Grid>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Flex, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, Flex, HStack, Text, VStack, useMediaQuery } from '@chakra-ui/react'
+import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { ReactComponent as Home } from '../../assets/icons/Home.svg'
@@ -7,11 +8,12 @@ import { ReactComponent as Folder } from '../../assets/icons/Folder.svg'
 import { ReactComponent as TimeCircle } from '../../assets/icons/Time Circle.svg'
 import { ReactComponent as Video } from '../../assets/icons/Video.svg'
 import { ReactComponent as Screen } from '../../assets/icons/Vector.svg'
-import { NavLink } from 'react-router-dom'
 
 function Sidebar () {
+  const [isBelow768px] = useMediaQuery('(max-width: 768px)')
+
   return (
-    <Box h="calc(100vh - 100px)" w="150px" position="fixed" left="0" top="12rem">
+    <Box d={isBelow768px ? 'none' : 'block'} h="calc(100vh - 100px)" w="12rem" position="fixed" left="0" top="12rem">
       <VStack spacing="5.4rem">
         <NavItem to="/" text="Home" icon={<Home />} />
         <NavItem to="/movies" text="Movies" icon={<Video />} />
@@ -28,7 +30,7 @@ export { Sidebar }
 function NavItem ({ icon, text, to }) {
   return (
     <NavLink exact to={to}>
-      <NavWrapper className="navlnk-wrapper" cursor="ponter" justify="space-between" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="2rem">
+      <NavWrapper className="navlnk-wrapper" cursor="ponter" justify="space-between" overflow="hidden" borderRadius="1rem" bg="rgba(161,164,177, .2)" h="4rem" px="1rem">
         <IconBox>
           {icon}
         </IconBox>
@@ -54,12 +56,13 @@ const NavWrapper = styled(HStack)`
     }
 
     svg {
-      stroke: #FF0202;
+      stroke: rgba(0, 0, 0, 0.0);
+      fill: #FF0202
     }
   }
 `
 
-const IconBox = styled(Flex)`
+export const IconBox = styled(Flex)`
   svg {
     stroke: #A1A4B1;
   }

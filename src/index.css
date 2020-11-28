@@ -2,3 +2,10 @@
   font-family: 'ReformaGroteskDemiC';
   src: url(./assets/fonts/ReformaGroteskDemiC.ttf);
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 100px #f0f1f3 inset !important;
+}

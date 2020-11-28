@@ -5,6 +5,7 @@ import { Banner, ProductGrid } from '../components/common'
 import { Recommended } from '../components/home'
 import { getHomeData } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { SectionWrapper } from '../components/layout'
 
 function TvShows () {
   const { isLoading, error, data } = useQuery('homepage', getHomeData)
@@ -22,13 +23,13 @@ function TvShows () {
       <Skeleton height="500px" isLoaded={!isLoading}>
         {data && <Banner bannerData={data.banner} />}
       </Skeleton>
-      <Box mt="6rem">
+      <SectionWrapper>
         <ProductGrid />
-      </Box>
+      </SectionWrapper>
       <Recommended />
-      <Box mt="10rem">
+      <SectionWrapper>
         <ProductGrid />
-      </Box>
+      </SectionWrapper>
       <Box mt="8rem" textAlign="center">
         <Button mx="auto" fontSize="1.4rem" leftIcon={<AiOutlinePlus />} p="2rem 2.8rem" bg="#f00" opacity=".6" color="#fff" borderRadius="5px">Load More</Button>
       </Box>

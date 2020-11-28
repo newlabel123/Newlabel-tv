@@ -1,26 +1,31 @@
-import { Box, HStack } from '@chakra-ui/react'
+import { HStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Btn } from '../components/common'
+import { SectionWrapper } from '../components/layout'
 import { Banner, EpisodeGrid } from '../components/tvshow'
 
 function TvShowDetails () {
   return (
     <div>
       <Banner />
-      <HStack spacing="2.5rem" my="2.5rem">
-        <Btn>Episodes</Btn>
-        <Btn>Details</Btn>
-        <Btn>Trailer</Btn>
-      </HStack>
-      <Box my="2.5rem">
+      <SectionWrapper mt="0">
+        <HStack spacing="2.5rem" my="2.5rem">
+          <Btn>Episodes</Btn>
+          <Btn>Details</Btn>
+          <Btn>Trailer</Btn>
+        </HStack>
+      </SectionWrapper>
+      <SectionWrapper mt="0">
         <Tabs>
           <TabItem className="active">Season 1</TabItem>
           <TabItem>Season 2</TabItem>
           <TabItem>Season 3</TabItem>
         </Tabs>
-      </Box>
-      <EpisodeGrid />
+      </SectionWrapper>
+      <SectionWrapper mt="1rem">
+        <EpisodeGrid />
+      </SectionWrapper>
     </div>
   )
 }

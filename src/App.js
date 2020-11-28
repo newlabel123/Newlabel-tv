@@ -7,7 +7,7 @@ import {
 
 import { theme } from './theme'
 import { Wrapper } from './components/layout'
-import { Home, MovieDetails, Movies, Profile, TvShowDetails, TvShows } from './pages'
+import { Home, Login, MovieDetails, Movies, Profile, SIgnup, TvShowDetails, TvShows } from './pages'
 
 function App () {
   return (
@@ -31,6 +31,12 @@ function App () {
             </Route>
             <Route exact path="/profile">
               <Profile />
+            </Route>
+            <Route exact path="/signup">
+              <SIgnup />
+            </Route>
+            <Route exact path="/login">
+              <Login />
             </Route>
           </Switch>
       </Wrapper>

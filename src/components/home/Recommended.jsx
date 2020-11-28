@@ -39,7 +39,7 @@ function Recommended () {
   }
 
   return (
-    <SectionWrapper title="Recommended">
+    <SectionWrapper mb="7rem" title="Recommended">
       <Slider {...settings}>
         {items.map((item, i) => (
           <ProductWide index={i} key={i} item={item} trailer={trailer} />
