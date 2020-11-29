@@ -22,7 +22,7 @@ function Episode ({ shot }) {
           <HStack align="center" mt=".5rem">
             <HStack>
               <Icon color="#fff" as={BiCart} />
-              <Text color="#fff" fontSize="1rem">$35</Text>
+              <Text color="#fff" fontSize="1.2rem">$35</Text>
             </HStack>
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
             <HStack>
