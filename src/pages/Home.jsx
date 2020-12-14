@@ -1,8 +1,9 @@
 import { Box, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner } from '../components/common'
-import { ContinueWatching, Popular, Recommended } from '../components/home'
+import { Banner, ProductGrid, ProductSlider } from '../components/common'
+import { ContinueWatching } from '../components/home'
+import { SectionWrapper } from '../components/layout'
 import { getHomeData } from '../queries'
 
 function Home () {
@@ -22,8 +23,15 @@ function Home () {
         {data && <Banner bannerData={data.banner} />}
       </Skeleton>
       <ContinueWatching />
-      <Recommended />
-      <Popular />
+      {data?.sections.map((item) => (
+        <SectionWrapper key={item.id} title={item.title}>
+          {item.layoutType === 'SLIDER' ? (
+            <ProductSlider items={item[item.productType.toLowerCase()]} cardType={item.cardType} />
+          ) : (
+            <ProductGrid />
+          )}
+        </SectionWrapper>
+      ))}
     </Box>
   )
 }

@@ -2,7 +2,7 @@ import { Box, Skeleton, Button } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Banner, ProductGrid } from '../components/common'
-import { Recommended } from '../components/home'
+// import { Recommended } from '../components/home'
 import { getHomeData } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { SectionWrapper } from '../components/layout'
@@ -26,7 +26,7 @@ function TvShows () {
       <SectionWrapper>
         <ProductGrid />
       </SectionWrapper>
-      <Recommended />
+      {/* <Recommended /> */}
       <SectionWrapper>
         <ProductGrid />
       </SectionWrapper>
