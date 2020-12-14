@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, HStack, Text, VStack, useMediaQuery } from '@chakra-ui/react'
+import { Box, Flex, Text, VStack, useMediaQuery } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 
