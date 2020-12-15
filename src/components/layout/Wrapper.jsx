@@ -22,7 +22,7 @@ function Wrapper ({ children }) {
       <Header />
       <Flex w="100%" overflowX="hidden">
         <Sidebar />
-        <Box w="100%" maxW="100%" pt={['70px', '120px']} pl={isBelow768px ? '0' : '12rem'} pb="10rem">
+        <Box w="100%" maxW="100%" pt={['70px', '120px']} pl={isBelow768px ? '0' : '12rem'} pb="10rem" overflowX='hidden'>
           {children}
         </Box>
       </Flex>
