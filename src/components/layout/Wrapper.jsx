@@ -5,16 +5,12 @@ import { Header } from './Header'
 import { MobileNav } from './MobileNav'
 import { Sidebar } from './Sidebar'
 
-function Wrapper ({ children }) {
+function Wrapper({ children }) {
   const [isBelow768px] = useMediaQuery('(max-width: 768px)')
   const { pathname } = useLocation()
 
   if (pathname === '/signup' || pathname === '/login') {
-    return (
-      <Box w="100%">
-        {children}
-      </Box>
-    )
+    return <Box w="100%">{children}</Box>
   }
 
   return (
@@ -22,7 +18,14 @@ function Wrapper ({ children }) {
       <Header />
       <Flex w="100%" overflowX="hidden">
         <Sidebar />
-        <Box w="100%" maxW="100%" pt={['70px', '120px']} pl={isBelow768px ? '0' : '12rem'} pb="10rem" overflowX='hidden'>
+        <Box
+          w="100%"
+          maxW="100%"
+          pt={['70px', '120px']}
+          pl={isBelow768px ? '0' : '12rem'}
+          pb="10rem"
+          overflowX="hidden"
+        >
           {children}
         </Box>
       </Flex>

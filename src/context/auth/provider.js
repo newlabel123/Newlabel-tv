@@ -1,41 +1,41 @@
-import React, { createContext, useReducer, useEffect } from 'react';
-import { authReducer } from './reducer';
-import { AES, enc } from 'crypto-js';
+import React, { createContext, useReducer, useEffect } from 'react'
+import { authReducer } from './reducer'
+import { AES, enc } from 'crypto-js'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
-  let initialState = localStorage.getItem('auth');
+  let initialState = localStorage.getItem('auth')
 
   if (initialState) {
-    const bytes = AES.decrypt(initialState, process.env.REACT_APP_AUTH_KEY);
-    const decryptedData = JSON.parse(bytes.toString(enc.Utf8));
+    const bytes = AES.decrypt(initialState, process.env.REACT_APP_AUTH_KEY)
+    const decryptedData = JSON.parse(bytes.toString(enc.Utf8))
 
-    initialState = decryptedData;
+    initialState = decryptedData
   } else {
-    initialState = '';
+    initialState = ''
   }
 
-  const [authState, dispatch] = useReducer(authReducer, initialState);
+  const [authState, dispatch] = useReducer(authReducer, initialState)
 
   useEffect(() => {
     if (!authState) {
-      localStorage.setItem('auth', '');
+      localStorage.setItem('auth', '')
     } else {
       const ciphertext = AES.encrypt(
         JSON.stringify(authState),
         process.env.REACT_APP_AUTH_KEY
-      ).toString();
+      ).toString()
 
-      localStorage.setItem('auth', ciphertext);
+      localStorage.setItem('auth', ciphertext)
     }
-  }, [authState]);
+  }, [authState])
 
   return (
     <AuthContext.Provider value={{ authState, dispatch }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export { AuthContext, AuthContextProvider };
+export { AuthContext, AuthContextProvider }

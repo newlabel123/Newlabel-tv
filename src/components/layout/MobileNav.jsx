@@ -17,30 +17,42 @@ const NavItem = chakra(NavLink, {
     borderRadius: '1rem',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 })
 
 const MobileIcon = styled(NavItem)`
   svg {
-    stroke: #505565
+    stroke: #505565;
   }
 
   &:hover {
     background: rgba(244, 32, 32, 0.2);
 
     svg {
-      stroke: rgba(0, 0, 0, 0.0);
-      fill: #FF0202
+      stroke: rgba(0, 0, 0, 0);
+      fill: #ff0202;
     }
   }
 `
 
-function MobileNav () {
+function MobileNav() {
   const [isBelow768px] = useMediaQuery('(max-width: 768px)')
 
   return (
-    <Flex justify="space-between" align="center" px="2rem" bg="#fff" d={isBelow768px ? 'flex' : 'none'} w="100%" h="65px" position="fixed" left="0" bottom="0" zIndex="500">
+    <Flex
+      justify="space-between"
+      align="center"
+      px="2rem"
+      bg="#fff"
+      d={isBelow768px ? 'flex' : 'none'}
+      w="100%"
+      h="65px"
+      position="fixed"
+      left="0"
+      bottom="0"
+      zIndex="500"
+    >
       <MobileIcon className="icon-box" to="/" text="Home">
         <Home />
       </MobileIcon>

@@ -7,7 +7,7 @@ import { BsClockHistory } from 'react-icons/bs'
 import { BiCart } from 'react-icons/bi'
 import { useHistory } from 'react-router-dom'
 
-function ProductWide ({ item, trailer }) {
+function ProductWide({ item, trailer }) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -15,8 +15,22 @@ function ProductWide ({ item, trailer }) {
   }
 
   return (
-    <Wrapper onClick={handleClick} mr="1rem" key={item.name} minW="300px" h="56.25%" pos="relative" cursor="pointer">
-      <Image src={item.image} alt="naruto" w="100%" maxW="300px" transition="all .5s" />
+    <Wrapper
+      onClick={handleClick}
+      mr="1rem"
+      key={item.name}
+      minW="300px"
+      h="56.25%"
+      pos="relative"
+      cursor="pointer"
+    >
+      <Image
+        src={item.image}
+        alt="naruto"
+        w="100%"
+        maxW="300px"
+        transition="all .5s"
+      />
       <video autoPlay loop id="trailer">
         <source src={trailer} type="video/mp4" />
         Your browser does not support HTML5 video.
@@ -24,24 +38,42 @@ function ProductWide ({ item, trailer }) {
       <Box id="overlay" transition="all .5s .4s">
         <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
           <Icon color="#fff" fontSize="4rem" as={FaPlayCircle} />
-          <Text color="#fff" fontSize="1.6rem" mt="1rem" fontWeight="500">{item.name}</Text>
+          <Text color="#fff" fontSize="1.6rem" mt="1rem" fontWeight="500">
+            {item.name}
+          </Text>
           <Flex align="center">
             <HStack>
               <Icon color="#fff" as={BiCart} />
-              <Text color="#fff" fontSize="1.2rem">$35</Text>
+              <Text color="#fff" fontSize="1.2rem">
+                $35
+              </Text>
             </HStack>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
+            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+              .
+            </Box>
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
-              <Text color="#fff" fontSize="1.2rem">2hrs 10mins</Text>
+              <Text color="#fff" fontSize="1.2rem">
+                2hrs 10mins
+              </Text>
             </HStack>
           </Flex>
           <Flex align="center">
-            <Text color="#fff" fontSize="1.2rem">Action</Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
-            <Text color="#fff" fontSize="1.2rem">Drama</Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">.</Box>
-            <Text color="#fff" fontSize="1.2rem">Mystery</Text>
+            <Text color="#fff" fontSize="1.2rem">
+              Action
+            </Text>
+            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+              .
+            </Box>
+            <Text color="#fff" fontSize="1.2rem">
+              Drama
+            </Text>
+            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+              .
+            </Box>
+            <Text color="#fff" fontSize="1.2rem">
+              Mystery
+            </Text>
           </Flex>
         </Box>
       </Box>
@@ -56,23 +88,27 @@ const Wrapper = styled(Box)`
     position: absolute;
     right: 0;
     bottom: 0;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
     display: none;
   }
 
   #overlay {
-    background: linear-gradient(180deg, rgba(13,2,2,0) 0%, rgba(0,0,0,0.4629026610644257) 54%);
+    background: linear-gradient(
+      180deg,
+      rgba(13, 2, 2, 0) 0%,
+      rgba(0, 0, 0, 0.4629026610644257) 54%
+    );
     position: absolute;
     right: 0;
     bottom: 0;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
     opacity: 0;
     z-index: 2;
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     &:hover {
       width: 400px !important;
 

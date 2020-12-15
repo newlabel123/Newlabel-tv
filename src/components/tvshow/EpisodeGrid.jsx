@@ -12,21 +12,12 @@ import ep8 from '../../assets/images/samples/ep8.jpg'
 
 import { Episode } from './Episode'
 
-function EpisodeGrid () {
-  const episodes = [
-    ep1,
-    ep2,
-    ep3,
-    ep4,
-    ep5,
-    ep6,
-    ep7,
-    ep8
-  ]
+function EpisodeGrid() {
+  const episodes = [ep1, ep2, ep3, ep4, ep5, ep6, ep7, ep8]
 
   return (
     <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="1.6rem">
-      {episodes.map(ep => (
+      {episodes.map((ep) => (
         <Episode key={ep} shot={ep} />
       ))}
     </Grid>

@@ -5,12 +5,12 @@ const getHomeData = async () => {
 
   const [banner, sections] = await axios.all([
     axios.get(`${BASE}/banner`),
-    axios.get(`${BASE}/homepage-sections`)
+    axios.get(`${BASE}/homepage-sections`),
   ])
 
   return {
     banner: banner.data,
-    sections: sections.data
+    sections: sections.data,
   }
 }
 

@@ -9,12 +9,28 @@ import { SectionWrapper } from '../components/layout'
 import { ProductGrid } from '../components/common'
 import styled from '@emotion/styled'
 
-function Profile () {
+function Profile() {
   return (
-    <PageWrapper >
-      <ProfileInfo w={['250px', 'auto']} mt="1rem" mx="2rem" mb="5rem" mr="10rem" >
-        <Flex justify="center" align="center" h="235px" w="235px" bg="#f00" opacity=".6" borderRadius="5px">
-          <Text fontSize="10rem" color="#fff" fontWeight="300">AE</Text>
+    <PageWrapper>
+      <ProfileInfo
+        w={['250px', 'auto']}
+        mt="1rem"
+        mx="2rem"
+        mb="5rem"
+        mr="10rem"
+      >
+        <Flex
+          justify="center"
+          align="center"
+          h="235px"
+          w="235px"
+          bg="#f00"
+          opacity=".6"
+          borderRadius="5px"
+        >
+          <Text fontSize="10rem" color="#fff" fontWeight="300">
+            AE
+          </Text>
         </Flex>
         <DetailsBox mx="auto">
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
@@ -36,7 +52,14 @@ function Profile () {
             </HStack>
             <Box>
               <Text>$3000</Text>
-              <Text cursor="pointer" color="brand.gray300" fontWeight="bold" _hover={{ color: '#f00' }}>Top up</Text>
+              <Text
+                cursor="pointer"
+                color="brand.gray300"
+                fontWeight="bold"
+                _hover={{ color: '#f00' }}
+              >
+                Top up
+              </Text>
             </Box>
           </HStack>
         </DetailsBox>
@@ -52,25 +75,25 @@ export { Profile }
 
 const ProfileInfo = styled(Flex)`
   @media (max-width: 550px) {
-    align-items:center;
+    align-items: center;
     flex-direction: column;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media (min-width: 900px) {
-    flex-direction: column; 
+    flex-direction: column;
   }
 `
 
 const DetailsBox = styled(Box)`
   @media (min-width: 900px) {
-    margin:0
+    margin: 0;
   }
 `
 
 const PageWrapper = styled(Flex)`
-  flex-direction:column;
+  flex-direction: column;
 
   @media (min-width: 900px) {
     flex-direction: row;

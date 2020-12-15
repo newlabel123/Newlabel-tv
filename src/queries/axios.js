@@ -3,7 +3,7 @@ import axios from 'axios'
 const { token } = JSON.parse(localStorage.getItem('auth')) || { token: null }
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASEURL
+  baseURL: process.env.REACT_APP_BASEURL,
 })
 
 instance.defaults.headers.common.Authorization = `Bearer ${token}`

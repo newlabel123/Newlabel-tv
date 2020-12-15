@@ -5,7 +5,7 @@ import { Btn } from '../components/common'
 import { SectionWrapper } from '../components/layout'
 import { Banner, EpisodeGrid } from '../components/tvshow'
 
-function TvShowDetails () {
+function TvShowDetails() {
   return (
     <div>
       <Banner />

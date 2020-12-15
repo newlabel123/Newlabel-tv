@@ -1,12 +1,12 @@
-import { LOGIN, LOGOUT, SIGNUP, UPDATE } from './types';
+import { LOGIN, LOGOUT, SIGNUP, UPDATE } from './types'
 
 // Reducer
 export const authReducer = (state, action) => {
   switch (action.type) {
     case SIGNUP:
-      return action.payload;
+      return action.payload
     case LOGIN:
-      return action.payload;
+      return action.payload
     case UPDATE:
       return {
         ...state,
@@ -14,10 +14,10 @@ export const authReducer = (state, action) => {
           ...state.user,
           ...action.payload,
         },
-      };
+      }
     case LOGOUT:
-      return null;
+      return null
     default:
-      return state;
+      return state
   }
-};
+}

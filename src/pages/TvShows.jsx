@@ -7,7 +7,7 @@ import { getHomeData } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { SectionWrapper } from '../components/layout'
 
-function TvShows () {
+function TvShows() {
   const { isLoading, error, data } = useQuery('homepage', getHomeData)
 
   if (data) {
@@ -31,7 +31,18 @@ function TvShows () {
         <ProductGrid />
       </SectionWrapper>
       <Box mt="8rem" textAlign="center">
-        <Button mx="auto" fontSize="1.4rem" leftIcon={<AiOutlinePlus />} p="2rem 2.8rem" bg="#f00" opacity=".6" color="#fff" borderRadius="5px">Load More</Button>
+        <Button
+          mx="auto"
+          fontSize="1.4rem"
+          leftIcon={<AiOutlinePlus />}
+          p="2rem 2.8rem"
+          bg="#f00"
+          opacity=".6"
+          color="#fff"
+          borderRadius="5px"
+        >
+          Load More
+        </Button>
       </Box>
     </Box>
   )

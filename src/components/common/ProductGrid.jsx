@@ -9,37 +9,40 @@ import deadpool from '../../assets/images/samples/deadpool.jpg'
 import toystory from '../../assets/images/samples/toystory.jpg'
 import wonderwoman from '../../assets/images/samples/wonderwoman.jpg'
 
-function ProductGrid (props) {
+function ProductGrid(props) {
   const items = [
     {
       name: 'Avengers - Endgame',
-      image: avengers
+      image: avengers,
     },
     {
       name: 'Babysitter',
-      image: babysitter
+      image: babysitter,
     },
     {
       name: 'The man who killed Hitler',
-      image: bigfoot
+      image: bigfoot,
     },
     {
       name: 'Deadpool',
-      image: deadpool
+      image: deadpool,
     },
     {
       name: 'Toystory',
-      image: toystory
+      image: toystory,
     },
     {
       name: 'Wonder Woman',
-      image: wonderwoman
-    }
+      image: wonderwoman,
+    },
   ]
 
   return (
     <>
-      <Grid templateColumns="repeat(auto-fill, minmax(170px, 1fr))" gap="1.6rem">
+      <Grid
+        templateColumns="repeat(auto-fill, minmax(170px, 1fr))"
+        gap="1.6rem"
+      >
         {items.map((item) => (
           <Product key={item.name} item={item} />
         ))}

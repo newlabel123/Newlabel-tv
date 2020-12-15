@@ -3,7 +3,7 @@ import React from 'react'
 import { Trailer } from '../components/common'
 import { Banner, Similar } from '../components/movie'
 
-function MovieDetails () {
+function MovieDetails() {
   return (
     <Box>
       <Banner />
