@@ -1,9 +1,19 @@
-import { Box, Button, Flex, HStack, IconButton, Text } from '@chakra-ui/react'
-import React from 'react'
+import {
+  Box,
+  Button,
+  chakra,
+  Flex,
+  HStack,
+  IconButton,
+  Text,
+} from '@chakra-ui/react'
+import React, { useRef } from 'react'
 import Slider from 'react-slick'
 import { AiOutlinePlayCircle, AiOutlineHeart } from 'react-icons/ai'
 
 import { truncate } from '../../util/helpers'
+
+import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
 
 function Slide({ item }) {
   return (
@@ -65,6 +75,10 @@ function Slide({ item }) {
 }
 
 function Banner({ bannerData }) {
+  const sliderRef = useRef()
+
+  const SlderNav = chakra(NextIcon)
+
   const settings = {
     dots: false,
     infinite: true,
@@ -73,12 +87,24 @@ function Banner({ bannerData }) {
     slidesToScroll: 1,
   }
 
+  const nextSlide = () => sliderRef.current.slickNext()
+
   return (
-    <Slider settings={settings}>
-      {bannerData.slides.map((item) => (
-        <Slide item={item} key={item.id} />
-      ))}
-    </Slider>
+    <Box pos="relative">
+      <Slider ref={sliderRef} settings={settings}>
+        {bannerData.slides.map((item) => (
+          <Slide item={item} key={item.id} />
+        ))}
+      </Slider>
+      <SlderNav
+        pos="absolute"
+        top="50%"
+        right="0"
+        cursor="pointer"
+        transform="translateY(-50%)"
+        onClick={nextSlide}
+      />
+    </Box>
   )
 }
 
