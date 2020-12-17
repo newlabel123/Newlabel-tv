@@ -41,7 +41,7 @@ function Product({ item, ...rest }) {
               <HStack>
                 <Icon color="#fff" as={BiCart} />
                 <Text color="#fff" fontSize="1.2rem">
-                  $35
+                  ${item.productType[0].buyPrice}
                 </Text>
               </HStack>
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
@@ -50,26 +50,26 @@ function Product({ item, ...rest }) {
               <HStack>
                 <Icon color="#fff" as={BsClockHistory} />
                 <Text color="#fff" fontSize="1.2rem">
-                  2hrs 10mins
+                  {item.runtime}
                 </Text>
               </HStack>
             </Flex>
             <Flex align="center">
-              <Text color="#fff" fontSize="1rem">
-                Action
-              </Text>
-              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
-                .
-              </Box>
-              <Text color="#fff" fontSize="1rem">
-                Drama
-              </Text>
-              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
-                .
-              </Box>
-              <Text color="#fff" fontSize="1rem">
-                Mystery
-              </Text>
+              {item.genres.map((genre) => (
+                <>
+                  <Text color="#fff" fontSize="1rem">
+                    {genre.name}
+                  </Text>
+                  <Box
+                    color="#fff"
+                    fontWeight="800"
+                    fontSize="1.2rem"
+                    mx=".5rem"
+                  >
+                    .
+                  </Box>
+                </>
+              ))}
             </Flex>
           </Box>
         </Box>
@@ -98,6 +98,7 @@ const CardBox = styled(Box)`
     min-height: 100%;
     opacity: 0;
     z-index: 2;
+    border-radius: 5px;
   }
 
   @media (min-width: 768px) {

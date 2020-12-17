@@ -26,11 +26,7 @@ function Home() {
       {data?.sections.map((item) => (
         <SectionWrapper key={item.id} title={item.title}>
           {item.layoutType === 'SLIDER' ? (
-            <ProductSlider
-              items={item[item.productType.toLowerCase()]}
-              cardType={item.cardType}
-              productType={item.productType}
-            />
+            <ProductSlider items={item.products} cardType={item.cardType} />
           ) : (
             <ProductGrid />
           )}

@@ -5,9 +5,10 @@ import styled from '@emotion/styled'
 import { FaPlayCircle } from 'react-icons/fa'
 import { BsClockHistory } from 'react-icons/bs'
 import { BiCart } from 'react-icons/bi'
+import { RiMovieLine } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
 
-function ProductWide({ item, trailer }) {
+function ProductWide({ item, productType, trailer }) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -18,15 +19,15 @@ function ProductWide({ item, trailer }) {
     <Wrapper
       onClick={handleClick}
       mr="1rem"
-      key={item.name}
+      key={item.id}
       minW="300px"
       h="56.25%"
       pos="relative"
       cursor="pointer"
     >
       <Image
-        src={item.image}
-        alt="naruto"
+        src={item.widePoster?.url}
+        alt={item.title}
         w="100%"
         maxW="300px"
         transition="all .5s"
@@ -39,41 +40,50 @@ function ProductWide({ item, trailer }) {
         <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
           <Icon color="#fff" fontSize="4rem" as={FaPlayCircle} />
           <Text color="#fff" fontSize="1.6rem" mt="1rem" fontWeight="500">
-            {item.name}
+            {item.title}
           </Text>
           <Flex align="center">
-            <HStack>
-              <Icon color="#fff" as={BiCart} />
-              <Text color="#fff" fontSize="1.2rem">
-                $35
-              </Text>
-            </HStack>
+            {productType === 'product.single-item' ? (
+              <>
+                <HStack>
+                  <Icon color="#fff" as={BiCart} />
+                  <Text color="#fff" fontSize="1.2rem">
+                    ${item.productType[0].buyPrice}
+                  </Text>
+                </HStack>
+              </>
+            ) : (
+              <HStack>
+                <Icon color="#fff" as={RiMovieLine} />
+                <Text color="#fff" fontSize="1.2rem">
+                  {item.productType[0].seasons.length}{' '}
+                  {item.productType[0].seasons.length > 1
+                    ? 'Seasons'
+                    : 'Season'}
+                </Text>
+              </HStack>
+            )}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                2hrs 10mins
+                {item.runtime}
               </Text>
             </HStack>
           </Flex>
           <Flex align="center">
-            <Text color="#fff" fontSize="1.2rem">
-              Action
-            </Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
-              .
-            </Box>
-            <Text color="#fff" fontSize="1.2rem">
-              Drama
-            </Text>
-            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
-              .
-            </Box>
-            <Text color="#fff" fontSize="1.2rem">
-              Mystery
-            </Text>
+            {item.genres.map((genre) => (
+              <>
+                <Text color="#fff" fontSize="1rem">
+                  {genre.name}
+                </Text>
+                <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+                  .
+                </Box>
+              </>
+            ))}
           </Flex>
         </Box>
       </Box>

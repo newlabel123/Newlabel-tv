@@ -13,7 +13,7 @@ function Slide({ item }) {
       h="500px"
       w="100%"
       p={['2rem', '4rem', null]}
-      backgroundImage={`url(${item.banner.url})`}
+      backgroundImage={`url(${item.product.banner.url})`}
       bgSize="cover"
     >
       <Box
@@ -38,7 +38,7 @@ function Slide({ item }) {
           {item.title}
         </Text>
         <Text color="#fff" maxW="500px">
-          {truncate(item.description, 200)}
+          {truncate(item.product.description, 200)}
         </Text>
         <HStack spacing="3rem" mt="2rem">
           <Button
@@ -75,11 +75,8 @@ function Banner({ bannerData }) {
 
   return (
     <Slider settings={settings}>
-      {bannerData.movies.map((movie) => (
-        <Slide item={movie} key={movie.id} />
-      ))}
-      {bannerData.tv_shows.map((show) => (
-        <Slide item={show} key={show.id} />
+      {bannerData.slides.map((item) => (
+        <Slide item={item} key={item.id} />
       ))}
     </Slider>
   )

@@ -7,7 +7,7 @@ import trailer from '../../assets/videos/trailer.mp4'
 import { ProductWide } from '.'
 import { Product } from './Product'
 
-function ProductSlider({ cardType, productType, items }) {
+function ProductSlider({ cardType, items }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -27,7 +27,7 @@ function ProductSlider({ cardType, productType, items }) {
                 index={i}
                 key={item.id}
                 item={item}
-                productType={productType}
+                productType={item.productType[0].__component}
                 minW="17rem"
                 mr="1.6rem"
               />
@@ -36,7 +36,7 @@ function ProductSlider({ cardType, productType, items }) {
                 index={i}
                 key={item.id}
                 item={item}
-                productType={productType}
+                productType={item.productType[0].__component}
                 trailer={trailer}
               />
             )}
@@ -52,6 +52,5 @@ export { ProductSlider }
 const Wrapper = styled(Box)`
   .slick-list {
     overflow: visible !important;
-    /* overflow-y: visible !important; */
   }
 `
