@@ -37,7 +37,7 @@ function Slide({ item }) {
       />
       <Box pos="relative" zIndex="2">
         <Text fontSize={['1.5rem', '1.5', '1.8rem']} color="#f00">
-          Recommended
+          {item.introText}
         </Text>
         <Text
           fontFamily="ReformaGroteskDemiC"
