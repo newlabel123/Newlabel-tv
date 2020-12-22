@@ -7,12 +7,12 @@ import { Wrapper } from './components/layout'
 import {
   Home,
   Login,
-  MovieDetails,
-  Movies,
+  SingleItemDetails,
+  Singles,
   Profile,
   SIgnup,
-  TvShowDetails,
-  TvShows,
+  SeriesDetails,
+  Series,
 } from './pages'
 
 function App() {
@@ -24,16 +24,16 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/series">
-            <TvShows />
+            <Series />
           </Route>
           <Route exact path="/series/:id">
-            <TvShowDetails />
+            <SeriesDetails />
           </Route>
           <Route exact path="/movies">
-            <Movies />
+            <Singles />
           </Route>
           <Route exact path="/movies/:id">
-            <MovieDetails />
+            <SingleItemDetails />
           </Route>
           <Route exact path="/profile">
             <Profile />

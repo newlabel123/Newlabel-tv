@@ -5,7 +5,7 @@ import { Btn } from '../components/common'
 import { SectionWrapper } from '../components/layout'
 import { Banner, EpisodeGrid } from '../components/tvshow'
 
-function TvShowDetails() {
+function SeriesDetails() {
   return (
     <div>
       <Banner />
@@ -30,7 +30,7 @@ function TvShowDetails() {
   )
 }
 
-export { TvShowDetails }
+export { SeriesDetails }
 
 const Tabs = styled.div`
   display: flex;

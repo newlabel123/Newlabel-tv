@@ -7,7 +7,7 @@ import { getHomeData } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { SectionWrapper } from '../components/layout'
 
-function TvShows() {
+function Series() {
   const { isLoading, error, data } = useQuery('homepage', getHomeData)
 
   if (data) {
@@ -48,4 +48,4 @@ function TvShows() {
   )
 }
 
-export { TvShows }
+export { Series }

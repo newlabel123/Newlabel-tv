@@ -2,22 +2,13 @@ import { Box, Skeleton, Button } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Banner, Btn, ProductGrid } from '../components/common'
-import { getHomeData } from '../queries'
+import { getProducts } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import Slider from 'react-slick'
 import { SectionWrapper } from '../components/layout'
 
-function Movies() {
-  const { isLoading, error, data } = useQuery('homepage', getHomeData)
-
-  const categories = [
-    'Comedy',
-    'Action',
-    'Adventure',
-    'Biography',
-    'Documentary',
-    'Tech',
-  ]
+function Singles() {
+  const { isLoading, error, data } = useQuery(['movies', 'SINGLE'], getProducts)
 
   if (data) {
     console.log(data)
@@ -25,6 +16,10 @@ function Movies() {
 
   if (error) {
     console.log({ error })
+  }
+
+  if (isLoading) {
+    return <p>Loading</p>
   }
 
   const settings = {
@@ -39,38 +34,40 @@ function Movies() {
   return (
     <Box>
       <Skeleton height="500px" isLoaded={!isLoading}>
-        {data && <Banner bannerData={data.banner} />}
+        {/* {data && <Banner bannerData={data.banner} />} */}
       </Skeleton>
       <SectionWrapper mt={['0', '0', '6rem']}>
         <Slider {...settings}>
-          {categories.map((category, i) => (
-            <Box index={i} key={i} mr="1rem">
+          {data.categories.map((category, i) => (
+            <Box key={category.id} index={i} mr="1rem">
               <Btn className={i === 0 && 'active'} mr="1rem" index={6}>
-                {category}
+                {category.name}
               </Btn>
             </Box>
           ))}
         </Slider>
       </SectionWrapper>
-      <SectionWrapper mt="6rem">
-        <ProductGrid />
+      <SectionWrapper mt="6rem" overflow="visible">
+        <ProductGrid items={data.items} />
       </SectionWrapper>
-      <SectionWrapper mt={['0', '0', '6rem']} textAlign="center">
-        <Button
-          mx="auto"
-          fontSize="1.4rem"
-          leftIcon={<AiOutlinePlus />}
-          p="2rem 2.8rem"
-          bg="#f00"
-          opacity=".6"
-          color="#fff"
-          borderRadius="5px"
-        >
-          Load More
-        </Button>
-      </SectionWrapper>
+      {data.items.length > 20 && (
+        <SectionWrapper mt={['0', '0', '6rem']} textAlign="center">
+          <Button
+            mx="auto"
+            fontSize="1.4rem"
+            leftIcon={<AiOutlinePlus />}
+            p="2rem 2.8rem"
+            bg="#f00"
+            opacity=".6"
+            color="#fff"
+            borderRadius="5px"
+          >
+            Load More
+          </Button>
+        </SectionWrapper>
+      )}
     </Box>
   )
 }
 
-export { Movies }
+export { Singles }
