@@ -25,10 +25,10 @@ function Home() {
       <ContinueWatching />
       {data?.sections.map((item) => (
         <SectionWrapper key={item.id} title={item.title}>
-          {item.layoutType === 'SLIDER' ? (
+          {item.layoutType === 'slider' ? (
             <ProductSlider items={item.products} cardType={item.cardType} />
           ) : (
-            <ProductGrid />
+            <ProductGrid items={item.products} cardType={item.cardType} />
           )}
         </SectionWrapper>
       ))}

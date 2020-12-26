@@ -23,7 +23,7 @@ function Sidebar() {
     >
       <VStack spacing="5.4rem">
         <NavItem to="/" text="Home" icon={<Home />} />
-        <NavItem to="/movies" text="Movies" icon={<Video />} />
+        <NavItem to="/singles" text="Movies" icon={<Video />} />
         <NavItem to="/series" text="Series" icon={<Screen />} />
         <NavItem to="/profile" text="Library" icon={<Folder />} />
         <NavItem to="/recent" text="Recent" icon={<TimeCircle />} />

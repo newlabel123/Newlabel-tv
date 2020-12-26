@@ -9,9 +9,16 @@ function SectionWrapper({ title, children, ...otherProps }) {
       px={['2rem', '2rem', '0']}
       {...otherProps}
     >
-      <Text color="brand.gray300" fontSize="2.5rem" fontWeight="500" mb="3rem">
-        {title}
-      </Text>
+      {title && (
+        <Text
+          color="brand.gray300"
+          fontSize="2.5rem"
+          fontWeight="500"
+          mb="3rem"
+        >
+          {title}
+        </Text>
+      )}
       {children}
     </Box>
   )

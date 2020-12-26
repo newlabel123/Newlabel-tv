@@ -7,12 +7,17 @@ import { BsClockHistory } from 'react-icons/bs'
 import { BiCart } from 'react-icons/bi'
 import { RiMovieLine } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
+import { truncate } from '../../util/helpers'
 
 function ProductWide({ item, productType, trailer }) {
   const history = useHistory()
 
   const handleClick = () => {
-    history.push('/series/1')
+    if (productType === 'product.single-item') {
+      history.push(`/singles/${item.id}`)
+    } else {
+      history.push(`/series/${item.id}`)
+    }
   }
 
   return (
@@ -48,7 +53,7 @@ function ProductWide({ item, productType, trailer }) {
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    ${item.productType[0].buyPrice}
+                    ${item.type[0].buyPrice}
                   </Text>
                 </HStack>
               </>
@@ -56,10 +61,8 @@ function ProductWide({ item, productType, trailer }) {
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.productType[0].seasons.length}{' '}
-                  {item.productType[0].seasons.length > 1
-                    ? 'Seasons'
-                    : 'Season'}
+                  {item.type[0].seasons.length}{' '}
+                  {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
                 </Text>
               </HStack>
             )}
@@ -69,7 +72,7 @@ function ProductWide({ item, productType, trailer }) {
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                {item.runtime}
+                {item.type[0].runtime || '45min'}
               </Text>
             </HStack>
           </Flex>
@@ -86,6 +89,10 @@ function ProductWide({ item, productType, trailer }) {
             ))}
           </Flex>
         </Box>
+      </Box>
+      <Box id="outer-details" mt=".8rem" transition="all .5s">
+        <Text color="brand.gray300">{truncate(item.title, 15)}</Text>
+        <Text color="brand.gray200">2020</Text>
       </Box>
     </Wrapper>
   )
@@ -132,6 +139,10 @@ const Wrapper = styled(Box)`
 
       #overlay {
         opacity: 1;
+      }
+
+      #outer-details {
+        display: none;
       }
     }
   }

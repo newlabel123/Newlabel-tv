@@ -2,15 +2,20 @@ import React from 'react'
 import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
+import { RiMovieLine } from 'react-icons/ri'
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
 
-function Product({ item, ...rest }) {
+function Product({ item, productType, ...rest }) {
   const history = useHistory()
 
   const handleClick = () => {
-    history.push('/movies/1')
+    if (productType === 'product.single-item') {
+      history.push(`/singles/${item.id}`)
+    } else {
+      history.push(`/series/${item.id}`)
+    }
   }
 
   return (
@@ -38,19 +43,31 @@ function Product({ item, ...rest }) {
               {truncate(item?.title, 15)}
             </Text>
             <Flex align="center">
-              <HStack>
-                <Icon color="#fff" as={BiCart} />
-                <Text color="#fff" fontSize="1.2rem">
-                  ${item.productType[0].buyPrice}
-                </Text>
-              </HStack>
+              {productType === 'product.single-item' ? (
+                <>
+                  <HStack>
+                    <Icon color="#fff" as={BiCart} />
+                    <Text color="#fff" fontSize="1.2rem">
+                      ${item.type[0].buyPrice}
+                    </Text>
+                  </HStack>
+                </>
+              ) : (
+                <HStack>
+                  <Icon color="#fff" as={RiMovieLine} />
+                  <Text color="#fff" fontSize="1.2rem">
+                    {item.type[0].seasons.length}{' '}
+                    {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+                  </Text>
+                </HStack>
+              )}
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
               <HStack>
                 <Icon color="#fff" as={BsClockHistory} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.runtime}
+                  {item.type[0].runtime || '45min'}
                 </Text>
               </HStack>
             </Flex>
@@ -110,7 +127,7 @@ const CardBox = styled(Box)`
         opacity: 1;
       }
 
-      #outer-details {
+      & + #outer-details {
         opacity: 0;
       }
     }

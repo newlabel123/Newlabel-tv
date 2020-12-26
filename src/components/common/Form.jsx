@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormControl, FormLabel, Input } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Text } from '@chakra-ui/react'
 
 function CustomInput() {
   return (
@@ -18,4 +18,12 @@ function CustomInput() {
   )
 }
 
-export { CustomInput }
+function ErrorMessage({ message }) {
+  return (
+    <Text fontWeight="400" fontSize="1.2rem" color="#E50914">
+      {message}
+    </Text>
+  )
+}
+
+export { CustomInput, ErrorMessage }

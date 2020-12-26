@@ -1,23 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Box,
   Image,
   Text,
-  FormLabel,
-  FormControl,
   Input,
   VStack,
   Flex,
   InputGroup,
   InputRightElement,
   IconButton,
+  useToast,
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
+import { useForm } from 'react-hook-form'
 
-import { Btn } from '../components/common'
+import { Btn, ErrorMessage } from '../components/common'
 
 import logomark from '../assets/images/logomark.svg'
+import { login } from '../queries'
+import { AuthContext, LOGIN } from '../context/auth'
 
 function PasswordToggle({ type, setType }) {
   if (type === 'text') {
@@ -53,6 +55,26 @@ function PasswordToggle({ type, setType }) {
 
 function Login() {
   const [type, setType] = useState('password')
+  const { dispatch } = useContext(AuthContext)
+  const history = useHistory()
+
+  const { register, handleSubmit, errors } = useForm()
+  const toast = useToast()
+
+  const onSubmit = async (data) => {
+    const res = await login(data)
+
+    dispatch({ type: LOGIN, payload: res })
+
+    history.push('/')
+
+    toast({
+      title: 'Logged in successfully',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
+  }
 
   return (
     <Flex w="100%" h="100vh" justify="center" align="center" py="5rem">
@@ -62,11 +84,22 @@ function Login() {
           Login
         </Text>
         <Text color="brand.gray300">Login to continue to newlabel</Text>
-        <VStack mt="4rem" spacing="2.4rem">
-          <FormControl id="email" isRequired>
-            <FormLabel fontWeight="400" fontSize="1.4rem" color="brand.gray300">
+        <VStack
+          mt="4rem"
+          spacing="2.4rem"
+          as="form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Box w="100%" align="left">
+            <Text
+              as="label"
+              fontWeight="400"
+              fontSize="1.4rem"
+              color="brand.gray300"
+              htmlFor="email"
+            >
               Email
-            </FormLabel>
+            </Text>
             <Input
               type="email"
               focusBorderColor="brand.gray300"
@@ -77,12 +110,21 @@ function Login() {
               border="none"
               bg="#F0F1F3"
               placeholder="Email"
+              id="email"
+              name="identifier"
+              ref={register({ required: 'Email is required' })}
             />
-          </FormControl>
-          <FormControl id="password" isRequired>
-            <FormLabel fontWeight="400" fontSize="1.4rem" color="brand.gray300">
+            <ErrorMessage message={errors?.identifier?.message} />
+          </Box>
+          <Box w="100%" align="left">
+            <Text
+              as="label"
+              fontWeight="400"
+              fontSize="1.4rem"
+              color="brand.gray300"
+            >
               Password
-            </FormLabel>
+            </Text>
             <InputGroup>
               <Input
                 type={type}
@@ -94,12 +136,16 @@ function Login() {
                 border="none"
                 bg="#F0F1F3"
                 placeholder="Password"
+                id="password"
+                name="password"
+                ref={register({ required: 'Password is required' })}
               />
               <InputRightElement>
                 <PasswordToggle type={type} setType={setType} />
               </InputRightElement>
             </InputGroup>
-          </FormControl>
+            <ErrorMessage message={errors?.password?.message} />
+          </Box>
           <Btn
             type="submit"
             w="100%"

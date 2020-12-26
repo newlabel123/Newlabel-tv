@@ -6,7 +6,7 @@ import React from 'react'
 
 import playBox from '../../assets/icons/Play.svg'
 
-function Episode({ shot }) {
+function Episode({ episode }) {
   return (
     <EpisodeBox pt="75%" pos="relative" transition="all .5s">
       <Box
@@ -33,14 +33,14 @@ function Episode({ shot }) {
           className="overlay"
         />
         <Image
-          h="70%"
+          h="69%"
           w="100%"
           objectFit="cover"
           objectPosition="center"
           transition="all .5s"
           borderRadius=".5rem"
           className="scene"
-          src={shot}
+          src={episode.scene.url}
           alt="episode"
         />
         <Box
@@ -53,7 +53,7 @@ function Episode({ shot }) {
         >
           <Image w="50px" opacity="0" className="play" src={playBox} alt="" />
           <Text as="h3" fontWeight="bold" mt="1rem" mb=".5rem">
-            Episode 1
+            Episode {episode.episodeNumber}
           </Text>
           <Text fontSize="1.2rem">
             Three weeks, six countries - one divorce? Sometimes you need to
@@ -63,7 +63,7 @@ function Episode({ shot }) {
             <HStack>
               <Icon color="#fff" as={BiCart} />
               <Text color="#fff" fontSize="1.2rem">
-                $35
+                ${episode.buyPrice}
               </Text>
             </HStack>
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
@@ -72,15 +72,15 @@ function Episode({ shot }) {
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                2hrs 10mins
+                {episode.runtime}
               </Text>
             </HStack>
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>
-            <Text color="#fff" fontSize="1.2rem">
+            {/* <Text color="#fff" fontSize="1.2rem">
               Available for 48hrs
-            </Text>
+            </Text> */}
           </HStack>
         </Box>
       </Box>

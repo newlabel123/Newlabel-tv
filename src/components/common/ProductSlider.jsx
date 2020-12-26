@@ -22,12 +22,12 @@ function ProductSlider({ cardType, items }) {
       <Slider {...settings}>
         {items.map((item, i) => (
           <>
-            {cardType === 'LONG' ? (
+            {cardType === 'long' ? (
               <Product
                 index={i}
                 key={item.id}
                 item={item}
-                productType={item.productType[0].__component}
+                productType={item.type[0].__component}
                 minW="17rem"
                 mr="1.6rem"
               />
@@ -36,7 +36,7 @@ function ProductSlider({ cardType, items }) {
                 index={i}
                 key={item.id}
                 item={item}
-                productType={item.productType[0].__component}
+                productType={item.type[0].__component}
                 trailer={trailer}
               />
             )}

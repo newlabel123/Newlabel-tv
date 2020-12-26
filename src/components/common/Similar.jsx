@@ -3,10 +3,10 @@ import React from 'react'
 import { SectionWrapper } from '../layout'
 import { ProductGrid } from '../common'
 
-function Similar() {
+function Similar({ related }) {
   return (
     <SectionWrapper title="You might also like">
-      <ProductGrid />
+      <ProductGrid items={related} />
     </SectionWrapper>
   )
 }

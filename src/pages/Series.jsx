@@ -3,15 +3,18 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { Banner, ProductGrid } from '../components/common'
 // import { Recommended } from '../components/home'
-import { getHomeData } from '../queries'
+import { getProducts } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { SectionWrapper } from '../components/layout'
 
 function Series() {
-  const { isLoading, error, data } = useQuery('homepage', getHomeData)
+  const { isLoading, error, data } = useQuery(
+    ['series', 'series', '5fe1e4695425ba931d2c3936'],
+    getProducts
+  )
 
-  if (data) {
-    console.log(data)
+  if (isLoading) {
+    return <p>Loading</p>
   }
 
   if (error) {
@@ -21,14 +24,11 @@ function Series() {
   return (
     <Box>
       <Skeleton height="500px" isLoaded={!isLoading}>
-        {data && <Banner bannerData={data.banner} />}
+        <Banner bannerData={data.banner} />
       </Skeleton>
-      <SectionWrapper>
-        <ProductGrid />
-      </SectionWrapper>
       {/* <Recommended /> */}
       <SectionWrapper>
-        <ProductGrid />
+        <ProductGrid items={data.items} />
       </SectionWrapper>
       <Box mt="8rem" textAlign="center">
         <Button

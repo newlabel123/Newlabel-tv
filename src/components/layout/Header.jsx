@@ -4,19 +4,32 @@ import {
   Avatar,
   Image,
   Input,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   useColorMode,
+  Box,
 } from '@chakra-ui/react'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import { ReactComponent as Search } from '../../assets/icons/Search.svg'
 import { ReactComponent as Caret } from '../../assets/icons/Arrow Down.svg'
 
 import logo from '../../assets/images/logo.svg'
 import { ThemeSwitch } from '../common'
+import { AuthContext, LOGOUT } from '../../context/auth'
 
 function Header() {
   const { colorMode } = useColorMode()
+  const { authState, dispatch } = useContext(AuthContext)
+  const history = useHistory()
+
+  const logout = () => {
+    dispatch({ type: LOGOUT, payload: '' })
+    history.push('/login')
+  }
 
   return (
     <Flex
@@ -25,7 +38,7 @@ function Header() {
       align="center"
       w="100%"
       h={['70px', '120px']}
-      px={['2rem', '4.5rem']}
+      px={['2rem', '4rem']}
       position="fixed"
       left="0"
       top="0"
@@ -57,10 +70,26 @@ function Header() {
       </HStack>
       <HStack spacing="2rem">
         <ThemeSwitch />
-        <HStack>
-          <Avatar bg="brand.red" color="#fff" size="lg" name="Aneri Emmax" />
-          <Caret />
-        </HStack>
+        <Menu>
+          <MenuButton as={Box}>
+            <HStack cursor="pointer">
+              <Avatar
+                bg="brand.red"
+                color="#fff"
+                size="lg"
+                name={authState.user.name}
+                cursor="pointer"
+              />
+              <Caret />
+            </HStack>
+          </MenuButton>
+          <MenuList>
+            <MenuItem as={Link} to="/profile">
+              Profile
+            </MenuItem>
+            <MenuItem onClick={logout}>Logout</MenuItem>
+          </MenuList>
+        </Menu>
       </HStack>
     </Flex>
   )

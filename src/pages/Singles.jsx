@@ -8,11 +8,10 @@ import Slider from 'react-slick'
 import { SectionWrapper } from '../components/layout'
 
 function Singles() {
-  const { isLoading, error, data } = useQuery(['movies', 'SINGLE'], getProducts)
-
-  if (data) {
-    console.log(data)
-  }
+  const { isLoading, error, data } = useQuery(
+    ['singles', 'single', '5fe208025a886c9408f8b1cf'],
+    getProducts
+  )
 
   if (error) {
     console.log({ error })
@@ -34,7 +33,7 @@ function Singles() {
   return (
     <Box>
       <Skeleton height="500px" isLoaded={!isLoading}>
-        {/* {data && <Banner bannerData={data.banner} />} */}
+        <Banner bannerData={data.banner} />
       </Skeleton>
       <SectionWrapper mt={['0', '0', '6rem']}>
         <Slider {...settings}>

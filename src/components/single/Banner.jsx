@@ -3,14 +3,19 @@ import React from 'react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 
-import blacklist from '../../assets/images/samples/blacklist.jpg'
-
-function Banner() {
+function Banner({
+  title,
+  description,
+  buyPrice,
+  rentPrice,
+  runtime,
+  bannerImg,
+}) {
   return (
     <Box
       w="100%"
       h="500px"
-      bg={`linear-gradient(180deg, rgba(13,2,2,0) 0%, rgba(0,0,0,0.6629026610644257) 54%), url(${blacklist})`}
+      bg={`linear-gradient(180deg, rgba(13,2,2,0) 0%, rgba(0,0,0,0.6629026610644257) 54%), url(${bannerImg})`}
       backgroundSize="cover"
       pos="relative"
       borderRadius={['0', '0', '1rem']}
@@ -30,13 +35,10 @@ function Banner() {
           color="#fff"
           fontWeight="700"
         >
-          The Blacklist
+          {title}
         </Text>
         <Text color="#fff" maxW="500px">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
-          qui ipsam porro quisquam sint consequuntur, odio commodi voluptates
-          velit voluptas tenetur neque ratione quae vitae impedit adipisci ullam
-          obcaecati nostrum?
+          {description}
         </Text>
         <Flex align="center" mt="1.5rem">
           <HStack>
@@ -51,7 +53,7 @@ function Banner() {
           <HStack>
             <Icon color="#fff" as={BsClockHistory} />
             <Text color="#fff" fontSize="1.4rem">
-              2hrs 10mins
+              {runtime}
             </Text>
           </HStack>
         </Flex>

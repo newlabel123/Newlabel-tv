@@ -10,43 +10,46 @@ import {
   SingleItemDetails,
   Singles,
   Profile,
-  SIgnup,
+  Signup,
   SeriesDetails,
   Series,
 } from './pages'
+import { AuthContextProvider } from './context/auth'
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Wrapper>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/series">
-            <Series />
-          </Route>
-          <Route exact path="/series/:id">
-            <SeriesDetails />
-          </Route>
-          <Route exact path="/movies">
-            <Singles />
-          </Route>
-          <Route exact path="/movies/:id">
-            <SingleItemDetails />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/signup">
-            <SIgnup />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-        </Switch>
-      </Wrapper>
-    </ChakraProvider>
+    <AuthContextProvider>
+      <ChakraProvider theme={theme}>
+        <Wrapper>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/series">
+              <Series />
+            </Route>
+            <Route exact path="/series/:id">
+              <SeriesDetails />
+            </Route>
+            <Route exact path="/singles">
+              <Singles />
+            </Route>
+            <Route exact path="/singles/:id">
+              <SingleItemDetails />
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+          </Switch>
+        </Wrapper>
+      </ChakraProvider>
+    </AuthContextProvider>
   )
 }
 
