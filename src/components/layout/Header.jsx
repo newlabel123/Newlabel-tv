@@ -18,7 +18,7 @@ import { ReactComponent as Search } from '../../assets/icons/Search.svg'
 import { ReactComponent as Caret } from '../../assets/icons/Arrow Down.svg'
 
 import logo from '../../assets/images/logo.svg'
-import { ThemeSwitch } from '../common'
+import { Btn, ThemeSwitch } from '../common'
 import { AuthContext, LOGOUT } from '../../context/auth'
 
 function Header() {
@@ -70,26 +70,38 @@ function Header() {
       </HStack>
       <HStack spacing="2rem">
         <ThemeSwitch />
-        <Menu>
-          <MenuButton as={Box}>
-            <HStack cursor="pointer">
-              <Avatar
-                bg="brand.red"
-                color="#fff"
-                size="lg"
-                name={authState.user.name}
-                cursor="pointer"
-              />
-              <Caret />
-            </HStack>
-          </MenuButton>
-          <MenuList>
-            <MenuItem as={Link} to="/profile">
-              Profile
-            </MenuItem>
-            <MenuItem onClick={logout}>Logout</MenuItem>
-          </MenuList>
-        </Menu>
+        {authState?.jwt ? (
+          <Menu>
+            <MenuButton as={Box}>
+              <HStack cursor="pointer">
+                <Avatar
+                  bg="brand.red"
+                  color="#fff"
+                  size="lg"
+                  name={authState.user.name}
+                  cursor="pointer"
+                />
+                <Caret />
+              </HStack>
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={Link} to="/profile">
+                Profile
+              </MenuItem>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <Btn
+            as={Link}
+            to="/login"
+            bg="#E50914"
+            color="#fff"
+            border="1px solid #E50914"
+          >
+            Login
+          </Btn>
+        )}
       </HStack>
     </Flex>
   )

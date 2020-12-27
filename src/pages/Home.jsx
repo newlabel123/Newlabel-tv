@@ -9,10 +9,6 @@ import { getHomeData } from '../queries'
 function Home() {
   const { isLoading, error, data } = useQuery('homepage', getHomeData)
 
-  if (data) {
-    console.log(data)
-  }
-
   if (error) {
     console.log({ error })
   }

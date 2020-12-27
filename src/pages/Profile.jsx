@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 
 import profileIcon from '../assets/icons/Profile.svg'
 import emailIcon from '../assets/icons/Email.svg'
@@ -8,8 +8,10 @@ import walletIcon from '../assets/icons/Wallet.svg'
 import { SectionWrapper } from '../components/layout'
 import { ProductGrid } from '../components/common'
 import styled from '@emotion/styled'
+import { AuthContext } from '../context/auth'
 
 function Profile() {
+  const { authState } = useContext(AuthContext)
   return (
     <PageWrapper>
       <ProfileInfo
@@ -29,21 +31,22 @@ function Profile() {
           borderRadius="5px"
         >
           <Text fontSize="10rem" color="#fff" fontWeight="300">
-            AE
+            {authState.user.name.charAt(0)}
+            {authState.user.name.split(' ')[1].charAt(0)}
           </Text>
         </Flex>
         <DetailsBox mx="auto">
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image src={profileIcon} />
-            <Text>Aneri Emmax</Text>
+            <Text>{authState.user.name}</Text>
           </HStack>
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image maxW="2rem" src={emailIcon} />
-            <Text>aneriemmax@gmail.com</Text>
+            <Text>{authState.user.email}</Text>
           </HStack>
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image src={locationIcon} />
-            <Text>Lagos, Nigeria</Text>
+            <Text>{authState.user.location || 'No location'}</Text>
           </HStack>
           <HStack spacing="5rem" mt="4.5rem" align="flex-start">
             <HStack minW="130px" spacing="1.1rem">
@@ -65,7 +68,7 @@ function Profile() {
         </DetailsBox>
       </ProfileInfo>
       <SectionWrapper title="Your Feed" mt="0" w="100%">
-        <ProductGrid />
+        {/* <ProductGrid /> */}
       </SectionWrapper>
     </PageWrapper>
   )

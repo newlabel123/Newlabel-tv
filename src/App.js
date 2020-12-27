@@ -15,6 +15,7 @@ import {
   Series,
 } from './pages'
 import { AuthContextProvider } from './context/auth'
+import { PrivateRoute } from './components/auth/PrivateRoute'
 
 function App() {
   return (
@@ -37,9 +38,9 @@ function App() {
             <Route exact path="/singles/:id">
               <SingleItemDetails />
             </Route>
-            <Route exact path="/profile">
+            <PrivateRoute exact path="/profile">
               <Profile />
-            </Route>
+            </PrivateRoute>
             <Route exact path="/signup">
               <Signup />
             </Route>
