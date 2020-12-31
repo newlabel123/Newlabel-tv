@@ -26,6 +26,8 @@ function Header() {
   const { authState, dispatch } = useContext(AuthContext)
   const history = useHistory()
 
+  console.log(authState.jwt)
+
   const logout = () => {
     dispatch({ type: LOGOUT, payload: '' })
     history.push('/login')

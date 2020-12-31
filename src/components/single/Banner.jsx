@@ -10,6 +10,7 @@ function Banner({
   rentPrice,
   runtime,
   bannerImg,
+  onToggle,
 }) {
   return (
     <Box
@@ -64,6 +65,7 @@ function Banner({
             borderRadius="5px"
             p="2rem 4rem"
             leftIcon={BiCart}
+            onClick={onToggle}
           >
             Watch now - $35
           </Button>
