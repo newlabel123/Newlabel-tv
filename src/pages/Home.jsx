@@ -2,7 +2,7 @@ import { Box, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Banner, ProductGrid, ProductSlider } from '../components/common'
-import { ContinueWatching } from '../components/home'
+import { ContinueWatching, StackedBanner } from '../components/home'
 import { SectionWrapper } from '../components/layout'
 import { getHomeData } from '../queries'
 
@@ -15,6 +15,7 @@ function Home() {
 
   return (
     <Box>
+      <StackedBanner />
       <Skeleton height="500px" isLoaded={!isLoading}>
         {data && <Banner bannerData={data.banner} />}
       </Skeleton>

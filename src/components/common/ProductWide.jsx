@@ -37,11 +37,11 @@ function ProductWide({ item, productType, trailer }) {
         maxW="300px"
         transition="all .5s"
       />
-      <video autoPlay loop id="trailer">
+      {/* <video autoPlay loop id="trailer">
         <source src={trailer} type="video/mp4" />
         Your browser does not support HTML5 video.
-      </video>
-      <Box id="overlay" transition="all .5s .4s">
+      </video> */}
+      <Box id="overlay" transition="all .1s">
         <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
           <Icon color="#fff" fontSize="4rem" as={FaPlayCircle} />
           <Text color="#fff" fontSize="1.6rem" mt="1rem" fontWeight="500">
@@ -121,7 +121,7 @@ const Wrapper = styled(Box)`
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
-    opacity: 0;
+    opacity: 1;
     z-index: 2;
   }
 
@@ -142,7 +142,7 @@ const Wrapper = styled(Box)`
       }
 
       #outer-details {
-        display: none;
+        opacity: 0;
       }
     }
   }
