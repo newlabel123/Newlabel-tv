@@ -1,147 +1,208 @@
+import {
+  Box,
+  Button,
+  chakra,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+  useMediaQuery,
+} from '@chakra-ui/react'
+import React, { useRef } from 'react'
+import Slider from 'react-slick'
+import { AiOutlinePlayCircle, AiOutlineHeart } from 'react-icons/ai'
+
+import { truncate } from '../../util/helpers'
+
+import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
 import styled from '@emotion/styled'
-import React from 'react'
 
-function StackedBanner() {
+function Slide({ item }) {
   return (
-    <Wrapper>
-      <section id="slider">
-        <input type="radio" name="slider" id="s1" checked />
-        <input type="radio" name="slider" id="s2" />
-        <input type="radio" name="slider" id="s3" />
-        <input type="radio" name="slider" id="s4" />
-        <input type="radio" name="slider" id="s5" />
-
-        <label id="slide1" htmlFor="s1">
-          1
-        </label>
-        <label id="slide2" htmlFor="s2">
-          2
-        </label>
-        <label id="slide3" htmlFor="s3">
-          3
-        </label>
-        <label id="slide4" htmlFor="s4">
-          4
-        </label>
-        <label id="slide5" htmlFor="s5">
-          5
-        </label>
-      </section>
-    </Wrapper>
+    <Flex
+      pos="relative"
+      align="center"
+      h="500px"
+      w="100%"
+      p={['2rem', '4rem', null]}
+      backgroundImage={`url(${item.product.banner.url})`}
+      bgSize="cover"
+    >
+      <Box
+        pos="absolute"
+        zIndex="1"
+        top="0"
+        left="0"
+        w="100%"
+        h="100%"
+        background="linear-gradient(190deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 29%, rgba(0,0,0,0.562062324929972) 59%)"
+      />
+      <Box pos="relative" zIndex="2">
+        <Text fontSize={['1.5rem', '1.5', '1.8rem']} color="#f00">
+          {item.introText}
+        </Text>
+        <Text
+          fontFamily="ReformaGroteskDemiC"
+          fontSize={['4rem', '6rem', '7rem']}
+          color="#fff"
+          fontWeight="700"
+        >
+          {item.title}
+        </Text>
+        <Text color="#fff" maxW="500px">
+          {truncate(item.product.description, 200)}
+        </Text>
+        <HStack spacing="3rem" mt="2rem">
+          <Button
+            bg="#f00"
+            color="#fff"
+            borderRadius="5px"
+            p="2rem 4rem"
+            leftIcon={<AiOutlinePlayCircle />}
+          >
+            Watch now - $35
+          </Button>
+          <IconButton
+            borderColor="#fff"
+            variant="outline"
+            color="#fff"
+            aria-label="Send email"
+            p="2rem 1rem"
+            icon={<AiOutlineHeart fontSize="2rem" />}
+          />
+        </HStack>
+      </Box>
+    </Flex>
   )
 }
 
-export { StackedBanner }
+function Slide2({ item }) {
+  return (
+    <Box w="100%" h="500px" pos="relative">
+      <Flex h="100%">
+        <Left
+          pos="relative"
+          bgColor="#000"
+          w="35%"
+          h="100%"
+          alignItems="center"
+          borderRadius=".5rem 0 0 .5rem"
+        />
+        <Box
+          w="65%"
+          h="100%"
+          bg="url(https://wallpapercave.com/wp/wp5152770.jpg)"
+          bgSize="cover"
+          borderRadius="0 .5rem .5rem 0"
+        />
+      </Flex>
+      <Box
+        pos="absolute"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        pt="5rem"
+        pl="5rem"
+        color="#fff"
+      >
+        <Text fontFamily="ReformaGroteskDemiC" fontSize="7rem" fontWeight="700">
+          Name
+        </Text>
+        <Text maxW="500px">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
+          qui ipsam porro quisquam sint consequuntur, odio commodi voluptates
+          velit voluptas tenetur neque ratione quae vitae impedit adipisci ullam
+          obcaecati nostrum?
+        </Text>
+        <Flex align="center" mt="1.5rem">
+          <HStack>
+            <Icon color="#fff" />
+            <Text fontSize="1.4rem">$35</Text>
+          </HStack>
+          <Box color="inherit" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+            .
+          </Box>
+          <HStack>
+            <Icon color="#fff" />
+            <Text color="inherit" fontSize="1.4rem">
+              2hrs 10mins
+            </Text>
+          </HStack>
+        </Flex>
+        <HStack spacing="3rem" mt="2rem">
+          <Button bg="#f00" color="#fff" borderRadius="5px" p="2rem 4rem">
+            Watch now - $35
+          </Button>
+        </HStack>
+      </Box>
+    </Box>
+  )
+}
 
-const Wrapper = styled.div`
-  #slider {
-    width: 50%;
-    height: 30vh;
-    margin: 10px auto 80px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: chocolate;
-    position: relative;
-    perspective: 1400px;
-    transform-style: preserve-3d;
-  }
-
-  input[type='radio'] {
-    position: relative;
-    top: 108%;
-    left: 50%;
-    width: 18px;
-    height: 18px;
-    opacity: 0.4;
-    margin: 0 15px 0 0;
-    transform: translateX(-83px);
-    cursor: pointer;
-  }
-
-  input[type='radio']:checked {
-    opacity: 1;
-  }
-
-  input[type='radio']:nth-child(5) {
-    margin-right: 0;
-  }
-
-  #slider label {
+const Left = styled(Flex)`
+  &:before {
+    content: '';
     position: absolute;
-    left: 0;
+    background-image: linear-gradient(to right, #000, transparent);
     top: 0;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    font-weight: bold;
-    font-size: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 400ms ease;
-  }
-
-  #slide1 {
-    background-color: tomato;
-  }
-
-  #slide2 {
-    background-color: yellowgreen;
-  }
-
-  #slide3 {
-    background-color: red;
-  }
-
-  #slide4 {
-    background-color: aquamarine;
-  }
-
-  #slide5 {
-    background-color: purple;
-  }
-
-  #s1:checked ~ #slide1,
-  #s2:checked ~ #slide2,
-  #s3:checked ~ #slide3,
-  #s4:checked ~ #slide4,
-  #s5:checked ~ #slide5 {
-    box-shadow: 0 13px 26px rgba(0, 0, 0, 0.3), 0 12px 6px rgba(0, 0, 0, 0.2);
-    transform: translate3d(0%, 0, 0px);
-  }
-
-  #s1:checked ~ #slide2,
-  #s2:checked ~ #slide3,
-  #s3:checked ~ #slide4,
-  #s4:checked ~ #slide5,
-  #s5:checked ~ #slide1 {
-    box-shadow: 0 6px 10 px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate3d(15%, 0, -100px);
-  }
-
-  #s1:checked ~ #slide3,
-  #s2:checked ~ #slide4,
-  #s3:checked ~ #slide5,
-  #s4:checked ~ #slide1,
-  #s5:checked ~ #slide2 {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    transform: translate3d(30%, 0, -250px);
-  }
-
-  #s1:checked ~ #slide4,
-  #s2:checked ~ #slide5,
-  #s3:checked ~ #slide1,
-  #s4:checked ~ #slide2,
-  #s5:checked ~ #slide3 {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    transform: translate3d(-30%, 0, -250px);
-  }
-
-  #s1:checked ~ #slide5,
-  #s2:checked ~ #slide1,
-  #s3:checked ~ #slide2,
-  #s4:checked ~ #slide3,
-  #s5:checked ~ #slide4 {
-    box-shadow: 0 6px 10 px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.2);
-    transform: translate3d(-15%, 0, -100px);
+    bottom: 0;
+    left: 100%;
+    width: 275px;
   }
 `
+
+function Banner({ bannerData }) {
+  const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
+
+  const sliderRef = useRef()
+
+  const SlderNav = chakra(NextIcon)
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
+  const nextSlide = () => sliderRef.current.slickNext()
+
+  return (
+    <>
+      {isLargerThan480 ? (
+        <Box pos="relative" ml="3rem">
+          <Slider ref={sliderRef} settings={settings}>
+            {bannerData.slides.map((item) => (
+              <Slide2 item={item} key={item.id} />
+            ))}
+          </Slider>
+          <SlderNav
+            pos="absolute"
+            top="50%"
+            right="0"
+            w="8rem"
+            cursor="pointer"
+            transform="translateY(-50%)"
+            onClick={nextSlide}
+          />
+        </Box>
+      ) : (
+        <Box pt="1.5rem" px="1rem">
+          <Text
+            color="brand.gray400"
+            fontSize="3rem"
+            fontWeight="500"
+            mb="3rem"
+          >
+            Welcome to Newlabel TV
+          </Text>
+        </Box>
+      )}
+    </>
+  )
+}
+
+export { Banner }

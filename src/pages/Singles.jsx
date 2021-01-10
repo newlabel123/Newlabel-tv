@@ -1,7 +1,7 @@
 import { Box, Skeleton, Button } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner, Btn, ProductGrid } from '../components/common'
+import { Banner, Btn, LongCardSlider } from '../components/common'
 import { getProducts } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
 import Slider from 'react-slick'
@@ -47,7 +47,7 @@ function Singles() {
         </Slider>
       </SectionWrapper>
       <SectionWrapper mt="6rem" overflow="visible">
-        <ProductGrid items={data.items} />
+        <LongCardSlider items={data.items} />
       </SectionWrapper>
       {data.items.length > 20 && (
         <SectionWrapper mt={['0', '0', '6rem']} textAlign="center">

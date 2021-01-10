@@ -1,7 +1,7 @@
 import { Box, Skeleton, Button } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner, ProductGrid } from '../components/common'
+import { Banner, LongCardSlider } from '../components/common'
 // import { Recommended } from '../components/home'
 import { getProducts } from '../queries'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -28,7 +28,7 @@ function Series() {
       </Skeleton>
       {/* <Recommended /> */}
       <SectionWrapper>
-        <ProductGrid items={data.items} />
+        <LongCardSlider items={data.items} />
       </SectionWrapper>
       <Box mt="8rem" textAlign="center">
         <Button

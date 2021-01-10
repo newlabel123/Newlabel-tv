@@ -1,33 +1,26 @@
-import {
-  chakra,
-  Box,
-  Text,
-  Flex,
-  HStack,
-  Icon,
-  Button,
-  forwardRef,
-} from '@chakra-ui/react'
+import { Box, Text, Flex, HStack, Icon, Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { motion, isValidMotionProp } from 'framer-motion'
 import React from 'react'
 
-const MotionBox = motion.custom(
-  forwardRef((props, ref) => {
-    const chakraProps = Object.fromEntries(
-      // do not pass framer props to DOM element
-      Object.entries(props).filter(([key]) => !isValidMotionProp(key))
-    )
-    return <chakra.div ref={ref} {...chakraProps} />
-  })
-)
-
 function ProductModal() {
+  const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
+
+  const sliderRef = useRef()
+
+  const SlderNav = chakra(NextIcon)
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
+  const nextSlide = () => sliderRef.current.slickNext()
+
   return (
-    <MotionBox
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: '480px', opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
+    <Box
       transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
       ml="3rem"
       w="90%"
@@ -92,7 +85,7 @@ function ProductModal() {
           </Button>
         </HStack>
       </Box>
-    </MotionBox>
+    </Box>
   )
 }
 

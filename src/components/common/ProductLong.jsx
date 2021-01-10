@@ -7,7 +7,7 @@ import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
 
-function Product({ item, productType, ...rest }) {
+function ProductLong({ item, productType, ...rest }) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -19,21 +19,21 @@ function Product({ item, productType, ...rest }) {
   }
 
   return (
-    <Box {...rest} pt="145.25%" position="relative" onClick={handleClick}>
-      <CardBox
-        pos="absolute"
-        top="0"
-        left="0"
-        w="100%"
-        cursor="pointer"
-        transition="all .5s"
-      >
+    <Box
+      {...rest}
+      w="17rem"
+      h="25rem"
+      position="relative"
+      onClick={handleClick}
+      flex="0 0 auto"
+    >
+      <CardBox w="100%" h="100%" cursor="pointer" transition="all .5s">
         <Image
           src={item.poster?.url}
           alt="naruto"
           objectFit="cover"
           w="100%"
-          minH="100%"
+          h="100%"
           transition="all .5s"
           borderRadius="5px"
         />
@@ -91,15 +91,11 @@ function Product({ item, productType, ...rest }) {
           </Box>
         </Box>
       </CardBox>
-      <Box id="outer-details" mt=".8rem" transition="all .5s">
-        <Text color="brand.gray300">{truncate(item.title, 15)}</Text>
-        <Text color="brand.gray200">2020</Text>
-      </Box>
     </Box>
   )
 }
 
-export { Product }
+export { ProductLong }
 
 const CardBox = styled(Box)`
   #overlay {
@@ -114,14 +110,14 @@ const CardBox = styled(Box)`
     min-width: 100%;
     min-height: 100%;
     opacity: 0;
-    z-index: 2;
     border-radius: 5px;
+    z-index: -1;
   }
 
   @media (min-width: 768px) {
     &:hover {
-      transform: scale(1.4);
-      z-index: 200;
+      transform: scale(1.2);
+      z-index: 2;
 
       #overlay {
         opacity: 1;
