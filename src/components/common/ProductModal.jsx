@@ -91,7 +91,7 @@ function ProductModal({ item, setShowModal }) {
         <Text fontFamily="ReformaGroteskDemiC" fontSize="7rem" fontWeight="700">
           {item.title}
         </Text>
-        <Text maxW="500px">{truncate(item.description)}</Text>
+        <Text maxW="500px">{truncate(item.description, 250)}</Text>
         <Flex align="center" mt="2rem">
           {item.type[0].__component === 'product.single-item' ? (
             <>

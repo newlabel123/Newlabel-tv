@@ -2,9 +2,10 @@ import React from 'react'
 import { Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-function Btn({ children, ...otherProps }) {
+function Btn({ children, isLoading, ...otherProps }) {
   return (
     <CustomBtn
+      isLoading={isLoading}
       color="#fff"
       fontWeight="400"
       bg="brand.red"

@@ -47,22 +47,30 @@ function Signup() {
     setdobValidation({ maxDate, minDate })
   }, [])
 
+  const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors } = useForm()
   const toast = useToast()
 
   const onSubmit = async (data) => {
-    const res = await signup({ ...data, username: data.name.split(' ')[0] })
+    try {
+      setIsLoading(true)
+      const res = await signup({ ...data, username: data.name.split(' ')[0] })
 
-    dispatch({ type: LOGIN, payload: res })
+      dispatch({ type: LOGIN, payload: res })
+      setIsLoading(true)
 
-    history.push('/')
+      history.push('/')
 
-    toast({
-      title: 'Account created.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
+      toast({
+        title: 'Account created.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    } catch (error) {
+      setIsLoading(false)
+      console.log({ error })
+    }
   }
 
   return (
@@ -169,7 +177,7 @@ function Signup() {
             </InputGroup>
             <ErrorMessage message={errors?.password?.message} />
           </Box>
-          <Btn type="submit" w="100%">
+          <Btn type="submit" w="100%" isLoading={isLoading}>
             Sign up
           </Btn>
           <Text

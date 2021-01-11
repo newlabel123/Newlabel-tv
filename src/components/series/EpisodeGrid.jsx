@@ -12,7 +12,7 @@ function EpisodeGrid({ episodes }) {
       gap="1.6rem"
     >
       {episodes.map((ep) => (
-        <Episode key={ep} episode={ep} />
+        <Episode key={ep.id} episode={ep} />
       ))}
     </Grid>
   )

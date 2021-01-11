@@ -75,12 +75,10 @@ function SeriesDetails() {
             <SectionWrapper title="Genres">
               <Flex align="center">
                 {data.genres.map((genre, i) => (
-                  <>
-                    <Text fontSize="1.4rem">
-                      {genre.name}{' '}
-                      <Text as="span">{i < i.length - 1 && ','}</Text>{' '}
-                    </Text>
-                  </>
+                  <Text fontSize="1.4rem" key={genre.id}>
+                    {genre.name}{' '}
+                    <Text as="span">{i < i.length - 1 && ','}</Text>{' '}
+                  </Text>
                 ))}
               </Flex>
             </SectionWrapper>

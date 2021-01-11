@@ -55,6 +55,7 @@ function PasswordToggle({ type, setType }) {
 }
 
 function Login() {
+  const [isLoading, setIsLoading] = useState(false)
   const [type, setType] = useState('password')
   const { dispatch } = useContext(AuthContext)
   const history = useHistory()
@@ -64,18 +65,25 @@ function Login() {
   const toast = useToast()
 
   const onSubmit = async (data) => {
-    const res = await login(data)
+    try {
+      setIsLoading(true)
+      const res = await login(data)
 
-    dispatch({ type: LOGIN, payload: res })
+      dispatch({ type: LOGIN, payload: res })
+      setIsLoading(true)
 
-    history.push('/')
+      history.push('/')
 
-    toast({
-      title: 'Logged in successfully',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
+      toast({
+        title: 'Logged in successfully',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    } catch (error) {
+      setIsLoading(false)
+      console.log({ error })
+    }
   }
 
   return (
@@ -138,7 +146,7 @@ function Login() {
             </InputGroup>
             <ErrorMessage message={errors?.password?.message} />
           </Box>
-          <Btn type="submit" w="100%">
+          <Btn type="submit" w="100%" isLoading={isLoading}>
             Login
           </Btn>
           <Text

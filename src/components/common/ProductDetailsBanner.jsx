@@ -6,6 +6,7 @@ import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../context/auth'
+import { truncate } from '../../util/helpers'
 import { Btn } from './Buttons'
 
 function ProductDetailsBanner({ item, onToggle }) {
@@ -21,7 +22,7 @@ function ProductDetailsBanner({ item, onToggle }) {
   }
 
   return (
-    <Box w="100%" h="500px" mt="-2rem" pos="relative">
+    <Box w="100%" h={['400px', '500px']} pos="relative">
       <Flex h="100%">
         <Left
           pos="relative"
@@ -46,13 +47,19 @@ function ProductDetailsBanner({ item, onToggle }) {
         right="0"
         bottom="0"
         pt="7rem"
-        pl="5rem"
+        pl={['2rem', '5rem']}
         color="#fff"
       >
-        <Text fontFamily="ReformaGroteskDemiC" fontSize="7rem" fontWeight="700">
+        <Text
+          fontFamily="ReformaGroteskDemiC"
+          fontSize={['5rem', '7rem']}
+          fontWeight="700"
+        >
           {item.title}
         </Text>
-        <Text maxW="500px">{item.description}</Text>
+        <Text maxW="500px" fontSize={['1.2rem', null]}>
+          {truncate(item.description, 250)}
+        </Text>
         <Flex align="center" mt="2rem">
           {item.type[0].__component === 'product.single-item' ? (
             <>
@@ -84,12 +91,12 @@ function ProductDetailsBanner({ item, onToggle }) {
         </Flex>
         <Flex align="center" mt="1.5rem">
           {item.genres.map((genre) => (
-            <>
+            <HStack key={genre.id}>
               <Text color="#fff">{genre.name}</Text>
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
-            </>
+            </HStack>
           ))}
         </Flex>
         <HStack spacing="3rem" mt="2rem">

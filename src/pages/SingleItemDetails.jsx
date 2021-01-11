@@ -24,7 +24,7 @@ function SingleItemDetails() {
       <ProductDetailsBanner item={data} onToggle={onToggle} />
       <Trailer />
       <Similar related={data.related} />
-      <Fade in={isOpen}>
+      <Fade in={isOpen} unmountOnExit={true}>
         <CheckoutModal product={data} onToggle={onToggle} />
       </Fade>
     </Box>

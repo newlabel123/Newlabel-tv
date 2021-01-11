@@ -40,6 +40,7 @@ function CheckoutModal({ product, onToggle }) {
       bgColor="#fff"
       zIndex="100"
       borderRadius="1rem"
+      direction="column"
     >
       <Box pos="absolute" top="1.5rem" right="1.5rem" zIndex="5">
         <Icon
@@ -50,13 +51,13 @@ function CheckoutModal({ product, onToggle }) {
           onClick={() => onToggle()}
         />
       </Box>
-      <Box w="200px">
+      <Box w="100%" h="200px">
         <Image
-          borderRadius="1rem 0 0 1rem"
+          borderRadius="1rem"
           w="100%"
           h="100%"
           objectFit="cover"
-          src={product?.poster?.url}
+          src={product?.widePoster?.url}
         />
       </Box>
       <Box w="350px" p="2.5rem" color="#000">
@@ -75,10 +76,10 @@ function CheckoutModal({ product, onToggle }) {
               {product.title}
             </Text>
           </Text>
-          <Text color="#000" mt="1.5rem">
+          <Text color="#000" mt={['0rem', '1.5rem']}>
             Price:{' '}
             <Text color="#505565" ml="1rem" as="span">
-              {product.type[0].buyPrice || product.type[0].seasonPassPrice}
+              ${product.type[0].buyPrice || product.type[0].seasonPassPrice}
             </Text>
           </Text>
         </Box>
