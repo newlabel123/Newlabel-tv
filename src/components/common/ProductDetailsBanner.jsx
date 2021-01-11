@@ -1,56 +1,27 @@
-import {
-  chakra,
-  Box,
-  Text,
-  Flex,
-  HStack,
-  Icon,
-  forwardRef,
-} from '@chakra-ui/react'
+import { Box, Text, Flex, HStack, Icon } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { motion, isValidMotionProp } from 'framer-motion'
-import React from 'react'
+import React, { useContext } from 'react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
-import { AiFillCloseSquare } from 'react-icons/ai'
-import { Btn } from './Buttons'
 import { useHistory } from 'react-router-dom'
-import { truncate } from '../../util/helpers'
+import { AuthContext } from '../../context/auth'
+import { Btn } from './Buttons'
 
-const MotionBox = motion.custom(
-  forwardRef((props, ref) => {
-    const chakraProps = Object.fromEntries(
-      // do not pass framer props to DOM element
-      Object.entries(props).filter(([key]) => !isValidMotionProp(key))
-    )
-    return <chakra.div ref={ref} {...chakraProps} />
-  })
-)
-
-function ProductModal({ item, setShowModal }) {
+function ProductDetailsBanner({ item, onToggle }) {
   const history = useHistory()
+  const { authState } = useContext(AuthContext)
 
   const handleClick = () => {
-    if (item.type[0].__component === 'product.single-item') {
-      history.push(`/singles/${item.id}`)
-    } else {
-      history.push(`/series/${item.id}`)
+    if (!authState?.jwt) {
+      history.push('/login')
+      return
     }
+    onToggle()
   }
 
   return (
-    <MotionBox
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: '480px', opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
-      transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-      w="99%"
-      maxW="1440px"
-      h="480px"
-      mt="-2rem"
-      pos="relative"
-    >
+    <Box w="100%" h="500px" mt="-2rem" pos="relative">
       <Flex h="100%">
         <Left
           pos="relative"
@@ -66,17 +37,7 @@ function ProductModal({ item, setShowModal }) {
           bg={`url(${item.banner.url})`}
           bgSize="cover"
           borderRadius="0 .5rem .5rem 0"
-        >
-          <Box pos="absolute" top="3rem" right="3rem" zIndex="5">
-            <Icon
-              as={AiFillCloseSquare}
-              color="#000"
-              fontSize="5rem"
-              cursor="pointer"
-              onClick={() => setShowModal(false)}
-            />
-          </Box>
-        </Box>
+        ></Box>
       </Flex>
       <Box
         pos="absolute"
@@ -91,7 +52,7 @@ function ProductModal({ item, setShowModal }) {
         <Text fontFamily="ReformaGroteskDemiC" fontSize="7rem" fontWeight="700">
           {item.title}
         </Text>
-        <Text maxW="500px">{truncate(item.description)}</Text>
+        <Text maxW="500px">{item.description}</Text>
         <Flex align="center" mt="2rem">
           {item.type[0].__component === 'product.single-item' ? (
             <>
@@ -124,9 +85,7 @@ function ProductModal({ item, setShowModal }) {
         <Flex align="center" mt="1.5rem">
           {item.genres.map((genre) => (
             <>
-              <Text color="#fff" fontSize="1rem">
-                {genre.name}
-              </Text>
+              <Text color="#fff">{genre.name}</Text>
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
@@ -139,11 +98,11 @@ function ProductModal({ item, setShowModal }) {
           </Btn>
         </HStack>
       </Box>
-    </MotionBox>
+    </Box>
   )
 }
 
-export { ProductModal }
+export { ProductDetailsBanner }
 
 const Left = styled(Flex)`
   &:before {

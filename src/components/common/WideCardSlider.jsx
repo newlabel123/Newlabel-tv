@@ -44,7 +44,9 @@ function WideCardSlider({ items }) {
         ))}
       </Slider>
       <AnimatePresence>
-        {showModal && <ProductModal item={currentItem} />}
+        {showModal && (
+          <ProductModal item={currentItem} setShowModal={setShowModal} />
+        )}
       </AnimatePresence>
       {isLargerThan480 && (
         <SlderNav

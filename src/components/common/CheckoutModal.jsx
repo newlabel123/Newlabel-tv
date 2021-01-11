@@ -1,16 +1,15 @@
-import { Box, Flex, HStack, Image, Input, Text } from '@chakra-ui/react'
+import { Box, Flex, HStack, Icon, Image, Input, Text } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../context/auth'
-import { truncate } from '../../util/helpers'
 import { Btn } from './Buttons'
+import { AiFillCloseSquare } from 'react-icons/ai'
 import { ErrorMessage } from './Form'
 
-function CheckoutModal({ product }) {
+function CheckoutModal({ product, onToggle }) {
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
   const { register, handleSubmit, errors } = useForm()
-  // const history = useHistory()
 
   const onSubmit = async (coupon) => {
     setCoupon(coupon)
@@ -42,18 +41,32 @@ function CheckoutModal({ product }) {
       zIndex="100"
       borderRadius="1rem"
     >
-      <Box w="305px">
-        <Image w="100%" h="100%" objectFit="cover" src={product?.poster?.url} />
+      <Box pos="absolute" top="1.5rem" right="1.5rem" zIndex="5">
+        <Icon
+          as={AiFillCloseSquare}
+          color="#000"
+          fontSize="3.5rem"
+          cursor="pointer"
+          onClick={() => onToggle()}
+        />
       </Box>
-      <Box w="550px" p="2.5rem">
+      <Box w="200px">
+        <Image
+          borderRadius="1rem 0 0 1rem"
+          w="100%"
+          h="100%"
+          objectFit="cover"
+          src={product?.poster?.url}
+        />
+      </Box>
+      <Box w="350px" p="2.5rem" color="#000">
         <Text fontSize="2.4rem" fontWeight="500">
           Order Summary
         </Text>
         <Box
-          my="2.5rem"
+          my="1.5rem"
           w="100%"
-          bgColor="rgba(255, 27, 27, .2)"
-          p="2rem"
+          bgColor="rgba(255, 27, 27, .0)"
           borderRadius="1rem"
         >
           <Text color="#000">
@@ -65,19 +78,7 @@ function CheckoutModal({ product }) {
           <Text color="#000" mt="1.5rem">
             Price:{' '}
             <Text color="#505565" ml="1rem" as="span">
-              {product.buyPrice}
-            </Text>
-          </Text>
-          <Text color="#000" mt="1.5rem">
-            Duration:{' '}
-            <Text color="#505565" ml="1rem" as="span">
-              {product.duration}
-            </Text>
-          </Text>
-          <Text color="#000" mt="1.5rem">
-            Description:{' '}
-            <Text color="#505565" ml="1rem" as="span">
-              {truncate(product.description, 100)}
+              {product.type[0].buyPrice || product.type[0].seasonPassPrice}
             </Text>
           </Text>
         </Box>

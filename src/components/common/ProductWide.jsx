@@ -19,7 +19,7 @@ function ProductWide({
   const handleClick = () => {
     if (isLargerThan768) {
       setCurrentItem(item)
-      setShowModal(!showModal)
+      if (!showModal) setShowModal(!showModal)
       return
     }
 

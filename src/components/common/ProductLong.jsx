@@ -74,14 +74,14 @@ function ProductLong({ index, item, productType, ...rest }) {
           </Flex>
           <Flex align="center">
             {item.genres.map((genre) => (
-              <>
+              <HStack key={genre.id}>
                 <Text color="#fff" fontSize="1rem">
                   {genre.name}
                 </Text>
                 <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                   .
                 </Box>
-              </>
+              </HStack>
             ))}
           </Flex>
         </Box>

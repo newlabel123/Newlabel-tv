@@ -21,6 +21,7 @@ import { truncate } from '../../util/helpers'
 
 import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 
 // export function Slide({ item }) {
 //   return (
@@ -82,6 +83,16 @@ import styled from '@emotion/styled'
 // }
 
 function Slide({ item }) {
+  const history = useHistory()
+
+  const handleClick = () => {
+    if (item.product.type[0].__component === 'product.single-item') {
+      history.push(`/singles/${item.product.id}`)
+    } else {
+      history.push(`/series/${item.product.id}`)
+    }
+  }
+
   return (
     <Box w="100%" h="500px" pos="relative">
       <Flex h="100%">
@@ -158,8 +169,13 @@ function Slide({ item }) {
             </Text>
           </Flex>
           <HStack spacing="3rem" mt="2rem">
-            <Btn p="2rem" fontSize="1.2rem" leftIcon={<AiOutlinePlayCircle />}>
-              Watch now - $35
+            <Btn
+              onClick={handleClick}
+              p="2rem"
+              fontSize="1.2rem"
+              leftIcon={<AiOutlinePlayCircle />}
+            >
+              Watch now
             </Btn>
             <IconButton
               borderColor="#fff"

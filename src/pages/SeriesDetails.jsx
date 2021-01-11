@@ -1,17 +1,19 @@
-import { Flex, HStack, Text } from '@chakra-ui/react'
+import { Box, Fade, Flex, HStack, Text, useDisclosure } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { Btn, Similar, Trailer } from '../components/common'
+import { Btn, CheckoutModal, Similar, Trailer } from '../components/common'
+import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner'
 import { SectionWrapper } from '../components/layout'
-import { Banner, EpisodeGrid } from '../components/series'
+import { EpisodeGrid } from '../components/series'
 import { getProductDetails } from '../queries'
 
 function SeriesDetails() {
   const [activeTab, setActiveTab] = useState(0)
   const [activeSeason, setActiveSeason] = useState(null)
   const { id } = useParams()
+  const { isOpen, onToggle } = useDisclosure()
 
   const { data, isLoading } = useQuery(
     ['getProductDetails', id],
@@ -29,16 +31,9 @@ function SeriesDetails() {
   }
 
   return (
-    <div>
-      <Banner
-        title={data.title}
-        description={data.description}
-        buyPrice={data.type[0].buyPrice}
-        rentPrice={data.type[0].rentPrice}
-        runtime={data.type[0].runtime}
-        bannerImg={data.banner.url}
-      />
-      <SectionWrapper mt="0">
+    <Box>
+      <ProductDetailsBanner item={data} />
+      <SectionWrapper mt="5rem">
         <HStack spacing="2.5rem" my="2.5rem">
           <TabBtn
             onClick={() => setActiveTab(0)}
@@ -93,13 +88,18 @@ function SeriesDetails() {
           </>
         )}
       </SectionWrapper>
-    </div>
+      <Fade in={isOpen}>
+        <CheckoutModal product={data} onToggle={onToggle} />
+      </Fade>
+    </Box>
   )
 }
 
 export { SeriesDetails }
 
 const TabBtn = styled(Btn)`
+  padding: 2rem;
+
   .active {
     background: #f00;
     color: #fff;

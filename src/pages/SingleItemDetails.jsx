@@ -3,7 +3,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { Trailer, Similar, CheckoutModal } from '../components/common'
-import { Banner } from '../components/single'
+import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner'
 import { getProductDetails } from '../queries'
 
 function SingleItemDetails() {
@@ -21,19 +21,11 @@ function SingleItemDetails() {
 
   return (
     <Box>
-      <Banner
-        title={data.title}
-        description={data.description}
-        buyPrice={data.type[0].buyPrice}
-        rentPrice={data.type[0].rentPrice}
-        runtime={data.type[0].runtime}
-        bannerImg={data.banner.url}
-        onToggle={onToggle}
-      />
+      <ProductDetailsBanner item={data} onToggle={onToggle} />
       <Trailer />
       <Similar related={data.related} />
       <Fade in={isOpen}>
-        <CheckoutModal product={data} />
+        <CheckoutModal product={data} onToggle={onToggle} />
       </Fade>
     </Box>
   )
