@@ -126,8 +126,8 @@ function MobileHeader() {
       justify="space-between"
       align="center"
       w="100%"
-      h={['70px', '120px']}
-      px={['2rem', '4rem']}
+      h="90px"
+      px="2rem"
       position="fixed"
       left="0"
       top="0"
