@@ -3,8 +3,6 @@ import { extendTheme } from '@chakra-ui/react'
 const theme = extendTheme({
   styles: {
     global: (props) => {
-      console.log(props.colorMode)
-
       return {
         '*': {
           boxSizing: 'border-box !important',

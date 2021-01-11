@@ -1,8 +1,12 @@
 import { Box, Fade } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { LongCardSlider, WideCardSlider } from '../components/common'
-import { Banner, ContinueWatching } from '../components/home'
+import {
+  Banner,
+  ContinueWatching,
+  LongCardSlider,
+  WideCardSlider,
+} from '../components/common'
 import { SectionWrapper } from '../components/layout'
 import { getHomeData } from '../queries'
 

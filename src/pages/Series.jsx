@@ -1,17 +1,12 @@
-import { Box, Skeleton, Button } from '@chakra-ui/react'
+import { Box, Fade } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner, LongCardSlider } from '../components/common'
-// import { Recommended } from '../components/home'
-import { getProducts } from '../queries'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { Banner, LongCardSlider, WideCardSlider } from '../components/common'
 import { SectionWrapper } from '../components/layout'
+import { getSeriesData } from '../queries'
 
 function Series() {
-  const { isLoading, error, data } = useQuery(
-    ['series', 'series', '5fe1e4695425ba931d2c3936'],
-    getProducts
-  )
+  const { isLoading, error, data } = useQuery('series', getSeriesData)
 
   if (isLoading) {
     return <p>Loading</p>
@@ -22,29 +17,22 @@ function Series() {
   }
 
   return (
-    <Box>
-      <Skeleton height="500px" isLoaded={!isLoading}>
+    <Fade in={true}>
+      <Box>
         <Banner bannerData={data.banner} />
-      </Skeleton>
-      {/* <Recommended /> */}
-      <SectionWrapper>
-        <LongCardSlider items={data.items} />
-      </SectionWrapper>
-      <Box mt="8rem" textAlign="center">
-        <Button
-          mx="auto"
-          fontSize="1.4rem"
-          leftIcon={<AiOutlinePlus />}
-          p="2rem 2.8rem"
-          bg="#f00"
-          opacity=".6"
-          color="#fff"
-          borderRadius="5px"
-        >
-          Load More
-        </Button>
+        <Box>
+          {data.sections.map((item) => (
+            <SectionWrapper key={item.id} title={item.title}>
+              {item.cardType === 'long' ? (
+                <LongCardSlider items={item.products} />
+              ) : (
+                <WideCardSlider items={item.products} />
+              )}
+            </SectionWrapper>
+          ))}
+        </Box>
       </Box>
-    </Box>
+    </Fade>
   )
 }
 

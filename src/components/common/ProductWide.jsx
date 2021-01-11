@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Icon, Image } from '@chakra-ui/react'
+import { Box, Icon, Image, useMediaQuery } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
 
 function ProductWide({
   index,
@@ -12,9 +13,21 @@ function ProductWide({
   setShowModal,
   setCurrentItem,
 }) {
+  const history = useHistory()
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+
   const handleClick = () => {
-    setCurrentItem(item)
-    setShowModal(!showModal)
+    if (isLargerThan768) {
+      setCurrentItem(item)
+      setShowModal(!showModal)
+      return
+    }
+
+    if (productType === 'product.single-item') {
+      history.push(`/singles/${item.id}`)
+    } else {
+      history.push(`/series/${item.id}`)
+    }
   }
 
   return (

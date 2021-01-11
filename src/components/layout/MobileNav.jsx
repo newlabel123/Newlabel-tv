@@ -57,7 +57,7 @@ function MobileNav() {
       <MobileIcon className="icon-box" to="/" exact={true}>
         <Home />
       </MobileIcon>
-      <MobileIcon className="icon-box" to="/movies">
+      <MobileIcon className="icon-box" to="/singles">
         <Video />
       </MobileIcon>
       <MobileIcon className="icon-box" to="/series">
