@@ -2,18 +2,18 @@ import {
   Box,
   Image,
   Text,
-  Input,
   VStack,
   Flex,
   InputRightElement,
   InputGroup,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
-import { Btn, ErrorMessage } from '../components/common'
+import { Btn, CustomInput, ErrorMessage } from '../components/common'
 
 import logomark from '../assets/images/logomark.svg'
 import { PasswordToggle } from './Login'
@@ -25,6 +25,7 @@ function Signup() {
   const [dobValidation, setdobValidation] = useState(null)
   const { dispatch } = useContext(AuthContext)
   const history = useHistory()
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     const today = new Date()
@@ -71,13 +72,14 @@ function Signup() {
         <Text fontSize="3.6rem" fontWeight="500" mt="3rem" mb="">
           Sign Up
         </Text>
-        <Text color="brand.gray300">
+        <Text color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}>
           Sign up to contnue watching on newlabel
         </Text>
         <VStack
           mt="4rem"
           spacing="2.4rem"
           as="form"
+          autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Box w="100%" align="left">
@@ -86,22 +88,15 @@ function Signup() {
               htmlFor="name"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
             >
               Full Name
             </Text>
-            <Input
-              focusBorderColor="brand.gray300"
-              py="2.5rem"
-              fontSize="1.3rem"
-              borderRadius="5px"
-              outline="none"
-              border="none"
-              bg="#F0F1F3"
+            <CustomInput
               placeholder="Name"
               name="name"
               id="name"
-              ref={register({ required: 'Name is required' })}
+              register={register}
             />
             <ErrorMessage message={errors?.name?.message} />
           </Box>
@@ -111,23 +106,16 @@ function Signup() {
               htmlFor="email"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
             >
               Email
             </Text>
-            <Input
+            <CustomInput
               type="email"
-              focusBorderColor="brand.gray300"
-              py="2.5rem"
-              fontSize="1.3rem"
-              borderRadius="5px"
-              outline="none"
-              border="none"
-              bg="#F0F1F3"
               placeholder="Email"
               name="email"
               id="email"
-              ref={register({ required: 'Email is required' })}
+              register={register}
             />
             <ErrorMessage message={errors?.email?.message} />
           </Box>
@@ -137,29 +125,23 @@ function Signup() {
               htmlFor="dob"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
             >
               Date of birth
             </Text>
-            <Input
+            <CustomInput
               type="date"
-              focusBorderColor="brand.gray300"
-              py="2.5rem"
-              fontSize="1.3rem"
-              borderRadius="5px"
-              outline="none"
-              border="none"
-              bg="#F0F1F3"
               placeholder="dd/mm/yyyy"
               name="dob"
               id="dob"
-              ref={register({
+              register={register}
+              validations={{
                 required: 'DOB is required',
                 max: {
                   value: dobValidation?.minDate,
                   message: 'You need to be at least 18 to signup',
                 },
-              })}
+              }}
             />
             <ErrorMessage message={errors?.dob?.message} />
           </Box>
@@ -169,58 +151,48 @@ function Signup() {
               htmlFor="password"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
             >
               Password
             </Text>
             <InputGroup>
-              <Input
+              <CustomInput
                 type={type}
-                focusBorderColor="brand.gray300"
-                py="2.5rem"
-                fontSize="1.3rem"
-                borderRadius="5px"
-                outline="none"
-                border="none"
-                bg="#F0F1F3"
                 placeholder="Password"
-                name="password"
                 id="password"
-                ref={register({ required: 'Password is required' })}
+                name="password"
+                register={register}
               />
-              <InputRightElement>
+              <InputRightElement mt=".5rem">
                 <PasswordToggle type={type} setType={setType} />
               </InputRightElement>
             </InputGroup>
             <ErrorMessage message={errors?.password?.message} />
           </Box>
-          <Input
-            as={Btn}
-            type="submit"
-            w="100%"
-            border="none"
-            color="#fff"
-            bg="#E50914"
-            py="2.5rem"
-            fontSize="1.4rem"
-            fontWeight="400"
-            _hover={{
-              border: '1px solid #f00',
-              color: '#f00',
-              background: '#fff',
-            }}
-          >
+          <Btn type="submit" w="100%">
             Sign up
-          </Input>
-          <Text color="brand.gray300">
+          </Btn>
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
             Already got an account?{' '}
-            <Text to="/login" as={Link} color="#E50914">
+            <Text to="/login" as={Link} color="brand.red">
               Login
             </Text>
           </Text>
-          <Text color="brand.gray300">
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
+            Not ready to signup?{' '}
+            <Text to="/" as={Link} color="brand.red">
+              Return Home
+            </Text>
+          </Text>
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
             By signing up you agree to all NewlabelTv{' '}
-            <Text as="span" color="#E50914">
+            <Text as="span" color="brand.red">
               Terms and Conditions
             </Text>
           </Text>

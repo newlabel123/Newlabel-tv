@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Fade } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { LongCardSlider, WideCardSlider } from '../components/common'
-import { Banner } from '../components/home'
+import { Banner, ContinueWatching } from '../components/home'
 import { SectionWrapper } from '../components/layout'
 import { getHomeData } from '../queries'
 
@@ -18,20 +18,23 @@ function Home() {
   }
 
   return (
-    <Box>
-      <Banner bannerData={data.banner} />
+    <Fade in={true}>
       <Box>
-        {data.sections.map((item) => (
-          <SectionWrapper key={item.id} title={item.title}>
-            {item.cardType === 'long' ? (
-              <LongCardSlider items={item.products} />
-            ) : (
-              <WideCardSlider items={item.products} />
-            )}
-          </SectionWrapper>
-        ))}
+        <Banner bannerData={data.banner} />
+        {/* <ContinueWatching /> */}
+        <Box>
+          {data.sections.map((item) => (
+            <SectionWrapper key={item.id} title={item.title}>
+              {item.cardType === 'long' ? (
+                <LongCardSlider items={item.products} />
+              ) : (
+                <WideCardSlider items={item.products} />
+              )}
+            </SectionWrapper>
+          ))}
+        </Box>
       </Box>
-    </Box>
+    </Fade>
   )
 }
 

@@ -4,17 +4,15 @@ import { Box, Text } from '@chakra-ui/react'
 function SectionWrapper({ title, children, ...otherProps }) {
   return (
     <Box
-      mt={['3rem', '4.5rem', '6rem']}
+      mt={['3rem', '3rem', '2rem']}
       px={['.8rem', '2rem', '0']}
       {...otherProps}
     >
       {title && (
         <Text
-          color="brand.gray300"
           fontSize={['2rem', '2rem', '2.5rem']}
           fontWeight="500"
-          mb="0"
-          ml={['0', ' 0', '3rem']}
+          mb={['.5rem', '.5rem', '0']}
         >
           {title}
         </Text>

@@ -3,19 +3,19 @@ import {
   Box,
   Image,
   Text,
-  Input,
   VStack,
   Flex,
   InputGroup,
   InputRightElement,
   IconButton,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react'
 import { Link, useHistory } from 'react-router-dom'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 
-import { Btn, ErrorMessage } from '../components/common'
+import { Btn, CustomInput, ErrorMessage } from '../components/common'
 
 import logomark from '../assets/images/logomark.svg'
 import { login } from '../queries'
@@ -48,6 +48,7 @@ function PasswordToggle({ type, setType }) {
       top="1rem"
       right="1rem"
       cursor="pointer"
+      bg="transparent"
       _hover={{ background: 'transparent' }}
     />
   )
@@ -57,6 +58,7 @@ function Login() {
   const [type, setType] = useState('password')
   const { dispatch } = useContext(AuthContext)
   const history = useHistory()
+  const { colorMode } = useColorMode()
 
   const { register, handleSubmit, errors } = useForm()
   const toast = useToast()
@@ -83,11 +85,14 @@ function Login() {
         <Text fontSize="3.6rem" fontWeight="500" mt="3rem" mb="">
           Login
         </Text>
-        <Text color="brand.gray300">Login to continue to newlabel</Text>
+        <Text color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}>
+          Login to continue to newlabel
+        </Text>
         <VStack
           mt="4rem"
           spacing="2.4rem"
           as="form"
+          autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Box w="100%" align="left">
@@ -95,24 +100,17 @@ function Login() {
               as="label"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
               htmlFor="email"
             >
               Email
             </Text>
-            <Input
+            <CustomInput
               type="email"
-              focusBorderColor="brand.gray300"
-              py="2.5rem"
-              fontSize="1.3rem"
-              borderRadius="5px"
-              outline="none"
-              border="none"
-              bg="#F0F1F3"
               placeholder="Email"
               id="email"
               name="identifier"
-              ref={register({ required: 'Email is required' })}
+              register={register}
             />
             <ErrorMessage message={errors?.identifier?.message} />
           </Box>
@@ -121,50 +119,47 @@ function Login() {
               as="label"
               fontWeight="400"
               fontSize="1.4rem"
-              color="brand.gray300"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+              htmlFor="email"
             >
               Password
             </Text>
             <InputGroup>
-              <Input
+              <CustomInput
                 type={type}
-                focusBorderColor="brand.gray300"
-                py="2.5rem"
-                fontSize="1.3rem"
-                borderRadius="5px"
-                outline="none"
-                border="none"
-                bg="#F0F1F3"
                 placeholder="Password"
                 id="password"
                 name="password"
-                ref={register({ required: 'Password is required' })}
+                register={register}
               />
-              <InputRightElement>
+              <InputRightElement mt=".5rem">
                 <PasswordToggle type={type} setType={setType} />
               </InputRightElement>
             </InputGroup>
             <ErrorMessage message={errors?.password?.message} />
           </Box>
-          <Btn
-            type="submit"
-            w="100%"
-            border="none"
-            color="#fff"
-            bg="#E50914"
-            py="2.5rem"
-            fontSize="1.4rem"
-            fontWeight="400"
-          >
-            Sign up
+          <Btn type="submit" w="100%">
+            Login
           </Btn>
-          <Text color="brand.gray300">
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
             Don&apos;t have an account?{' '}
             <Text to="/signup" as={Link} color="#E50914">
               Signup
             </Text>
           </Text>
-          <Text color="brand.gray300">
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
+            Not ready to login?{' '}
+            <Text to="/" as={Link} color="brand.red">
+              Return Home
+            </Text>
+          </Text>
+          <Text
+            color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+          >
             By signing up you agree to all NewlabelTv{' '}
             <Text as="span" color="#E50914">
               Terms and Conditions

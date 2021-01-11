@@ -9,7 +9,9 @@ import {
   MenuList,
   MenuItem,
   useColorMode,
+  useMediaQuery,
   Box,
+  Text,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
@@ -22,11 +24,17 @@ import { Btn, ThemeSwitch } from '../common'
 import { AuthContext, LOGOUT } from '../../context/auth'
 
 function Header() {
-  const { colorMode } = useColorMode()
-  const { authState, dispatch } = useContext(AuthContext)
-  const history = useHistory()
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
 
-  console.log(authState.jwt)
+  return <>{isLargerThan768 ? <DesktopHeader /> : <MobileHeader />}</>
+}
+
+export { Header }
+
+function DesktopHeader() {
+  const { authState, dispatch } = useContext(AuthContext)
+  const { colorMode } = useColorMode()
+  const history = useHistory()
 
   const logout = () => {
     dispatch({ type: LOGOUT, payload: '' })
@@ -94,13 +102,7 @@ function Header() {
             </MenuList>
           </Menu>
         ) : (
-          <Btn
-            as={Link}
-            to="/login"
-            bg="#E50914"
-            color="#fff"
-            border="1px solid #E50914"
-          >
+          <Btn py="1.8rem" fontSize="1.2rem" as={Link} to="/login">
             Login
           </Btn>
         )}
@@ -109,4 +111,76 @@ function Header() {
   )
 }
 
-export { Header }
+function MobileHeader() {
+  const { authState, dispatch } = useContext(AuthContext)
+  const { colorMode } = useColorMode()
+
+  const logout = () => {
+    dispatch({ type: LOGOUT, payload: '' })
+    history.push('/login')
+  }
+
+  return (
+    <Flex
+      transition="background .5s"
+      justify="space-between"
+      align="center"
+      w="100%"
+      h={['70px', '120px']}
+      px={['2rem', '4rem']}
+      position="fixed"
+      left="0"
+      top="0"
+      zIndex="500"
+      bg={colorMode === 'light' ? 'brand.white' : '#000'}
+    >
+      <HStack spacing="6rem">
+        <Link to="/">
+          <Image src={logo} w={['150px', '200px', 'auto']} />
+        </Link>
+      </HStack>
+      <Menu>
+        <MenuButton as={Box}>
+          <HStack cursor="pointer">
+            <Avatar
+              bg="brand.red"
+              color="#fff"
+              size="lg"
+              name=""
+              cursor="pointer"
+            />
+            <Caret />
+          </HStack>
+        </MenuButton>
+        {authState?.jwt ? (
+          <MenuList>
+            <MenuItem as={Link} to="/profile">
+              <Text fontSize="1.7rem" py=".5rem">
+                Profile
+              </Text>
+            </MenuItem>
+            <MenuItem onClick={logout}>
+              <Text fontSize="1.7rem" py=".5rem">
+                Logout
+              </Text>
+            </MenuItem>
+            <MenuItem py=".5rem">
+              <ThemeSwitch />
+            </MenuItem>
+          </MenuList>
+        ) : (
+          <MenuList>
+            <MenuItem onClick={logout}>
+              <Text fontSize="1.7rem" py=".5rem">
+                Logout
+              </Text>
+            </MenuItem>
+            <MenuItem py=".5rem">
+              <ThemeSwitch />
+            </MenuItem>
+          </MenuList>
+        )}
+      </Menu>
+    </Flex>
+  )
+}

@@ -14,6 +14,7 @@ import { AiOutlinePlayCircle, AiOutlineHeart } from 'react-icons/ai'
 import { truncate } from '../../util/helpers'
 
 import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
+import { Btn } from './Buttons'
 
 function Slide({ item }) {
   return (
@@ -51,15 +52,9 @@ function Slide({ item }) {
           {truncate(item.product.description, 200)}
         </Text>
         <HStack spacing="3rem" mt="2rem">
-          <Button
-            bg="#f00"
-            color="#fff"
-            borderRadius="5px"
-            p="2rem 4rem"
-            leftIcon={<AiOutlinePlayCircle />}
-          >
-            Watch now - $35
-          </Button>
+          <Btn p="2rem 4rem" leftIcon={<AiOutlinePlayCircle />}>
+            Watch now
+          </Btn>
           <IconButton
             borderColor="#fff"
             variant="outline"

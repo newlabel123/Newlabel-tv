@@ -7,7 +7,7 @@ import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
 
-function ProductLong({ item, productType, ...rest }) {
+function ProductLong({ index, item, productType, ...rest }) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -19,85 +19,82 @@ function ProductLong({ item, productType, ...rest }) {
   }
 
   return (
-    <Box
-      {...rest}
+    <CardBox
       w="17rem"
       h="25rem"
+      mr="1rem"
       position="relative"
       onClick={handleClick}
-      flex="0 0 auto"
+      cursor="pointer"
+      transition="all .5s"
+      index={index}
     >
-      <CardBox w="100%" h="100%" cursor="pointer" transition="all .5s">
-        <Image
-          src={item.poster?.url}
-          alt="naruto"
-          objectFit="cover"
-          w="100%"
-          h="100%"
-          transition="all .5s"
-          borderRadius="5px"
-        />
-        <Box id="overlay" transition="all .5s .4s">
-          <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
-            <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">
-              {truncate(item?.title, 15)}
-            </Text>
-            <Flex align="center">
-              {productType === 'product.single-item' ? (
-                <>
-                  <HStack>
-                    <Icon color="#fff" as={BiCart} />
-                    <Text color="#fff" fontSize="1.2rem">
-                      ${item.type[0].buyPrice}
-                    </Text>
-                  </HStack>
-                </>
-              ) : (
+      <Image
+        src={item.poster?.url}
+        alt="naruto"
+        objectFit="cover"
+        w="100%"
+        h="100%"
+        transition="all .5s"
+        borderRadius="5px"
+      />
+      <Box id="overlay" transition="all .5s .4s">
+        <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
+          <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">
+            {truncate(item?.title, 25)}
+          </Text>
+          <Flex align="center">
+            {productType === 'product.single-item' ? (
+              <>
                 <HStack>
-                  <Icon color="#fff" as={RiMovieLine} />
+                  <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    {item.type[0].seasons.length}{' '}
-                    {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+                    ${item.type[0].buyPrice}
                   </Text>
                 </HStack>
-              )}
-              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
-                .
-              </Box>
+              </>
+            ) : (
               <HStack>
-                <Icon color="#fff" as={BsClockHistory} />
+                <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.type[0].runtime || '45min'}
+                  {item.type[0].seasons.length}{' '}
+                  {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
                 </Text>
               </HStack>
-            </Flex>
-            <Flex align="center">
-              {item.genres.map((genre) => (
-                <>
-                  <Text color="#fff" fontSize="1rem">
-                    {genre.name}
-                  </Text>
-                  <Box
-                    color="#fff"
-                    fontWeight="800"
-                    fontSize="1.2rem"
-                    mx=".5rem"
-                  >
-                    .
-                  </Box>
-                </>
-              ))}
-            </Flex>
-          </Box>
+            )}
+            <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+              .
+            </Box>
+            <HStack>
+              <Icon color="#fff" as={BsClockHistory} />
+              <Text color="#fff" fontSize="1.2rem">
+                {item.type[0].runtime || '45min'}
+              </Text>
+            </HStack>
+          </Flex>
+          <Flex align="center">
+            {item.genres.map((genre) => (
+              <>
+                <Text color="#fff" fontSize="1rem">
+                  {genre.name}
+                </Text>
+                <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+                  .
+                </Box>
+              </>
+            ))}
+          </Flex>
         </Box>
-      </CardBox>
-    </Box>
+      </Box>
+    </CardBox>
   )
 }
 
 export { ProductLong }
 
 const CardBox = styled(Box)`
+  /* z-index: -1; */
+
   #overlay {
     background: linear-gradient(
       180deg,
@@ -111,20 +108,17 @@ const CardBox = styled(Box)`
     min-height: 100%;
     opacity: 0;
     border-radius: 5px;
-    z-index: -1;
+    z-index: 1;
   }
 
   @media (min-width: 768px) {
     &:hover {
-      transform: scale(1.2);
+      transform: ${(props) =>
+        props.index === 0 ? 'scale(1) !important' : 'scale(1.2) !important'};
       z-index: 2;
 
       #overlay {
         opacity: 1;
-      }
-
-      & + #outer-details {
-        opacity: 0;
       }
     }
   }

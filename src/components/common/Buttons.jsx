@@ -5,16 +5,16 @@ import styled from '@emotion/styled'
 function Btn({ children, ...otherProps }) {
   return (
     <CustomBtn
-      color="brand.gray200"
-      bg="transparent"
+      color="#fff"
+      fontWeight="400"
+      bg="brand.red"
       fontSize="1.4rem"
-      p="2rem 2.5rem"
-      border="1px solid #8B90A0"
+      p="2.5rem 2.5rem"
+      border="1px solid #E50914"
       outline="none"
       {...otherProps}
       _hover={{
-        border: '1px solid #f00',
-        color: '#f00',
+        color: '#E50914',
         background: 'transparent',
       }}
     >
@@ -27,8 +27,8 @@ export { Btn }
 
 const CustomBtn = styled(Button)`
   &.active {
-    background: #f00;
-    border: 1px solid #f00;
+    background: #e50914;
+    border: 1px solid #e50914;
     color: #fff;
   }
 `

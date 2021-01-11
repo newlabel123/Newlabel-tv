@@ -23,8 +23,8 @@ const Switch = styled.div`
   .switch {
     position: relative;
     top: 3px;
-    width: 70px;
-    height: 40px;
+    width: 60px;
+    height: 30px;
     margin: 0px;
     appearance: none;
     -webkit-appearance: none;
@@ -49,8 +49,8 @@ const Switch = styled.div`
 
   .switch:after {
     content: '';
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-color: #fff;
     position: absolute;
@@ -64,7 +64,7 @@ const Switch = styled.div`
   @keyframes off {
     0% {
       transform: translateX(35px);
-      width: 35px;
+      width: 25px;
     }
     50% {
       width: 75px;
@@ -72,7 +72,7 @@ const Switch = styled.div`
     }
     100% {
       transform: translateX(0px);
-      width: 35px;
+      width: 25px;
     }
   }
 
@@ -84,7 +84,7 @@ const Switch = styled.div`
   @keyframes on {
     0% {
       transform: translateX(0px);
-      width: 35px;
+      width: 25px;
     }
     50% {
       width: 75px;
@@ -92,14 +92,14 @@ const Switch = styled.div`
     }
     100% {
       transform: translateX(31px);
-      width: 35px;
+      width: 25px;
     }
   }
 
   .switch:checked:before {
     content: '';
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     position: absolute;
     left: 15px;
@@ -140,8 +140,8 @@ const Switch = styled.div`
 
   .switch:before {
     content: '';
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     position: absolute;
     left: -40px;

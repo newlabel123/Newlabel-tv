@@ -1,4 +1,4 @@
-import { Box, Skeleton, Button } from '@chakra-ui/react'
+import { Box, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Banner, Btn, LongCardSlider } from '../components/common'
@@ -51,18 +51,15 @@ function Singles() {
       </SectionWrapper>
       {data.items.length > 20 && (
         <SectionWrapper mt={['0', '0', '6rem']} textAlign="center">
-          <Button
+          <Btn
             mx="auto"
             fontSize="1.4rem"
             leftIcon={<AiOutlinePlus />}
             p="2rem 2.8rem"
-            bg="#f00"
             opacity=".6"
-            color="#fff"
-            borderRadius="5px"
           >
             Load More
-          </Button>
+          </Btn>
         </SectionWrapper>
       )}
     </Box>

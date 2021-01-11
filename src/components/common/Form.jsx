@@ -1,26 +1,35 @@
 import React from 'react'
-import { FormControl, FormLabel, Input, Text } from '@chakra-ui/react'
+import { useColorMode, Input, Text } from '@chakra-ui/react'
 
-function CustomInput() {
+function CustomInput({ type, name, register, validations, id, ...rest }) {
+  const { colorMode } = useColorMode()
+
   return (
-    <FormControl id="first-name" isRequired>
-      <FormLabel fontSize="1.4rem" color="brand.gray300">
-        First name
-      </FormLabel>
-      <Input
-        borderRadius="5px"
-        outline="none"
-        border="none"
-        bg="#F0F1F3"
-        placeholder="First name"
-      />
-    </FormControl>
+    <Input
+      type={type || 'text'}
+      focusBorderColor="brand.gray300"
+      py="2.5rem"
+      mt=".5rem"
+      fontSize="1.3rem"
+      borderRadius="5px"
+      outline="none"
+      border="none"
+      bg={colorMode === 'light' ? 'brand.gray500' : 'brand.gray400'}
+      name={name}
+      ref={register({ required: `${id} is required`, ...validations })}
+      {...rest}
+    />
   )
 }
 
 function ErrorMessage({ message }) {
   return (
-    <Text fontWeight="400" fontSize="1.2rem" color="#E50914">
+    <Text
+      textTransform="capitalize"
+      fontWeight="400"
+      fontSize="1.2rem"
+      color="#E50914"
+    >
       {message}
     </Text>
   )

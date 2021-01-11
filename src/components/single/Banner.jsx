@@ -2,6 +2,7 @@ import { Box, Text, Flex, HStack, Icon, Button } from '@chakra-ui/react'
 import React from 'react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
+import { Btn } from '../common'
 
 function Banner({
   title,
@@ -59,16 +60,9 @@ function Banner({
           </HStack>
         </Flex>
         <HStack spacing="3rem" mt="2rem">
-          <Button
-            bg="#f00"
-            color="#fff"
-            borderRadius="5px"
-            p="2rem 4rem"
-            leftIcon={BiCart}
-            onClick={onToggle}
-          >
-            Watch now - $35
-          </Button>
+          <Btn p="2rem 4rem" leftIcon={BiCart} onClick={onToggle}>
+            Watch now
+          </Btn>
         </HStack>
       </Box>
     </Box>

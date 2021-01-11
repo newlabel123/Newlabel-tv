@@ -5,12 +5,15 @@ import {
   Flex,
   HStack,
   Icon,
-  Button,
   forwardRef,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { motion, isValidMotionProp } from 'framer-motion'
 import React from 'react'
+import { BiCart } from 'react-icons/bi'
+import { BsClockHistory } from 'react-icons/bs'
+import { RiMovieLine } from 'react-icons/ri'
+import { Btn } from './Buttons'
 
 const MotionBox = motion.custom(
   forwardRef((props, ref) => {
@@ -22,17 +25,16 @@ const MotionBox = motion.custom(
   })
 )
 
-function ProductModal() {
+function ProductModal({ item }) {
   return (
     <MotionBox
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: '480px', opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-      ml="3rem"
-      w="90%"
+      w="99%"
       h="480px"
-      mt="3rem"
+      mt="-2rem"
       pos="relative"
     >
       <Flex h="100%">
@@ -47,7 +49,7 @@ function ProductModal() {
         <Box
           w="65%"
           h="100%"
-          bg="url(https://wallpapercave.com/wp/wp5152770.jpg)"
+          bg={`url(${item.banner.url})`}
           bgSize="cover"
           borderRadius="0 .5rem .5rem 0"
         />
@@ -63,33 +65,52 @@ function ProductModal() {
         color="#fff"
       >
         <Text fontFamily="ReformaGroteskDemiC" fontSize="7rem" fontWeight="700">
-          Name
+          {item.title}
         </Text>
-        <Text maxW="500px">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
-          qui ipsam porro quisquam sint consequuntur, odio commodi voluptates
-          velit voluptas tenetur neque ratione quae vitae impedit adipisci ullam
-          obcaecati nostrum?
-        </Text>
-        <Flex align="center" mt="1.5rem">
-          <HStack>
-            <Icon color="#fff" />
-            <Text fontSize="1.4rem">$35</Text>
-          </HStack>
-          <Box color="inherit" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+        <Text maxW="500px">{item.description}</Text>
+        <Flex align="center" mt="2rem">
+          {item.type[0].__component === 'product.single-item' ? (
+            <>
+              <HStack>
+                <Icon color="#fff" as={BiCart} />
+                <Text color="#fff" fontSize="1.2rem">
+                  ${item.type[0].buyPrice}
+                </Text>
+              </HStack>
+            </>
+          ) : (
+            <HStack>
+              <Icon color="#fff" as={RiMovieLine} />
+              <Text color="#fff" fontSize="1.2rem">
+                {item.type[0].seasons.length}{' '}
+                {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+              </Text>
+            </HStack>
+          )}
+          <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
             .
           </Box>
           <HStack>
-            <Icon color="#fff" />
-            <Text color="inherit" fontSize="1.4rem">
-              2hrs 10mins
+            <Icon color="#fff" as={BsClockHistory} />
+            <Text color="#fff" fontSize="1.2rem">
+              {item.type[0].runtime || '45min'}
             </Text>
           </HStack>
         </Flex>
+        <Flex align="center" mt="1.5rem">
+          {item.genres.map((genre) => (
+            <>
+              <Text color="#fff" fontSize="1rem">
+                {genre.name}
+              </Text>
+              <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
+                .
+              </Box>
+            </>
+          ))}
+        </Flex>
         <HStack spacing="3rem" mt="2rem">
-          <Button bg="#f00" color="#fff" borderRadius="5px" p="2rem 4rem">
-            Watch now - $35
-          </Button>
+          <Btn p="2rem 4rem">Watch now</Btn>
         </HStack>
       </Box>
     </MotionBox>

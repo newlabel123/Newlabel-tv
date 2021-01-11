@@ -1,5 +1,5 @@
 import React from 'react'
-import { chakra, Flex, useMediaQuery } from '@chakra-ui/react'
+import { chakra, Flex, useMediaQuery, useColorMode } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 
 import { ReactComponent as Home } from '../../assets/icons/Home.svg'
@@ -11,7 +11,7 @@ import styled from '@emotion/styled'
 
 const NavItem = chakra(NavLink, {
   baseStyle: {
-    bg: 'rgba(161,164,177,.2)',
+    bg: 'rgba(161,164,177,.0)',
     w: '45px',
     h: '45px',
     borderRadius: '1rem',
@@ -38,13 +38,14 @@ const MobileIcon = styled(NavItem)`
 
 function MobileNav() {
   const [isBelow768px] = useMediaQuery('(max-width: 768px)')
+  const { colorMode } = useColorMode()
 
   return (
     <Flex
       justify="space-between"
       align="center"
       px="2rem"
-      bg="#fff"
+      bg={colorMode === 'light' ? '#fff' : '#000'}
       d={isBelow768px ? 'flex' : 'none'}
       w="100%"
       h="65px"
@@ -53,7 +54,7 @@ function MobileNav() {
       bottom="0"
       zIndex="500"
     >
-      <MobileIcon className="icon-box" to="/" text="Home">
+      <MobileIcon className="icon-box" to="/" exact={true}>
         <Home />
       </MobileIcon>
       <MobileIcon className="icon-box" to="/movies">

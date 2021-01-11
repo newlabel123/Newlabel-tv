@@ -14,7 +14,7 @@ const theme = extendTheme({
         },
         body: {
           fontSize: '1.4rem',
-          color: props.colorMode === 'light' ? 'brand.gray300' : '#D3D4D8',
+          color: props.colorMode === 'light' ? 'brand.gray300' : 'brand.white2',
           fontFamily: "'Fira Sans', sans-serif",
           background: props.colorMode === 'light' ? 'brand.white' : '#000',
           transition: 'background .5s',
@@ -43,6 +43,9 @@ const theme = extendTheme({
             },
           },
         },
+        '::placeholder': {
+          color: props.colorMode === 'light' ? 'brand.gray300' : 'brand.white2',
+        },
       }
     },
   },
@@ -50,11 +53,13 @@ const theme = extendTheme({
     brand: {
       red: '#E50914',
       white: '#FAFAFC',
+      white2: '#D3D4D8',
       black: '#030303',
       gray100: '#A1A4B1',
       gray200: '#8B90A0',
       gray300: '#505565',
       gray400: '#232735',
+      gray500: '#F0F1F3',
     },
   },
 })
