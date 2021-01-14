@@ -21,13 +21,16 @@ function Profile() {
   const [isLoading, setIsLoading] = useState(false)
 
   async function saveTransaction(txId) {
-    setIsLoading(true)
-    const res = await createTopup(authState.jwt, authState.user.id, txId)
+    try {
+      setIsLoading(true)
+      const res = await createTopup(authState.jwt, authState.user.id, txId)
 
-    dispatch({ type: UPDATE, payload: res.user })
+      dispatch({ type: UPDATE, payload: res.user })
+      setIsLoading(false)
+    } catch (error) {
+      console.log({ error })
+    }
   }
-
-  console.log(authState)
 
   const config = {
     public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
@@ -53,10 +56,9 @@ function Profile() {
     ...config,
     text: 'Topup',
     callback: (response) => {
-      console.log(response)
+      console.log('PAYMENT COMPLETE........')
+      saveTransaction(response.transaction_id)
       closePaymentModal()
-      setIsLoading(true)
-      // saveTransaction(response.transaction_id)
     },
     onClose: () => {},
   }
