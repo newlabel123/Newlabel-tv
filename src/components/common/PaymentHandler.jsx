@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
+import { FlutterWaveButton, useFlutterwave } from 'flutterwave-react-v3'
 import { v4 as uuidv4 } from 'uuid'
 import { AuthContext } from '../../context/auth'
 
@@ -11,6 +11,7 @@ function PaymentHandler({ amount, title, onSuccess, setProcessPayment }) {
     tx_ref: uuidv4(),
     amount: amount,
     currency: 'NGN',
+    country: 'NG',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: authState.user.email,
@@ -25,19 +26,39 @@ function PaymentHandler({ amount, title, onSuccess, setProcessPayment }) {
     },
   }
 
-  const handlePayment = useFlutterwave(config)
+  // const handlePayment = useFlutterwave(config)
 
-  handlePayment({
+  // handlePayment({
+  //   callback: (response) => {
+  //     closePaymentModal()
+  //     onSuccess(response.transaction_id)
+  //   },
+  //   onClose: () => {
+  //     window.location.reload()
+  //   },
+  // })
+
+  const closePaymentModal = () => {
+    document
+      .getElementsByName('checkout')[0]
+      .setAttribute(
+        'style',
+        'position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;'
+      )
+    document.body.style.overflow = ''
+  }
+
+  const fwConfig = {
+    ...config,
+    text: 'Pay with Flutterwave!',
     callback: (response) => {
+      localStorage.setItem('topup', JSON.stringify(response))
       closePaymentModal()
-      onSuccess(response.transaction_id)
     },
-    onClose: () => {
-      window.location.reload()
-    },
-  })
+    onClose: () => {},
+  }
 
-  return <></>
+  return <FlutterWaveButton {...fwConfig} />
 }
 
 export { PaymentHandler }

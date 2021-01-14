@@ -1,51 +1,68 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Image,
-  Input,
-  SlideFade,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import styled from '@emotion/styled'
+
+import { FlutterWaveButton } from 'flutterwave-react-v3'
+import { v4 as uuidv4 } from 'uuid'
 
 import profileIcon from '../assets/icons/Profile.svg'
 import emailIcon from '../assets/icons/Email.svg'
 import locationIcon from '../assets/icons/Location.svg'
 import walletIcon from '../assets/icons/Wallet.svg'
 import { SectionWrapper } from '../components/layout'
-import {
-  Btn,
-  ErrorMessage,
-  PaymentHandler,
-  ProductGrid,
-} from '../components/common'
-import { AuthContext } from '../context/auth'
+
+import { AuthContext, UPDATE } from '../context/auth'
 import { createTopup } from '../queries'
-import { useHistory } from 'react-router-dom'
+import { closePaymentModal } from '../util/helpers'
+import { LoadingScreen } from '../components/common'
 
 function Profile() {
-  const { authState } = useContext(AuthContext)
-  const { isOpen, onToggle } = useDisclosure()
-  const [processPayment, setProcessPayment] = useState({
-    value: false,
-    amount: 0,
-  })
+  const { authState, dispatch } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { register, handleSubmit, errors } = useForm()
-  const history = useHistory()
+  async function saveTransaction(txId) {
+    setIsLoading(true)
+    const res = await createTopup(authState.jwt, authState.user.id, txId)
 
-  const onSubmit = async ({ amount }) => {
-    setProcessPayment({ value: true, amount })
+    dispatch({ type: UPDATE, payload: res.user })
   }
 
-  const sendResponse = async (txId) => {
-    await createTopup(authState.jwt, authState.user.id, txId)
+  console.log(authState)
 
-    history.go(0)
+  const config = {
+    public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
+    tx_ref: uuidv4(),
+    amount: 0,
+    currency: 'USD',
+    country: 'NG',
+    payment_options: 'card',
+    customer: {
+      email: authState.user.email,
+      phonenumber: authState.user.phone || '',
+      name: authState.user.name,
+    },
+    customizations: {
+      title: 'Wallet Topup',
+      description: 'Payment for items in cart',
+      logo:
+        'https://res.cloudinary.com/new-label/image/upload/v1609092832/newlabel_brand_icon_mark_qay8i6.png',
+    },
+  }
+
+  const fwConfig = {
+    ...config,
+    text: 'Topup',
+    callback: (response) => {
+      console.log(response)
+      closePaymentModal()
+      setIsLoading(true)
+      // saveTransaction(response.transaction_id)
+    },
+    onClose: () => {},
+  }
+
+  if (isLoading) {
+    return <LoadingScreen />
   }
 
   return (
@@ -96,54 +113,21 @@ function Profile() {
                 color="brand.gray300"
                 fontWeight="bold"
                 _hover={{ color: '#f00' }}
-                onClick={onToggle}
               >
-                Top up
+                <FlutterWaveButton {...fwConfig} />
               </Text>
             </Box>
           </HStack>
-          <SlideFade in={isOpen} offsetY="20px">
-            <HStack
-              align="flex-start"
-              mt="1rem"
-              as="form"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <Box>
-                <Input
-                  type="number"
-                  focusBorderColor="brand.gray300"
-                  py="2.2rem"
-                  fontSize="1.3rem"
-                  borderRadius="5px"
-                  outline="none"
-                  border="none"
-                  bg="#F0F1F3"
-                  placeholder="Amount"
-                  name="amount"
-                  ref={register({
-                    required: 'Amount is required',
-                    min: { value: 10, message: 'Cannot topup below 10' },
-                  })}
-                />
-                <ErrorMessage message={errors?.amount?.message} />
-              </Box>
-              <Btn type="submit">Fund</Btn>
-            </HStack>
-          </SlideFade>
-          {processPayment.value && (
-            <PaymentHandler
-              amount={processPayment.amount}
-              title="Wallet Topup"
-              onSuccess={sendResponse}
-              setProcessPayment={setProcessPayment}
-            />
-          )}
         </DetailsBox>
       </ProfileInfo>
-      <SectionWrapper title="Your Feed" mt="0" w="100%">
-        {/* <ProductGrid /> */}
-      </SectionWrapper>
+      <Box>
+        <SectionWrapper title="Your Feed" mt="0" w="100%">
+          {/* <ProductGrid /> */}
+        </SectionWrapper>
+        <SectionWrapper title="Liked Items" mt="0" w="100%">
+          {/* <ProductGrid /> */}
+        </SectionWrapper>
+      </Box>
     </PageWrapper>
   )
 }
