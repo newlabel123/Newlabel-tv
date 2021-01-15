@@ -1,7 +1,6 @@
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import styled from '@emotion/styled'
-
 import { FlutterWaveButton } from 'flutterwave-react-v3'
 import { v4 as uuidv4 } from 'uuid'
 

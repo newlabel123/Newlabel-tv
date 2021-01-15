@@ -1,6 +1,10 @@
 import { Box, Flex, HStack, Icon, Image, Input, Text } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+import { FlutterWaveButton } from 'flutterwave-react-v3'
+import { v4 as uuidv4 } from 'uuid'
+
 import { AuthContext } from '../../context/auth'
 import { Btn } from './Buttons'
 import { AiFillCloseSquare } from 'react-icons/ai'
@@ -8,12 +12,22 @@ import { ErrorMessage } from './Form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createOrder } from '../../queries'
+import { closePaymentModal } from '../../util/helpers'
 
 function CheckoutModal({ product, onToggle }) {
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
   const { register, handleSubmit, errors } = useForm()
   const [isWalletLoading, setIsWalletLoading] = useState(false)
+
+  let price = 0
+  const productType = product.type[0].__component
+
+  if (productType === 'product.single-item') {
+    price = product.type[0].buyPrice
+  } else {
+    price = product.type[0].seasonPassPrice
+  }
 
   const history = useHistory()
 
@@ -24,15 +38,6 @@ function CheckoutModal({ product, onToggle }) {
   const handleWalletPayment = async () => {
     setIsWalletLoading(true)
     const balance = authState.user.walletBalance
-
-    let price = 0
-    const productType = product.type[0].__component
-
-    if (productType === 'product.single-item') {
-      price = product.type[0].buyPrice
-    } else {
-      price = product.type[0].seasonPassPrice
-    }
 
     if (price > balance) {
       toast.dark('Insufficient funds')
@@ -54,6 +59,37 @@ function CheckoutModal({ product, onToggle }) {
         toast.dark(error.response?.data?.message || 'Purchase failed')
       }
     }
+  }
+
+  const config = {
+    public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
+    tx_ref: uuidv4(),
+    amount: price,
+    currency: 'USD',
+    country: 'NG',
+    payment_options: 'card',
+    customer: {
+      email: authState.user.email,
+      phonenumber: authState.user.phone || '',
+      name: authState.user.name,
+    },
+    customizations: {
+      title: product.title,
+      description: 'Payment for items in cart',
+      logo:
+        'https://res.cloudinary.com/new-label/image/upload/v1609092832/newlabel_brand_icon_mark_qay8i6.png',
+    },
+  }
+
+  const fwConfig = {
+    ...config,
+    text: 'Pay with card',
+    callback: (response) => {
+      console.log('PAYMENT COMPLETE........')
+      closePaymentModal()
+      history.push('/player')
+    },
+    onClose: () => {},
   }
 
   return (
@@ -160,7 +196,7 @@ function CheckoutModal({ product, onToggle }) {
             Pay with wallet
           </Btn>
           <Btn w="100%" py="2.2rem" fontSize="1.4rem">
-            Pay with card
+            <FlutterWaveButton {...fwConfig} />
           </Btn>
         </HStack>
       </Box>
