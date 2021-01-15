@@ -20,6 +20,7 @@ function Wrapper({ children }) {
         <Sidebar />
         <Box
           w="100%"
+          h="100vh"
           maxW="100%"
           pt={['70px', '120px']}
           pl={isBelow768px ? '0' : '12rem'}
