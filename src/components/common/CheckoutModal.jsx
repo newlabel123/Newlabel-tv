@@ -13,6 +13,7 @@ function CheckoutModal({ product, onToggle }) {
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
   const { register, handleSubmit, errors } = useForm()
+  const [isWalletLoading, setIsWalletLoading] = useState(false)
 
   const history = useHistory()
 
@@ -21,6 +22,7 @@ function CheckoutModal({ product, onToggle }) {
   }
 
   const handleWalletPayment = async () => {
+    setIsWalletLoading(true)
     const balance = authState.user.walletBalance
 
     let price = 0
@@ -45,8 +47,10 @@ function CheckoutModal({ product, onToggle }) {
           'wallet'
         )
         toast.dark('Purchase successful')
+        setIsWalletLoading(true)
         history.push('/player')
       } catch (error) {
+        setIsWalletLoading(false)
         toast.dark(error.response?.data?.message || 'Purchase failed')
       }
     }
@@ -151,6 +155,7 @@ function CheckoutModal({ product, onToggle }) {
             py="2.2rem"
             fontSize="1.4rem"
             onClick={handleWalletPayment}
+            isLoading={isWalletLoading}
           >
             Pay with wallet
           </Btn>
