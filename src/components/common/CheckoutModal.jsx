@@ -15,19 +15,22 @@ function CheckoutModal({ product, onToggle }) {
     setCoupon(coupon)
   }
 
-  const checkWallet = async () => {
+  const handleWalletPayment = async () => {
     const balance = authState.user.walletBalance
+
     let price = 0
     const productType = product.type[0].__component
 
     if (productType === 'product.single-item') {
       price = product.type[0].buyPrice
+    } else {
+      price = product.type[0].seasonPassPrice
     }
 
     if (price > balance) {
       alert('Insufficient funds')
     } else {
-      alert('purchase successful')
+      alert('Purchase successful')
     }
   }
 
@@ -84,6 +87,7 @@ function CheckoutModal({ product, onToggle }) {
           </Text>
         </Box>
         <HStack
+          display="none"
           align="flex-start"
           mt="1rem"
           as="form"
@@ -132,7 +136,7 @@ function CheckoutModal({ product, onToggle }) {
             py="2.5rem"
             fontSize="1.4rem"
             fontWeight="400"
-            onClick={checkWallet}
+            onClick={handleWalletPayment}
           >
             Pay with wallet
           </Btn>

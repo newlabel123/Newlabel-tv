@@ -13,6 +13,7 @@ import {
   Signup,
   SeriesDetails,
   Series,
+  Player,
 } from './pages'
 import { AuthContextProvider } from './context/auth'
 import { PrivateRoute } from './components/auth/PrivateRoute'
@@ -46,6 +47,9 @@ function App() {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/player">
+              <Player />
             </Route>
           </Switch>
         </Wrapper>

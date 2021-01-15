@@ -113,8 +113,8 @@ const CardBox = styled(Box)`
 
   @media (min-width: 768px) {
     &:hover {
-      transform: ${(props) =>
-        props.index === 0 ? 'scale(1) !important' : 'scale(1.2) !important'};
+      transform: scale(1.2) !important;
+      transform-origin: ${(props) => (props.index === 0 ? 'left' : 'center')};
       z-index: 2;
 
       #overlay {

@@ -4,6 +4,7 @@ import { useQuery } from 'react-query'
 import {
   Banner,
   ContinueWatching,
+  LoadingScreen,
   LongCardSlider,
   WideCardSlider,
 } from '../components/common'
@@ -14,7 +15,7 @@ function Home() {
   const { isLoading, error, data } = useQuery('homepage', getHomeData)
 
   if (isLoading) {
-    return <p>Loading</p>
+    return <LoadingScreen />
   }
 
   if (error) {

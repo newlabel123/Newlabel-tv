@@ -1,7 +1,12 @@
 import { Box, Fade } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Banner, LongCardSlider, WideCardSlider } from '../components/common'
+import {
+  Banner,
+  LoadingScreen,
+  LongCardSlider,
+  WideCardSlider,
+} from '../components/common'
 import { SectionWrapper } from '../components/layout'
 import { getSeriesData } from '../queries'
 
@@ -9,7 +14,7 @@ function Series() {
   const { isLoading, error, data } = useQuery('series', getSeriesData)
 
   if (isLoading) {
-    return <p>Loading</p>
+    return <LoadingScreen />
   }
 
   if (error) {

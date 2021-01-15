@@ -3,7 +3,13 @@ import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { Btn, CheckoutModal, Similar, Trailer } from '../components/common'
+import {
+  Btn,
+  CheckoutModal,
+  LoadingScreen,
+  Similar,
+  Trailer,
+} from '../components/common'
 import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner'
 import { SectionWrapper } from '../components/layout'
 import { EpisodeGrid } from '../components/series'
@@ -27,7 +33,7 @@ function SeriesDetails() {
   }, [data])
 
   if (isLoading) {
-    return <p>Loading</p>
+    return <LoadingScreen />
   }
 
   return (

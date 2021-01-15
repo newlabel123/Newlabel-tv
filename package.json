@@ -19,10 +19,12 @@
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.13.1",
     "react-icons": "^3.11.0",
+    "react-player": "^2.7.2",
     "react-query": "^2.26.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-slick": "^0.27.13",
+    "screenfull": "^5.1.0",
     "slick-carousel": "^1.8.1",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"

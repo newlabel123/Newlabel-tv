@@ -13,7 +13,6 @@ import React from 'react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
-import { AiFillCloseSquare } from 'react-icons/ai'
 import { Btn } from './Buttons'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
@@ -28,7 +27,7 @@ const MotionBox = motion.custom(
   })
 )
 
-function ProductModal({ item, setShowModal }) {
+function ProductModal({ item }) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -66,17 +65,7 @@ function ProductModal({ item, setShowModal }) {
           bg={`url(${item.banner.url})`}
           bgSize="cover"
           borderRadius="0 .5rem .5rem 0"
-        >
-          <Box pos="absolute" top="3rem" right="3rem" zIndex="5">
-            <Icon
-              as={AiFillCloseSquare}
-              color="#000"
-              fontSize="5rem"
-              cursor="pointer"
-              onClick={() => setShowModal(false)}
-            />
-          </Box>
-        </Box>
+        ></Box>
       </Flex>
       <Box
         pos="absolute"

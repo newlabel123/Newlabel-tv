@@ -19,7 +19,7 @@ function ProductWide({
   const handleClick = () => {
     if (isLargerThan768) {
       setCurrentItem(item)
-      if (!showModal) setShowModal(!showModal)
+      setShowModal(!showModal)
       return
     }
 
@@ -92,9 +92,9 @@ const Wrapper = styled(Box)`
     }
 
     &:hover {
-      transform: ${(props) =>
-        props.index === 0 ? 'scale(1) !important' : 'scale(1.2) !important'};
       z-index: 2;
+      transform: scale(1.2) !important;
+      transform-origin: ${(props) => (props.index === 0 ? 'left' : 'center')};
 
       #overlay {
         opacity: 1;
