@@ -1,6 +1,8 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Switch, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { theme } from './theme'
 import { Wrapper } from './components/layout'
@@ -21,6 +23,7 @@ import { PrivateRoute } from './components/auth/PrivateRoute'
 function App() {
   return (
     <AuthContextProvider>
+      <ToastContainer />
       <ChakraProvider theme={theme}>
         <Wrapper>
           <Switch>

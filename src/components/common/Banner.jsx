@@ -21,7 +21,7 @@ import { truncate } from '../../util/helpers'
 
 import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
 import styled from '@emotion/styled'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 // export function Slide({ item }) {
 //   return (
@@ -206,7 +206,6 @@ const Left = styled(Flex)`
 
 function Banner({ bannerData }) {
   const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
-  const { pathname } = useLocation()
 
   const sliderRef = useRef()
 
@@ -243,13 +242,13 @@ function Banner({ bannerData }) {
         </Box>
       ) : (
         <>
-          {pathname === '/' && (
+          {/* {pathname === '/' && (
             <Box pt="1.5rem" px="1rem">
               <Text fontSize="2.5rem" fontWeight="500" mb="3rem">
                 Welcome to Newlabel TV
               </Text>
             </Box>
-          )}
+          )} */}
         </>
       )}
     </>

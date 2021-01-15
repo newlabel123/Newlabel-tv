@@ -8,7 +8,6 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
-  useToast,
   useColorMode,
 } from '@chakra-ui/react'
 import { Link, useHistory } from 'react-router-dom'
@@ -20,6 +19,7 @@ import { Btn, CustomInput, ErrorMessage } from '../components/common'
 import logomark from '../assets/images/logomark.svg'
 import { login } from '../queries'
 import { AuthContext, LOGIN } from '../context/auth'
+import { toast } from 'react-toastify'
 
 function PasswordToggle({ type, setType }) {
   if (type === 'text') {
@@ -62,7 +62,6 @@ function Login() {
   const { colorMode } = useColorMode()
 
   const { register, handleSubmit, errors } = useForm()
-  const toast = useToast()
 
   const onSubmit = async (data) => {
     try {
@@ -74,13 +73,11 @@ function Login() {
 
       history.push('/')
 
-      toast({
-        title: 'Logged in successfully',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      toast.dark('Login successful')
     } catch (error) {
+      toast.dark(
+        error.response?.data?.message[0]?.messages[0]?.message || 'Login failed'
+      )
       setIsLoading(false)
       console.log({ error })
     }

@@ -44,6 +44,9 @@ const theme = extendTheme({
         '::placeholder': {
           color: props.colorMode === 'light' ? 'brand.gray300' : 'brand.white2',
         },
+        '.Toastify__progress-bar--dark': {
+          background: '#E50914 !important',
+        },
       }
     },
   },

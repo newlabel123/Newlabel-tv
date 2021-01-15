@@ -5,11 +5,15 @@ import { AuthContext } from '../../context/auth'
 import { Btn } from './Buttons'
 import { AiFillCloseSquare } from 'react-icons/ai'
 import { ErrorMessage } from './Form'
+import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function CheckoutModal({ product, onToggle }) {
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
   const { register, handleSubmit, errors } = useForm()
+
+  const history = useHistory()
 
   const onSubmit = async (coupon) => {
     setCoupon(coupon)
@@ -28,9 +32,10 @@ function CheckoutModal({ product, onToggle }) {
     }
 
     if (price > balance) {
-      alert('Insufficient funds')
+      toast.dark('Insufficient funds')
     } else {
-      alert('Purchase successful')
+      toast.dark('Purchase successful')
+      history.push('/player')
     }
   }
 
@@ -130,25 +135,13 @@ function CheckoutModal({ product, onToggle }) {
         <HStack>
           <Btn
             w="100%"
-            border="none"
-            color="#fff"
-            bg="#E50914"
-            py="2.5rem"
+            py="2.2rem"
             fontSize="1.4rem"
-            fontWeight="400"
             onClick={handleWalletPayment}
           >
             Pay with wallet
           </Btn>
-          <Btn
-            w="100%"
-            border="none"
-            color="#fff"
-            bg="#E50914"
-            py="2.5rem"
-            fontSize="1.4rem"
-            fontWeight="400"
-          >
+          <Btn w="100%" py="2.2rem" fontSize="1.4rem">
             Pay with card
           </Btn>
         </HStack>
