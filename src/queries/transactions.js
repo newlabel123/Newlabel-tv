@@ -24,4 +24,36 @@ const createTopup = async (token, user, txId) => {
   }
 }
 
-export { createTopup }
+const createOrder = async (
+  token,
+  user,
+  product,
+  amount,
+  donation,
+  paymentType,
+  txId
+) => {
+  const BASE = process.env.REACT_APP_API_BASEURL
+
+  const { data } = await axios.post(
+    `${BASE}/orders`,
+    {
+      user,
+      product,
+      amount,
+      donation,
+      paymentType,
+      txId,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+
+  return data
+}
+
+export { createTopup, createOrder }

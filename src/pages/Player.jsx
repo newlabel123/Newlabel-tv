@@ -4,12 +4,12 @@ import ReactPlayer from 'react-player'
 
 function Player() {
   return (
-    <Box w="100%" maxH="calc(100vh - 250px)" overflow="hidden">
+    <Box w="100%" maxH="calc(100vh - 0px)" overflow="hidden">
       <AspectRatio ratio={16 / 9}>
         <ReactPlayer
-          url="https://vimeo.com/243556536"
+          url="https://vimeo.com/268922239"
           width="100%"
-          height="70%"
+          height="100%"
           playing={true}
         />
       </AspectRatio>

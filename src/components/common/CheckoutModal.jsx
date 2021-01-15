@@ -7,6 +7,7 @@ import { AiFillCloseSquare } from 'react-icons/ai'
 import { ErrorMessage } from './Form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { createOrder } from '../../queries'
 
 function CheckoutModal({ product, onToggle }) {
   const { authState } = useContext(AuthContext)
@@ -34,8 +35,20 @@ function CheckoutModal({ product, onToggle }) {
     if (price > balance) {
       toast.dark('Insufficient funds')
     } else {
-      toast.dark('Purchase successful')
-      history.push('/player')
+      try {
+        await createOrder(
+          authState.jwt,
+          authState.user.id,
+          product.id,
+          price,
+          product.donation,
+          'wallet'
+        )
+        toast.dark('Purchase successful')
+        history.push('/player')
+      } catch (error) {
+        toast.dark(error.response?.data?.message || 'Purchase failed')
+      }
     }
   }
 
