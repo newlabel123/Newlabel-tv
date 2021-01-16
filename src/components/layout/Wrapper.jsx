@@ -13,6 +13,14 @@ function Wrapper({ children }) {
     return <Box w="100%">{children}</Box>
   }
 
+  if (pathname === '/player') {
+    return (
+      <Box w="100%" h="100vh" overflow="hidden" bg="#000">
+        {children}
+      </Box>
+    )
+  }
+
   return (
     <Box w="100%">
       <Header />
