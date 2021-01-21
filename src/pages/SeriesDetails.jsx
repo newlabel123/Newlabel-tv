@@ -38,7 +38,7 @@ function SeriesDetails() {
 
   return (
     <Box>
-      <ProductDetailsBanner item={data} />
+      <ProductDetailsBanner onToggle={onToggle} item={data} />
       <SectionWrapper mt="5rem">
         <HStack spacing="2.5rem" my="2.5rem">
           <TabBtn
@@ -92,7 +92,7 @@ function SeriesDetails() {
           </>
         )}
       </SectionWrapper>
-      <Fade in={isOpen}>
+      <Fade in={isOpen} unmountOnExit={true}>
         <CheckoutModal product={data} onToggle={onToggle} />
       </Fade>
     </Box>

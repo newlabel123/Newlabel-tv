@@ -40,6 +40,7 @@ function WideCardSlider({ items }) {
             setShowModal={setShowModal}
             showModal={showModal}
             setCurrentItem={setCurrentItem}
+            currentItem={currentItem}
           />
         ))}
       </Slider>

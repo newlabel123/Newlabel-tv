@@ -11,6 +11,7 @@ function ProductWide({
   productType,
   showModal,
   setShowModal,
+  currentItem,
   setCurrentItem,
 }) {
   const history = useHistory()
@@ -19,7 +20,12 @@ function ProductWide({
   const handleClick = () => {
     if (isLargerThan768) {
       setCurrentItem(item)
-      setShowModal(!showModal)
+
+      if (!currentItem || currentItem.id === item.id) {
+        setShowModal(!showModal)
+        return
+      }
+
       return
     }
 

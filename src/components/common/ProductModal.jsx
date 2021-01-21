@@ -45,7 +45,6 @@ function ProductModal({ item }) {
       exit={{ height: 0, opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
       w="99%"
-      maxW="1440px"
       h="480px"
       mt="-2rem"
       pos="relative"
