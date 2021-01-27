@@ -1,8 +1,9 @@
-import { Box, HStack, Input } from '@chakra-ui/react'
+import { Box, Fade, HStack, Input } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React, { useState, useRef } from 'react'
 import ReactPlayer from 'react-player'
 
+import { ReactComponent as PlayButton } from '../assets/icons/Play2.svg'
 import {
   BsPlay,
   BsPause,
@@ -62,6 +63,18 @@ function Player() {
           url={trailer}
         />
 
+        <Fade initialScale={0.9} in={!playing} unmountOnExit>
+          <Box
+            pos="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            fontSize="20rem"
+            cursor="pointer"
+          >
+            <PlayButton onClick={() => setPlaying(true)} />
+          </Box>
+        </Fade>
         <Box px="2rem" w="100%" pos="absolute" bottom="3rem">
           <Input
             type="range"
@@ -145,5 +158,9 @@ const Wrapper = styled(Box)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    ::-webkit-slider-thumb {
+      background: #00f;
+    }
   }
 `
