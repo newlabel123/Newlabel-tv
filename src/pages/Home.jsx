@@ -22,6 +22,8 @@ function Home() {
     console.log({ error })
   }
 
+  console.log(data)
+
   return (
     <Fade in={true}>
       <Box>

@@ -15,7 +15,7 @@ function LongCardSlider({ items }) {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     centerMode: false,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -59,6 +59,23 @@ const Wrapper = styled(Box)`
       padding-top: 3rem !important;
       padding-bottom: 3rem !important;
     }
+  }
+
+  &:hover {
+    /* .slick-slide {
+      transition: all 0.5s;
+      transform: translateX(-25%);
+
+      & ~ .slick-slide {
+        transform: translateX(25%);
+      }
+    } */
+
+    /* .slick-slide {
+      transform: scale(1.2) !important;
+      transform-origin: ${(props) => (props.index === 0 ? 'left' : 'center')};
+      z-index: 2;
+    } */
   }
 
   /* .slick-track {

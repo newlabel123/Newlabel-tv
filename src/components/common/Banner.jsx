@@ -177,14 +177,14 @@ function Slide({ item }) {
             >
               Watch now
             </Btn>
-            <IconButton
+            {/* <IconButton
               borderColor="#fff"
               variant="outline"
               color="#fff"
               aria-label="Send email"
               p="2rem 1rem"
               icon={<AiOutlineHeart fontSize="2rem" />}
-            />
+            /> */}
           </HStack>
         </Box>
       </Flex>

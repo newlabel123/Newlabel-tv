@@ -20,14 +20,15 @@ function ProductLong({ index, item, productType, ...rest }) {
 
   return (
     <CardBox
-      w="17rem"
-      h="25rem"
+      w={['14rem', '17rem']}
+      h={['20rem', '25rem']}
       mr="1rem"
       position="relative"
       onClick={handleClick}
       cursor="pointer"
       transition="all .5s"
       index={index}
+      className="item"
     >
       <Image
         src={item.poster?.url}
@@ -113,9 +114,9 @@ const CardBox = styled(Box)`
 
   @media (min-width: 768px) {
     &:hover {
-      transform: scale(1.2) !important;
+      /* transform: scale(1.2) !important;
       transform-origin: ${(props) => (props.index === 0 ? 'left' : 'center')};
-      z-index: 2;
+      z-index: 2; */
 
       #overlay {
         opacity: 1;

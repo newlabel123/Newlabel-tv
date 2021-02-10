@@ -40,8 +40,8 @@ function ProductWide({
     <Wrapper
       index={index}
       onClick={handleClick}
-      maxW="300px"
-      h="168.75px !important"
+      maxW={['230px', '300px']}
+      h={['129px !important', '168.75px !important']}
       mr=".8rem"
       pos="relative"
       cursor="pointer"

@@ -56,4 +56,33 @@ const createOrder = async (
   return data
 }
 
-export { createTopup, createOrder }
+const checkIfUserOwnsItem = async (token, user, product) => {
+  const BASE = process.env.REACT_APP_API_BASEURL
+
+  const { data } = await axios.get(
+    `${BASE}/orders?product=${product}&user=${user}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+
+  return data.length > 0
+}
+
+const getUsersOrders = async (key, token, user) => {
+  const BASE = process.env.REACT_APP_API_BASEURL
+
+  const { data } = await axios.get(`${BASE}/orders?user=${user}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  return data.map((item) => item.product)
+}
+
+export { createTopup, createOrder, checkIfUserOwnsItem, getUsersOrders }

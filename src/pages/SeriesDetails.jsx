@@ -40,7 +40,7 @@ function SeriesDetails() {
     <Box>
       <ProductDetailsBanner onToggle={onToggle} item={data} />
       <SectionWrapper mt="5rem">
-        <HStack spacing="2.5rem" my="2.5rem">
+        <HStack spacing="2rem" mb="2.5rem">
           <TabBtn
             onClick={() => setActiveTab(0)}
             className={activeTab === 0 && 'active'}
@@ -58,21 +58,19 @@ function SeriesDetails() {
       <SectionWrapper mt="1rem">
         {activeTab === 0 ? (
           <>
-            <SectionWrapper mt="5rem">
-              <Tabs>
-                {data.type[0].seasons.map((season, i) => (
-                  <TabItem
-                    key={season.id}
-                    className={
-                      (activeSeason?.seasonNumber || 1) === i + 1 && 'active'
-                    }
-                    onClick={() => setActiveSeason(season)}
-                  >
-                    Season {season.seasonNumber}
-                  </TabItem>
-                ))}
-              </Tabs>
-            </SectionWrapper>
+            <Tabs>
+              {data.type[0].seasons.map((season, i) => (
+                <TabItem
+                  key={season.id}
+                  className={
+                    (activeSeason?.seasonNumber || 1) === i + 1 && 'active'
+                  }
+                  onClick={() => setActiveSeason(season)}
+                >
+                  Season {season.seasonNumber}
+                </TabItem>
+              ))}
+            </Tabs>
             <EpisodeGrid episodes={activeSeason?.episodes || []} />
           </>
         ) : (

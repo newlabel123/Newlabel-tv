@@ -5,7 +5,7 @@ function SectionWrapper({ title, children, ...otherProps }) {
   return (
     <Box
       mt={['3rem', '3rem', '2rem']}
-      px={['.8rem', '2rem', '0']}
+      px={['2rem', '2rem', '0']}
       {...otherProps}
     >
       {title && (

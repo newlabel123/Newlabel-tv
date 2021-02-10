@@ -35,7 +35,7 @@ function Episode({ episode }) {
             className="overlay"
           />
           <Image
-            h="69%"
+            h="65%"
             w="100%"
             objectFit="cover"
             objectPosition="center"

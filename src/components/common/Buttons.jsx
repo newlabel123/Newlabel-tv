@@ -9,15 +9,15 @@ function Btn({ children, isLoading, ...otherProps }) {
       color="#fff"
       fontWeight="400"
       bg="brand.red"
-      fontSize="1.4rem"
-      p="2.5rem 2.5rem"
+      fontSize={['1.1rem', '1.3rem']}
+      p={['1rem', '1.8rem']}
       border="1px solid #E50914"
       outline="none"
-      {...otherProps}
       _hover={{
         color: '#E50914',
         background: 'transparent',
       }}
+      {...otherProps}
     >
       {children}
     </CustomBtn>

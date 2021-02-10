@@ -146,7 +146,7 @@ function MobileHeader() {
               bg="brand.red"
               color="#fff"
               size="lg"
-              name=""
+              name={authState?.user?.name}
               cursor="pointer"
             />
             <Caret />

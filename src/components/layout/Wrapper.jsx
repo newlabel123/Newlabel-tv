@@ -24,7 +24,7 @@ function Wrapper({ children }) {
   return (
     <Box w="100%">
       <Header />
-      <Flex w="100%" overflowX="hidden">
+      <Flex w="100%" overflowX="hidden" pb={isBelow768px ? '10rem' : '0'}>
         <Sidebar />
         <Box
           w="100%"
@@ -32,7 +32,6 @@ function Wrapper({ children }) {
           maxW="100%"
           pt={['70px', '120px']}
           pl={isBelow768px ? '0' : '12rem'}
-          pb="10rem"
           overflowX="hidden"
         >
           {children}

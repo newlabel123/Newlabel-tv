@@ -11,13 +11,29 @@ import walletIcon from '../assets/icons/Wallet.svg'
 import { SectionWrapper } from '../components/layout'
 
 import { AuthContext, UPDATE } from '../context/auth'
-import { createTopup } from '../queries'
+import { createTopup, getUsersOrders } from '../queries'
 import { closePaymentModal } from '../util/helpers'
-import { LoadingScreen } from '../components/common'
+import { LoadingScreen, LongCardSlider } from '../components/common'
+import { useQuery } from 'react-query'
 
 function Profile() {
   const { authState, dispatch } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
+
+  const { isLoading: fetchingOrders, data, isError, error } = useQuery(
+    ['myOrders', authState.jwt, authState.user.id],
+    getUsersOrders
+  )
+
+  if (fetchingOrders) {
+    return <LoadingScreen />
+  }
+
+  if (isError) {
+    console.log({ error })
+  }
+
+  console.log(data)
 
   async function saveTransaction(txId) {
     try {
@@ -123,10 +139,7 @@ function Profile() {
       </ProfileInfo>
       <Box>
         <SectionWrapper title="Your Feed" mt="0" w="100%">
-          {/* <ProductGrid /> */}
-        </SectionWrapper>
-        <SectionWrapper title="Liked Items" mt="0" w="100%">
-          {/* <ProductGrid /> */}
+          <LongCardSlider items={data} />
         </SectionWrapper>
       </Box>
     </PageWrapper>
