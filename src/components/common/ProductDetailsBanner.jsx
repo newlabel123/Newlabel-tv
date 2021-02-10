@@ -37,6 +37,8 @@ function ProductDetailsBanner({ item, onToggle }) {
       item.id
     )
 
+    console.log('IS OWNER', isOwner)
+
     if (isOwner) {
       history.push('/player')
     } else {

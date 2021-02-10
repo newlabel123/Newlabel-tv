@@ -19,7 +19,7 @@ function WideCardSlider({ items }) {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     centerMode: false,
     slidesToShow: 1,
     slidesToScroll: 1,

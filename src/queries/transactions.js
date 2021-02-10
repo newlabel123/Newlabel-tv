@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import qs from 'qs'
 
 const createTopup = async (token, user, txId) => {
   const BASE = process.env.REACT_APP_API_BASEURL
@@ -59,17 +60,14 @@ const createOrder = async (
 const checkIfUserOwnsItem = async (token, user, product) => {
   const BASE = process.env.REACT_APP_API_BASEURL
 
-  const { data } = await axios.get(
-    `${BASE}/orders?product=${product}&user=${user}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  const { data } = await axios.get(`${BASE}/orders?user=${user}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-  return data.length > 0
+  return data.filter((item) => item.product.id === product).length > 0
 }
 
 const getUsersOrders = async (key, token, user) => {

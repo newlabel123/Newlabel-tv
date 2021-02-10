@@ -33,8 +33,6 @@ function Profile() {
     console.log({ error })
   }
 
-  console.log(data)
-
   async function saveTransaction(txId) {
     try {
       setIsLoading(true)
