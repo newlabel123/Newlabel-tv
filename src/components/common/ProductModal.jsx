@@ -9,13 +9,15 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { motion, isValidMotionProp } from 'framer-motion'
-import React from 'react'
+import commafy from 'commafy'
+import React, { useContext } from 'react'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
 import { Btn } from './Buttons'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
+import { LocationContext } from '../../context/location'
 
 const MotionBox = motion.custom(
   forwardRef((props, ref) => {
@@ -28,6 +30,7 @@ const MotionBox = motion.custom(
 )
 
 function ProductModal({ item }) {
+  const { country } = useContext(LocationContext)
   const history = useHistory()
 
   const handleClick = () => {
@@ -86,7 +89,10 @@ function ProductModal({ item }) {
               <HStack>
                 <Icon color="#fff" as={BiCart} />
                 <Text color="#fff" fontSize="1.2rem">
-                  ${item.type[0].buyPrice}
+                  {country === 'Nigeria' ? '₦' : '$'}
+                  {country === 'Nigeria'
+                    ? commafy(item.type[0].buyPrice * 470)
+                    : item.type[0].buyPrice}
                 </Text>
               </HStack>
             </>

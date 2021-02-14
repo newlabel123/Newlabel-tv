@@ -11,18 +11,21 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
+import commafy from 'commafy'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory, BsDownload } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../context/auth'
+import { LocationContext } from '../../context/location'
 import { checkIfUserOwnsItem } from '../../queries'
 import { truncate } from '../../util/helpers'
 import { Btn } from './Buttons'
 
 function ProductDetailsBanner({ item, onToggle }) {
-  const history = useHistory()
+  const { country } = useContext(LocationContext)
   const { authState } = useContext(AuthContext)
+  const history = useHistory()
   const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
   const { colorMode } = useColorMode()
 
@@ -92,7 +95,10 @@ function ProductDetailsBanner({ item, onToggle }) {
                   <HStack>
                     <Icon color="#fff" as={BiCart} />
                     <Text color="#fff" fontSize="1.2rem">
-                      ${item.type[0].buyPrice}
+                      {country === 'Nigeria' ? '₦' : '$'}
+                      {country === 'Nigeria'
+                        ? commafy(item.type[0].buyPrice * 470)
+                        : item.type[0].buyPrice}
                     </Text>
                   </HStack>
                 </>

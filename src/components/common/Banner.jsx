@@ -4,13 +4,13 @@ import {
   Flex,
   HStack,
   Icon,
-  IconButton,
   Text,
   useMediaQuery,
 } from '@chakra-ui/react'
-import React, { useRef } from 'react'
+import React, { useRef, useContext } from 'react'
 import Slider from 'react-slick'
-import { AiOutlinePlayCircle, AiOutlineHeart } from 'react-icons/ai'
+import commafy from 'commafy'
+import { AiOutlinePlayCircle } from 'react-icons/ai'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
@@ -22,67 +22,10 @@ import { truncate } from '../../util/helpers'
 import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
-
-// export function Slide({ item }) {
-//   return (
-//     <Flex
-//       pos="relative"
-//       align="center"
-//       h="500px"
-//       w="100%"
-//       p={['2rem', '4rem', null]}
-//       backgroundImage={`url(${item.product.banner.url})`}
-//       bgSize="cover"
-//     >
-//       <Box
-//         pos="absolute"
-//         zIndex="1"
-//         top="0"
-//         left="0"
-//         w="100%"
-//         h="100%"
-//         background="linear-gradient(190deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 29%, rgba(0,0,0,0.56) 59%)"
-//       />
-//       <Box pos="relative" zIndex="2">
-//         <Text fontSize={['1.5rem', '1.5', '1.8rem']} color="#f00">
-//           {item.introText}
-//         </Text>
-//         <Text
-//           fontFamily="ReformaGroteskDemiC"
-//           fontSize={['4rem', '6rem', '7rem']}
-//           color="#fff"
-//           fontWeight="700"
-//         >
-//           {item.title}
-//         </Text>
-//         <Text color="#fff" maxW="500px">
-//           {truncate(item.product.description, 200)}
-//         </Text>
-//         <HStack spacing="3rem" mt="2rem">
-//           <Button
-//             bg="#f00"
-//             color="#fff"
-//             borderRadius="5px"
-//             p="2rem 4rem"
-//             leftIcon={<AiOutlinePlayCircle />}
-//           >
-//             Watch now - $35
-//           </Button>
-//           <IconButton
-//             borderColor="#fff"
-//             variant="outline"
-//             color="#fff"
-//             aria-label="Send email"
-//             p="2rem 1rem"
-//             icon={<AiOutlineHeart fontSize="2rem" />}
-//           />
-//         </HStack>
-//       </Box>
-//     </Flex>
-//   )
-// }
+import { LocationContext } from '../../context/location'
 
 function Slide({ item }) {
+  const { country } = useContext(LocationContext)
   const history = useHistory()
 
   const handleClick = () => {
@@ -137,7 +80,10 @@ function Slide({ item }) {
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    ${item.product.type[0].buyPrice}
+                    {country === 'Nigeria' ? '₦' : '$'}
+                    {country === 'Nigeria'
+                      ? commafy(item.product.type[0].buyPrice * 470)
+                      : item.product.type[0].buyPrice}
                   </Text>
                 </HStack>
               </>
