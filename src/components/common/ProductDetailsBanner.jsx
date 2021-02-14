@@ -185,7 +185,12 @@ function ProductDetailsBanner({ item, onToggle }) {
                 <>
                   <HStack>
                     <Icon as={BiCart} />
-                    <Text fontSize="1.2rem">${item.type[0].buyPrice}</Text>
+                    <Text fontSize="1.2rem">
+                      {country === 'Nigeria' ? '₦' : '$'}
+                      {country === 'Nigeria'
+                        ? commafy(item.type[0].buyPrice * 470)
+                        : item.type[0].buyPrice}
+                    </Text>
                   </HStack>
                 </>
               ) : (
