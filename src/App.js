@@ -19,44 +19,47 @@ import {
 } from './pages'
 import { AuthContextProvider } from './context/auth'
 import { PrivateRoute } from './components/auth/PrivateRoute'
+import { LocationContextProvider } from './context/location'
 
 function App() {
   return (
     <AuthContextProvider>
-      <ToastContainer />
-      <ChakraProvider theme={theme}>
-        <Wrapper>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/series">
-              <Series />
-            </Route>
-            <Route exact path="/series/:id">
-              <SeriesDetails />
-            </Route>
-            <Route exact path="/singles">
-              <Singles />
-            </Route>
-            <Route exact path="/singles/:id">
-              <SingleItemDetails />
-            </Route>
-            <PrivateRoute exact path="/profile">
-              <Profile />
-            </PrivateRoute>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/player">
-              <Player />
-            </Route>
-          </Switch>
-        </Wrapper>
-      </ChakraProvider>
+      <LocationContextProvider>
+        <ToastContainer />
+        <ChakraProvider theme={theme}>
+          <Wrapper>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/series">
+                <Series />
+              </Route>
+              <Route exact path="/series/:id">
+                <SeriesDetails />
+              </Route>
+              <Route exact path="/singles">
+                <Singles />
+              </Route>
+              <Route exact path="/singles/:id">
+                <SingleItemDetails />
+              </Route>
+              <PrivateRoute exact path="/profile">
+                <Profile />
+              </PrivateRoute>
+              <Route exact path="/signup">
+                <Signup />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/player">
+                <Player />
+              </Route>
+            </Switch>
+          </Wrapper>
+        </ChakraProvider>
+      </LocationContextProvider>
     </AuthContextProvider>
   )
 }

@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
+import commafy from 'commafy'
 import { BiCart } from 'react-icons/bi'
 import { BsClockHistory } from 'react-icons/bs'
 import { RiMovieLine } from 'react-icons/ri'
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
+import { LocationContext } from '../../context/location'
 
 function ProductLong({ index, item, productType, ...rest }) {
+  const { country } = useContext(LocationContext)
   const history = useHistory()
 
   const handleClick = () => {
@@ -50,7 +53,10 @@ function ProductLong({ index, item, productType, ...rest }) {
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    ${item.type[0].buyPrice}
+                    {country === 'Nigeria' ? '₦' : '$'}
+                    {country === 'Nigeria'
+                      ? commafy(item.type[0].buyPrice * 470)
+                      : item.type[0].buyPrice}
                   </Text>
                 </HStack>
               </>

@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useColorMode,
   Image,
+  Link,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
@@ -36,8 +37,6 @@ function ProductDetailsBanner({ item, onToggle }) {
       authState.user.id,
       item.id
     )
-
-    console.log('IS OWNER', isOwner)
 
     if (isOwner) {
       history.push('/player')
@@ -132,21 +131,32 @@ function ProductDetailsBanner({ item, onToggle }) {
               ))}
             </Flex>
             <HStack spacing="3rem" mt="2rem">
-              <Btn onClick={handleClick}>Watch now</Btn>
-              <Btn
-                leftIcon={<BsDownload />}
-                onClick={handleClick}
-                bg="#fff"
-                color="#000"
-                border="1px solid #fff"
-                _hover={{
-                  color: '#fff',
-                  background: 'transparent',
-                }}
-              >
-                {' '}
-                Download
-              </Btn>
+              {item.type[0].__component === 'product.single-item' && (
+                <Btn onClick={handleClick} p="1.6rem">
+                  Watch now
+                </Btn>
+              )}
+              {item.attachment && (
+                <Btn
+                  as={Link}
+                  href={item.attachment}
+                  leftIcon={<BsDownload />}
+                  onClick={handleClick}
+                  bg={colorMode === 'light' ? '#000' : '#fff'}
+                  color={colorMode === 'light' ? '#fff' : '#000'}
+                  border={
+                    colorMode === 'light' ? '1px solid #000' : '1px solid #fff'
+                  }
+                  p="1.6rem"
+                  _hover={{
+                    color: '#fff',
+                    background: 'transparent',
+                  }}
+                >
+                  {' '}
+                  Download
+                </Btn>
+              )}
             </HStack>
           </Box>
         </Box>
@@ -200,26 +210,32 @@ function ProductDetailsBanner({ item, onToggle }) {
               ))}
             </Flex>
             <HStack spacing="1.5rem" mt="2rem">
-              <Btn onClick={handleClick} p="1.6rem">
-                Watch now
-              </Btn>
-              <Btn
-                leftIcon={<BsDownload />}
-                onClick={handleClick}
-                bg={colorMode === 'light' ? '#000' : '#fff'}
-                color={colorMode === 'light' ? '#fff' : '#000'}
-                border={
-                  colorMode === 'light' ? '1px solid #000' : '1px solid #fff'
-                }
-                p="1.6rem"
-                _hover={{
-                  color: '#fff',
-                  background: 'transparent',
-                }}
-              >
-                {' '}
-                Download
-              </Btn>
+              {item.type[0].__component === 'product.single-item' && (
+                <Btn onClick={handleClick} p="1.6rem">
+                  Watch now
+                </Btn>
+              )}
+              {item.attachment && (
+                <Btn
+                  as={Link}
+                  href={item.attachment}
+                  leftIcon={<BsDownload />}
+                  onClick={handleClick}
+                  bg={colorMode === 'light' ? '#000' : '#fff'}
+                  color={colorMode === 'light' ? '#fff' : '#000'}
+                  border={
+                    colorMode === 'light' ? '1px solid #000' : '1px solid #fff'
+                  }
+                  p="1.6rem"
+                  _hover={{
+                    color: '#fff',
+                    background: 'transparent',
+                  }}
+                >
+                  {' '}
+                  Download
+                </Btn>
+              )}
             </HStack>
           </Box>
         </Box>

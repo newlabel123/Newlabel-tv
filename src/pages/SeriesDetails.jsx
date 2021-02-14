@@ -71,7 +71,12 @@ function SeriesDetails() {
                 </TabItem>
               ))}
             </Tabs>
-            <EpisodeGrid episodes={activeSeason?.episodes || []} />
+            <EpisodeGrid
+              product={data.id}
+              season={activeSeason?.seasonNumber}
+              onToggle={onToggle}
+              episodes={activeSeason?.episodes || []}
+            />
           </>
         ) : (
           <>

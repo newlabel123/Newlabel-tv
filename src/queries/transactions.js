@@ -32,9 +32,14 @@ const createOrder = async (
   amount,
   donation,
   paymentType,
-  txId
+  txId,
+  season
 ) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
+  // const BASE = process.env.REACT_APP_API_BASEURL
+
+  const BASE = 'http://localhost:1337'
+
+  console.log(season)
 
   const { data } = await axios.post(
     `${BASE}/orders`,
@@ -45,6 +50,7 @@ const createOrder = async (
       donation,
       paymentType,
       txId,
+      season,
     },
     {
       headers: {
@@ -57,7 +63,7 @@ const createOrder = async (
   return data
 }
 
-const checkIfUserOwnsItem = async (token, user, product) => {
+const checkIfUserOwnsItem = async (token, user, product, season) => {
   const BASE = process.env.REACT_APP_API_BASEURL
 
   const { data } = await axios.get(`${BASE}/orders?user=${user}`, {
@@ -67,7 +73,14 @@ const checkIfUserOwnsItem = async (token, user, product) => {
     },
   })
 
-  return data.filter((item) => item.product.id === product).length > 0
+  const filtered = data.filter((item) => item.product.id === product)
+
+  if (!season) {
+    return filtered.length > 0
+  } else {
+    console.log(filtered)
+    return filtered.length > 0 && filtered[0].details.includes(season)
+  }
 }
 
 const getUsersOrders = async (key, token, user) => {

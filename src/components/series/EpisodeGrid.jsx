@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Episode } from './Episode'
 
-function EpisodeGrid({ episodes }) {
+function EpisodeGrid({ episodes, product, season, onToggle }) {
   return (
     <Grid
       ml=".5rem"
@@ -12,7 +12,13 @@ function EpisodeGrid({ episodes }) {
       gap="1.6rem"
     >
       {episodes.map((ep) => (
-        <Episode key={ep.id} episode={ep} />
+        <Episode
+          key={ep.id}
+          onToggle={onToggle}
+          episode={ep}
+          product={product}
+          season={season}
+        />
       ))}
     </Grid>
   )

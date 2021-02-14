@@ -53,14 +53,27 @@ function CheckoutModal({ product, onToggle }) {
       toast.dark('Insufficient funds')
     } else {
       try {
-        await createOrder(
-          authState.jwt,
-          authState.user.id,
-          product.id,
-          price,
-          product.donation,
-          'wallet'
-        )
+        if (productType === 'product.single-item') {
+          await createOrder(
+            authState.jwt,
+            authState.user.id,
+            product.id,
+            price,
+            product.donation,
+            'wallet'
+          )
+        } else {
+          await createOrder(
+            authState.jwt,
+            authState.user.id,
+            product.id,
+            price,
+            product.donation,
+            'wallet',
+            null,
+            currentSeason
+          )
+        }
         toast.dark('Purchase successful')
         setIsWalletLoading(true)
         history.push('/player')

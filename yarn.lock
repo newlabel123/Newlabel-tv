@@ -4063,6 +4063,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+commafy@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/commafy/-/commafy-0.0.6.tgz#6b344bf24fb261d075ccf9fab0c14e0dd57efcac"
+  integrity sha512-6EWybT00JPy+RxA5hDLt/7n64vZZ9SeBnlXcnUeIZh4IgHO3z8CoXLmfS/l8H9KDvzyWe37MGCANv2Ou+Ub1Tw==
+
 commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
