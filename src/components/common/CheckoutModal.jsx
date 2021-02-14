@@ -22,8 +22,11 @@ import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createOrder } from '../../queries'
 import { closePaymentModal } from '../../util/helpers'
+import commafy from 'commafy'
+import { LocationContext } from '../../context/location'
 
 function CheckoutModal({ product, onToggle }) {
+  const { country } = useContext(LocationContext)
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
   const { register, handleSubmit, errors } = useForm()
@@ -88,7 +91,7 @@ function CheckoutModal({ product, onToggle }) {
     public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
     tx_ref: uuidv4(),
     amount: price,
-    currency: 'USD',
+    currency: country === 'Nigeria' ? 'NGN' : 'USD',
     country: 'NG',
     payment_options: 'card',
     customer: {
@@ -190,9 +193,13 @@ function CheckoutModal({ product, onToggle }) {
             <Text color="#000" mt={['0rem', '1.5rem']}>
               Price:{' '}
               <Text color="#505565" ml="1rem" as="span">
-                $
-                {product.type[0].buyPrice ||
-                  product.type[0].seasons[currentSeason - 1].seasonPassPrice}
+                {country === 'Nigeria' ? '₦' : '$'}
+                {country === 'Nigeria'
+                  ? (product.type[0].buyPrice &&
+                      commafy(product.type[0].buyPrice * 470)) ||
+                    product.type[0].seasons[currentSeason - 1].seasonPassPrice
+                  : product.type[0].buyPrice ||
+                    product.type[0].seasons[currentSeason - 1].seasonPassPrice}
               </Text>
             </Text>
           </Box>

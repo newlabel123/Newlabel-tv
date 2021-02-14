@@ -15,8 +15,10 @@ import { createTopup, getUsersOrders } from '../queries'
 import { closePaymentModal } from '../util/helpers'
 import { LoadingScreen, LongCardSlider } from '../components/common'
 import { useQuery } from 'react-query'
+import { LocationContext } from '../context/location'
 
 function Profile() {
+  const { country } = useContext(LocationContext)
   const { authState, dispatch } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -49,7 +51,7 @@ function Profile() {
     public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
     tx_ref: uuidv4(),
     amount: 0,
-    currency: 'USD',
+    currency: country === 'Nigeria' ? 'NGN' : 'USD',
     country: 'NG',
     payment_options: 'card',
     customer: {
