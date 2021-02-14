@@ -90,7 +90,7 @@ function CheckoutModal({ product, onToggle }) {
   const config = {
     public_key: process.env.REACT_APP_FLUTTERWAVE_PUB_KEY,
     tx_ref: uuidv4(),
-    amount: price,
+    amount: country === 'Nigeria' ? price * 470 : price,
     currency: country === 'Nigeria' ? 'NGN' : 'USD',
     country: 'NG',
     payment_options: 'card',
