@@ -14,7 +14,7 @@ const LocationContextProvider = ({ children }) => {
 
         if (!country) {
           const { data } = await axios.get(
-            `api.ipstack.com/check?access_key=${process.env.REACT_APP_API_IPLOOKUP}`
+            `http://api.ipstack.com/check?access_key=${process.env.REACT_APP_API_IPLOOKUP}`
           )
 
           setCountry(data.country_name)
