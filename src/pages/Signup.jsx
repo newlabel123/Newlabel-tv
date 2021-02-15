@@ -6,12 +6,12 @@ import {
   Flex,
   InputRightElement,
   InputGroup,
-  useToast,
   useColorMode,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Btn, CustomInput, ErrorMessage } from '../components/common'
 
@@ -49,7 +49,6 @@ function Signup() {
 
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors } = useForm()
-  const toast = useToast()
 
   const onSubmit = async (data) => {
     try {
@@ -61,13 +60,12 @@ function Signup() {
 
       history.push('/')
 
-      toast({
-        title: 'Account created.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      toast.dark('Signup successful')
     } catch (error) {
+      toast.dark(
+        error.response?.data?.message[0]?.messages[0]?.message ||
+          'Signup failed'
+      )
       setIsLoading(false)
       console.log({ error })
     }

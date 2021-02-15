@@ -14,7 +14,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { ReactComponent as Search } from '../../assets/icons/Search.svg'
 import { ReactComponent as Caret } from '../../assets/icons/Arrow Down.svg'
@@ -34,11 +34,10 @@ export { Header }
 function DesktopHeader() {
   const { authState, dispatch } = useContext(AuthContext)
   const { colorMode } = useColorMode()
-  const history = useHistory()
 
   const logout = () => {
     dispatch({ type: LOGOUT, payload: '' })
-    history.push('/login')
+    window.location.replace('/')
   }
 
   return (
@@ -117,7 +116,7 @@ function MobileHeader() {
 
   const logout = () => {
     dispatch({ type: LOGOUT, payload: '' })
-    history.push('/login')
+    window.location.replace('/')
   }
 
   return (
@@ -170,11 +169,6 @@ function MobileHeader() {
           </MenuList>
         ) : (
           <MenuList>
-            <MenuItem onClick={logout}>
-              <Text fontSize="1.7rem" py=".5rem">
-                Logout
-              </Text>
-            </MenuItem>
             <MenuItem py=".5rem">
               <ThemeSwitch />
             </MenuItem>
