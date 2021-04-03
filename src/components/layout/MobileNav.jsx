@@ -27,7 +27,7 @@ const MobileIcon = styled(NavItem)`
   }
 
   &:hover {
-    background: rgba(27,185,84, 0.2);
+    background: rgba(27, 185, 84, 0.2);
 
     svg {
       stroke: rgba(0, 0, 0, 0);

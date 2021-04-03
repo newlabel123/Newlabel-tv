@@ -73,21 +73,21 @@ function NavItem({ icon, text, to }) {
 
 const NavWrapper = styled(Flex)`
   &:hover {
-    background: rgba(27,185,84, 0.2);
+    background: rgba(27, 185, 84, 0.2);
 
     .link-text {
       width: 60px;
 
       p {
         opacity: 1;
-        color: #1BB954;
+        color: #1bb954;
         padding-left: 1rem;
       }
     }
 
     svg {
       stroke: rgba(0, 0, 0, 0);
-      fill: #1BB954;
+      fill: #1bb954;
     }
   }
 `
