@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as Search } from '../../assets/icons/Search.svg'
 import { ReactComponent as Caret } from '../../assets/icons/Arrow Down.svg'
 
-import logo from '../../assets/images/logo.svg'
+import logo from '../../assets/images/logo-green.svg'
 import { Btn, ThemeSwitch } from '../common'
 import { AuthContext, LOGOUT } from '../../context/auth'
 
@@ -52,7 +52,7 @@ function DesktopHeader() {
       left="0"
       top="0"
       zIndex="500"
-      bg={colorMode === 'light' ? 'brand.white' : '#000'}
+      bg={colorMode === 'light' ? 'brand.white' : '#14142B'}
     >
       <HStack spacing="6rem">
         <Link to="/">
@@ -84,7 +84,7 @@ function DesktopHeader() {
             <MenuButton as={Box}>
               <HStack cursor="pointer">
                 <Avatar
-                  bg="brand.red"
+                  bg="brand.green"
                   color="#fff"
                   size="lg"
                   name={authState.user.name}
@@ -142,7 +142,7 @@ function MobileHeader() {
         <MenuButton as={Box}>
           <HStack cursor="pointer">
             <Avatar
-              bg="brand.red"
+              bg="brand.green"
               color="#fff"
               size="lg"
               name={authState?.user?.name}

@@ -14,30 +14,30 @@ const theme = extendTheme({
           fontSize: '1.4rem',
           color: props.colorMode === 'light' ? 'brand.gray300' : 'brand.white2',
           fontFamily: "'Fira Sans', sans-serif",
-          background: props.colorMode === 'light' ? 'brand.white' : '#000',
+          background: props.colorMode === 'light' ? 'brand.white' : '#14142B',
           transition: 'background .5s',
         },
         '.active': {
           '&.icon-box': {
-            background: 'rgba(244, 32, 32, 0.2)',
+            background: 'rgba(27,185,84, 0.2)',
             svg: {
               stroke: 'rgba(0, 0, 0, 0.0)',
-              fill: '#FF0202',
+              fill: '#1BB954',
             },
           },
           '.navlnk-wrapper': {
-            background: 'rgba(244, 32, 32, 0.2)',
+            background: 'rgba(27,185,84, 0.2)',
 
             '.link-text': {
               p: {
                 opacity: 1,
-                color: '#FF0202',
+                color: '#1BB954',
               },
             },
 
             svg: {
               stroke: 'rgba(0, 0, 0, 0.0)',
-              fill: '#FF0202',
+              fill: '#1BB954',
             },
           },
         },
@@ -45,14 +45,15 @@ const theme = extendTheme({
           color: props.colorMode === 'light' ? 'brand.gray300' : 'brand.white2',
         },
         '.Toastify__progress-bar--dark': {
-          background: '#E50914 !important',
+          background: '#1BB954 !important',
         },
       }
     },
   },
   colors: {
     brand: {
-      red: '#E50914',
+      red: '#1BB954',
+      green: '#1BB954',
       white: '#FAFAFC',
       white2: '#D3D4D8',
       black: '#030303',

@@ -54,7 +54,7 @@ function Player() {
 
   return (
     <Wrapper>
-      <Box className="video-container" color="brand.red">
+      <Box className="video-container" color="brand.green">
         <ReactPlayer
           ref={playerRef}
           playing={playing}

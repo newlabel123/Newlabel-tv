@@ -182,7 +182,7 @@ function Signup() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             Already got an account?{' '}
-            <Text to="/login" as={Link} color="brand.red">
+            <Text to="/login" as={Link} color="brand.green">
               Login
             </Text>
           </Text>
@@ -190,7 +190,7 @@ function Signup() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             Not ready to signup?{' '}
-            <Text to="/" as={Link} color="brand.red">
+            <Text to="/" as={Link} color="brand.green">
               Return Home
             </Text>
           </Text>
@@ -198,7 +198,7 @@ function Signup() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             By signing up you agree to all NewlabelTv{' '}
-            <Text as="span" color="brand.red">
+            <Text as="span" color="brand.green">
               Terms and Conditions
             </Text>
           </Text>

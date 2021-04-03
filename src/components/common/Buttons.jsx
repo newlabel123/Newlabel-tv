@@ -8,13 +8,13 @@ function Btn({ children, isLoading, ...otherProps }) {
       isLoading={isLoading}
       color="#fff"
       fontWeight="400"
-      bg="brand.red"
+      bg="brand.green"
       fontSize={['1.1rem', '1.3rem']}
       p={['1rem', '1.8rem']}
-      border="1px solid #E50914"
+      border="1px solid #1BB954"
       outline="none"
       _hover={{
-        color: '#E50914',
+        color: '#1BB954',
         background: 'transparent',
       }}
       {...otherProps}
@@ -28,8 +28,8 @@ export { Btn }
 
 const CustomBtn = styled(Button)`
   &.active {
-    background: #e50914;
-    border: 1px solid #e50914;
+    background: #1bb954;
+    border: 1px solid #1bb954;
     color: #fff;
   }
 `

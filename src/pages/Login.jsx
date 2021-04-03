@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 
 import { Btn, CustomInput, ErrorMessage } from '../components/common'
 
-import logomark from '../assets/images/logomark.svg'
+import logomark from '../assets/images/logomark-green.svg'
 import { login } from '../queries'
 import { AuthContext, LOGIN } from '../context/auth'
 import { toast } from 'react-toastify'
@@ -150,7 +150,7 @@ function Login() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             Don&apos;t have an account?{' '}
-            <Text to="/signup" as={Link} color="#E50914">
+            <Text to="/signup" as={Link} color="#1BB954">
               Signup
             </Text>
           </Text>
@@ -158,7 +158,7 @@ function Login() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             Not ready to login?{' '}
-            <Text to="/" as={Link} color="brand.red">
+            <Text to="/" as={Link} color="brand.green">
               Return Home
             </Text>
           </Text>
@@ -166,7 +166,7 @@ function Login() {
             color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
           >
             By signing up you agree to all NewlabelTv{' '}
-            <Text as="span" color="#E50914">
+            <Text as="span" color="#1BB954">
               Terms and Conditions
             </Text>
           </Text>

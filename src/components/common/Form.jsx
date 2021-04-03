@@ -28,7 +28,7 @@ function ErrorMessage({ message }) {
       textTransform="capitalize"
       fontWeight="400"
       fontSize="1.2rem"
-      color="#E50914"
+      color="#1BB954"
     >
       {message}
     </Text>

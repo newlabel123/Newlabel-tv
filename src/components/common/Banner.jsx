@@ -41,7 +41,7 @@ function Slide({ item }) {
       <Flex h="100%">
         <Left
           pos="relative"
-          bgColor="#000"
+          bgColor="#14142B"
           w="35%"
           h="100%"
           alignItems="center"
@@ -142,7 +142,7 @@ const Left = styled(Flex)`
   &:before {
     content: '';
     position: absolute;
-    background-image: linear-gradient(to right, #000, transparent);
+    background-image: linear-gradient(to right, #14142b, transparent);
     top: 0;
     bottom: 0;
     left: 100%;
