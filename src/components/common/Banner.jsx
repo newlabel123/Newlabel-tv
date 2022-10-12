@@ -29,10 +29,14 @@ function Slide({ item }) {
   const history = useHistory();
 
   const handleClick = () => {
-    if (item.type === 'single') {
-      history.push(`/singles/${item?.id}`);
+    if (item.type === 'single') {      
+      history.push(`/singles/${item?.slug}`);
     } else {
-      history.push(`/series/${item?.id}`);
+      // history.push(`/series/${item?.id}`);
+      // console.log(item,' item')
+
+      history.push(`/singles/${item?.slug}`);
+
     }
   };
 
@@ -75,7 +79,16 @@ function Slide({ item }) {
           </Text>
           <Text maxW="500px">{truncate(item.description, 250)}</Text>
           <Flex align="center" mt="2rem">
-            {item.type === 'single' ? (
+          <HStack>
+                  <Icon color="#fff" as={BiCart} />
+                  <Text color="#fff" fontSize="1.2rem">
+                    {country === 'Nigeria' ? '₦' : '$'}
+                    {country === 'Nigeria'
+                      ? commafy(item.price * 470)
+                      : item.price}
+                  </Text>
+                </HStack>
+            {/* {item.type === 'single' ? (
               <>
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
@@ -91,13 +104,13 @@ function Slide({ item }) {
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.seasons.length > 1
-                      ? `${item.type?.seasons.length} Seasons`
-                      : `${item.type?.seasons.length} Season`
+                  {item.seasons?.length > 1
+                      ? `${item.seasons?.length} Seasons`
+                      : `${item.seasons?.length} Season`
                    }
                 </Text>
               </HStack>
-            )}
+            )} */}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>

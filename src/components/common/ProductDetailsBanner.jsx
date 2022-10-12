@@ -64,7 +64,7 @@ function ProductDetailsBanner({ item, onToggle }) {
             <Box
               w="65%"
               h="100%"
-              bg={`url(${item.banner.url})`}
+              bg={`url(${item.banner})`}
               bgSize="cover"
               borderRadius="0 .5rem .5rem 0"
             ></Box>
@@ -90,7 +90,16 @@ function ProductDetailsBanner({ item, onToggle }) {
               {truncate(item.description, 250)}
             </Text>
             <Flex align="center" mt="2rem">
-              {item.type[0].__component === 'product.single-item' ? (
+            <HStack>
+                    <Icon color="#fff" as={BiCart} />
+                    <Text color="#fff" fontSize="1.2rem">
+                      {country === 'Nigeria' ? '₦' : '$'}
+                      {country === 'Nigeria'
+                        ? commafy(item.price * 470)
+                        : item.price}
+                    </Text>
+                  </HStack>
+              {/* {item.type === 'single' ? (
                 <>
                   <HStack>
                     <Icon color="#fff" as={BiCart} />
@@ -110,7 +119,7 @@ function ProductDetailsBanner({ item, onToggle }) {
                     {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
                   </Text>
                 </HStack>
-              )}
+              )} */}
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
@@ -122,7 +131,7 @@ function ProductDetailsBanner({ item, onToggle }) {
               </HStack>
             </Flex>
             <Flex align="center" mt="1.5rem">
-              {item.genres.map((genre) => (
+              {item.categories?.map((genre) => (
                 <HStack key={genre.id}>
                   <Text color="#fff">{genre.name}</Text>
                   <Box
@@ -137,7 +146,7 @@ function ProductDetailsBanner({ item, onToggle }) {
               ))}
             </Flex>
             <HStack spacing="3rem" mt="2rem">
-              {item.type[0].__component === 'product.single-item' && (
+              {item.type === 'single' && (
                 <Btn onClick={handleClick} p="1.6rem">
                   Watch now
                 </Btn>
@@ -175,13 +184,22 @@ function ProductDetailsBanner({ item, onToggle }) {
               fontSize={['5rem', '7rem']}
               fontWeight="700"
             >
-              {item.title}
+              {item.name}
             </Text>
             <Text maxW="500px" fontSize={['1.2rem', null]}>
               {truncate(item.description, 250)}
             </Text>
             <Flex align="center" mt="2rem">
-              {item.type[0].__component === 'product.single-item' ? (
+            <HStack>
+                    <Icon as={BiCart} />
+                    <Text fontSize="1.2rem">
+                      {country === 'Nigeria' ? '₦' : '$'}
+                      {country === 'Nigeria'
+                        ? commafy(item.type[0].buyPrice * 470)
+                        : item.type[0].buyPrice}
+                    </Text>
+                  </HStack>
+              {/* {item.type === 'single' ? (
                 <>
                   <HStack>
                     <Icon as={BiCart} />
@@ -201,17 +219,17 @@ function ProductDetailsBanner({ item, onToggle }) {
                     {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
                   </Text>
                 </HStack>
-              )}
+              )} */}
               <Box fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
               <HStack>
                 <Icon as={BsClockHistory} />
-                <Text fontSize="1.2rem">{item.type[0].runtime || '45min'}</Text>
+                <Text fontSize="1.2rem">{item.runtime || '45min'}</Text>
               </HStack>
             </Flex>
             <Flex align="center" mt="1.5rem">
-              {item.genres.map((genre) => (
+              {item.categories.map((genre) => (
                 <HStack key={genre.id}>
                   <Text>{genre.name}</Text>
                   <Box fontWeight="800" fontSize="1.2rem" mx=".5rem">
@@ -221,7 +239,7 @@ function ProductDetailsBanner({ item, onToggle }) {
               ))}
             </Flex>
             <HStack spacing="1.5rem" mt="2rem">
-              {item.type[0].__component === 'product.single-item' && (
+              {item.type === 'single' && (
                 <Btn onClick={handleClick} p="1.6rem">
                   Watch now
                 </Btn>

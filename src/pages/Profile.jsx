@@ -11,7 +11,7 @@ import walletIcon from '../assets/icons/Wallet.svg';
 import { SectionWrapper } from '../components/layout';
 
 import { AuthContext } from '../context/auth';
-import { createTopup, getSinglesData, getUsersOrders } from '../queries';
+import { createTopup, getCustomerDetails, getSinglesData, getUsersOrders } from '../queries';
 import { closePaymentModal } from '../util/helpers';
 import { LoadingScreen, LongCardSlider } from '../components/common';
 import { useQuery } from 'react-query';
@@ -25,10 +25,11 @@ function Profile() {
   const { isLoading: fetchingOrders, data, isError, error } = useQuery(
     ['myOrders', authState.jwt, authState.user.id],
     getUsersOrders,
-    { refetchOnWindowFocus: 'false' }
+    // { refetchOnWindowFocus: 'false' }
   );
 
   const { data:movies } = useQuery('singles', getSinglesData)
+  // const { data:userData } = useQuery('userData', getCustomerDetails)
 
   if (fetchingOrders) {
     return <LoadingScreen />;

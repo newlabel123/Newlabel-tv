@@ -38,23 +38,6 @@ const login = async (formData) => {
       // return err.response;
     });
 };
-const getCustomerDetails = async (id) => {
-  return await axios
-    .get(`${BASE}/customer/${id}`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      // console.log(err.response, 'err')
-      const error = err.response;
-      toast.dark(
-        error.data.message ||
-          error.data.error ||
-          error.message ||
-          "Something went wrong"
-      );
-      // return err.response;
-    });
-};
 
-export { signup, login, getCustomerDetails };
+
+export { signup, login };

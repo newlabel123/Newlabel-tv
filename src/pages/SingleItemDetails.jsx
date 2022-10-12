@@ -1,39 +1,46 @@
-import { Box, Fade, useDisclosure } from '@chakra-ui/react'
-import React from 'react'
-import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import { Box, Fade, useDisclosure } from '@chakra-ui/react';
+import React from 'react';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import {
   Trailer,
   Similar,
   CheckoutModal,
   LoadingScreen,
-} from '../components/common'
-import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner'
-import { getProductDetails } from '../queries'
+} from '../components/common';
+import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner';
+import {  getSingleDetails } from '../queries';
 
 function SingleItemDetails() {
-  const { id } = useParams()
-  const { isOpen, onToggle } = useDisclosure()
+  const { id } = useParams();
+  const { isOpen, onToggle } = useDisclosure();
 
-  const { data, isLoading } = useQuery(
-    ['getProductDetails', id],
-    getProductDetails
-  )
+  console.log(id,'slug')
+
+  const { data, isLoading, error } = useQuery(
+    [ id,'singleMovieDetails',],
+    getSingleDetails
+  );
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
+  if (isLoading) {
+    console.log({error})
+  }
+
+
 
   return (
     <Box>
-      <ProductDetailsBanner item={data} onToggle={onToggle} />
+      <ProductDetailsBanner item={data.data} onToggle={onToggle} />
       <Trailer />
       <Similar related={data.related} />
       <Fade in={isOpen} unmountOnExit={true}>
-        <CheckoutModal product={data} onToggle={onToggle} />
+        <CheckoutModal product={data.data} onToggle={onToggle} />
       </Fade>
     </Box>
-  )
+  );
 }
 
-export { SingleItemDetails }
+export { SingleItemDetails };
