@@ -50,7 +50,7 @@ function Slide({ item }) {
         <Box
           w="65%"
           h="100%"
-          bg={`url(${item?.poster})`}
+          bg={`url(${item?.poster || item?.banner})`}
           bgSize="cover"
           borderRadius="0 .5rem .5rem 0"
         />
@@ -71,9 +71,9 @@ function Slide({ item }) {
             fontSize="7rem"
             fontWeight="700"
           >
-            {item?.name}
+            {item.name}
           </Text>
-          <Text maxW="500px">{truncate(item?.description, 250)}</Text>
+          <Text maxW="500px">{truncate(item.description, 250)}</Text>
           <Flex align="center" mt="2rem">
             {item.type === 'single' ? (
               <>
@@ -91,11 +91,10 @@ function Slide({ item }) {
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.type === 'series'
-                    ? item.type?.seasons.length > 1
+                  {item.seasons.length > 1
                       ? `${item.type?.seasons.length} Seasons`
                       : `${item.type?.seasons.length} Season`
-                    : null}
+                   }
                 </Text>
               </HStack>
             )}
