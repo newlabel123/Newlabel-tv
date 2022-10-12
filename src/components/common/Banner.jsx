@@ -6,35 +6,35 @@ import {
   Icon,
   Text,
   useMediaQuery,
-} from '@chakra-ui/react'
-import React, { useRef, useContext } from 'react'
-import Slider from 'react-slick'
-import commafy from 'commafy'
-import { AiOutlinePlayCircle } from 'react-icons/ai'
-import { BiCart } from 'react-icons/bi'
-import { BsClockHistory } from 'react-icons/bs'
-import { RiMovieLine } from 'react-icons/ri'
+} from '@chakra-ui/react';
+import React, { useRef, useContext } from 'react';
+import Slider from 'react-slick';
+import commafy from 'commafy';
+import { AiOutlinePlayCircle } from 'react-icons/ai';
+import { BiCart } from 'react-icons/bi';
+import { BsClockHistory } from 'react-icons/bs';
+import { RiMovieLine } from 'react-icons/ri';
 
-import { Btn } from '../common'
+import { Btn } from '../common';
 
-import { truncate } from '../../util/helpers'
+import { truncate } from '../../util/helpers';
 
-import { ReactComponent as NextIcon } from '../../assets/icons/next.svg'
-import styled from '@emotion/styled'
-import { useHistory } from 'react-router-dom'
-import { LocationContext } from '../../context/location'
+import { ReactComponent as NextIcon } from '../../assets/icons/next.svg';
+import styled from '@emotion/styled';
+import { useHistory } from 'react-router-dom';
+import { LocationContext } from '../../context/location';
 
 function Slide({ item }) {
-  const { country } = useContext(LocationContext)
-  const history = useHistory()
+  const { country } = useContext(LocationContext);
+  const history = useHistory();
 
   const handleClick = () => {
-    if (item.product.type[0].__component === 'product.single-item') {
-      history.push(`/singles/${item.product.id}`)
+    if (item.type === 'single') {
+      history.push(`/singles/${item?.id}`);
     } else {
-      history.push(`/series/${item.product.id}`)
+      history.push(`/series/${item?.id}`);
     }
-  }
+  };
 
   return (
     <Box w="100%" h="500px" pos="relative">
@@ -50,7 +50,7 @@ function Slide({ item }) {
         <Box
           w="65%"
           h="100%"
-          bg={`url(${item.product.banner.url})`}
+          bg={`url(${item?.poster})`}
           bgSize="cover"
           borderRadius="0 .5rem .5rem 0"
         />
@@ -71,19 +71,19 @@ function Slide({ item }) {
             fontSize="7rem"
             fontWeight="700"
           >
-            {item.product.title}
+            {item?.name}
           </Text>
-          <Text maxW="500px">{truncate(item.product.description, 250)}</Text>
+          <Text maxW="500px">{truncate(item?.description, 250)}</Text>
           <Flex align="center" mt="2rem">
-            {item.product.type[0].__component === 'product.single-item' ? (
+            {item.type === 'single' ? (
               <>
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
                     {country === 'Nigeria' ? '₦' : '$'}
                     {country === 'Nigeria'
-                      ? commafy(item.product.type[0].buyPrice * 470)
-                      : item.product.type[0].buyPrice}
+                      ? commafy(item.price * 470)
+                      : item.price}
                   </Text>
                 </HStack>
               </>
@@ -91,10 +91,11 @@ function Slide({ item }) {
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.product.type[0].seasons.length}{' '}
-                  {item.product.type[0].seasons.length > 1
-                    ? 'Seasons'
-                    : 'Season'}
+                  {item.type === 'series'
+                    ? item.type?.seasons.length > 1
+                      ? `${item.type?.seasons.length} Seasons`
+                      : `${item.type?.seasons.length} Season`
+                    : null}
                 </Text>
               </HStack>
             )}
@@ -104,14 +105,14 @@ function Slide({ item }) {
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                {item.product.type[0].runtime || '45min'}
+                {item.runtime || '45min'}
               </Text>
             </HStack>
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>
             <Text color="#fff" fontSize="1.2rem">
-              {item.product.year}
+              {item.year}
             </Text>
           </Flex>
           <HStack spacing="3rem" mt="2rem">
@@ -135,7 +136,7 @@ function Slide({ item }) {
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }
 
 const Left = styled(Flex)`
@@ -148,14 +149,14 @@ const Left = styled(Flex)`
     left: 100%;
     width: 275px;
   }
-`
+`;
 
 function Banner({ bannerData }) {
-  const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
+  const [isLargerThan480] = useMediaQuery('(min-width: 480px)');
 
-  const sliderRef = useRef()
+  const sliderRef = useRef();
 
-  const SlderNav = chakra(NextIcon)
+  const SlderNav = chakra(NextIcon);
 
   const settings = {
     dots: false,
@@ -163,16 +164,16 @@ function Banner({ bannerData }) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  }
+  };
 
-  const nextSlide = () => sliderRef.current.slickNext()
+  const nextSlide = () => sliderRef.current.slickNext();
 
   return (
     <>
       {isLargerThan480 ? (
         <Box pos="relative" mb="6rem">
           <Slider ref={sliderRef} settings={settings}>
-            {bannerData.slides.map((item) => (
+            {bannerData?.map((item) => (
               <Slide item={item} key={item.id} />
             ))}
           </Slider>
@@ -198,7 +199,7 @@ function Banner({ bannerData }) {
         </>
       )}
     </>
-  )
+  );
 }
 
-export { Banner }
+export { Banner };

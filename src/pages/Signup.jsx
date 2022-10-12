@@ -7,69 +7,67 @@ import {
   InputRightElement,
   InputGroup,
   useColorMode,
-} from '@chakra-ui/react'
-import React, { useState, useEffect, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
+} from '@chakra-ui/react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-import { Btn, CustomInput, ErrorMessage } from '../components/common'
+import { Btn, CustomInput, ErrorMessage } from '../components/common';
 
-import logomark from '../assets/images/logomark.svg'
-import { PasswordToggle } from './Login'
-import { signup } from '../queries'
-import { AuthContext, LOGIN } from '../context/auth'
+import logomark from '../assets/images/logomark.svg';
+import { PasswordToggle } from './Login';
+import { signup } from '../queries';
+// import { AuthContext } from '../context/auth';
 
 function Signup() {
-  const [type, setType] = useState('password')
-  const [dobValidation, setdobValidation] = useState(null)
-  const { dispatch } = useContext(AuthContext)
-  const history = useHistory()
-  const { colorMode } = useColorMode()
+  const [type, setType] = useState('password');
+  const [dobValidation, setdobValidation] = useState(null);
+  // const { dispatch } = useContext(AuthContext);
+  const history = useHistory();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
-    const today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1 // January is 0!
-    const yyyy = today.getFullYear()
-    const minYYYY = yyyy - 18
+    const today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear();
+    const minYYYY = yyyy - 18;
 
     if (dd < 10) {
-      dd = '0' + dd
+      dd = '0' + dd;
     }
     if (mm < 10) {
-      mm = '0' + mm
+      mm = '0' + mm;
     }
 
-    const maxDate = `${yyyy}-${mm}-${dd}`
-    const minDate = `${minYYYY}-01-01`
+    const maxDate = `${yyyy}-${mm}-${dd}`;
+    const minDate = `${minYYYY}-01-01`;
 
-    setdobValidation({ maxDate, minDate })
-  }, [])
+    setdobValidation({ maxDate, minDate });
+  }, []);
 
-  const [isLoading, setIsLoading] = useState(false)
-  const { register, handleSubmit, errors } = useForm()
+  const [isLoading, setIsLoading] = useState(false);
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      setIsLoading(true)
-      const res = await signup({ ...data, username: data.name.split(' ')[0] })
-
-      dispatch({ type: LOGIN, payload: res })
-      setIsLoading(true)
-
-      history.push('/')
-
-      toast.dark('Signup successful')
+      setIsLoading(true);
+      const res = await signup(data);
+      if (res) {
+        // dispatch({ type: 'LOGIN', payload: res });
+        setIsLoading(false);
+        toast.dark('Signup successful');
+        history.push('/login');
+      }
+      setIsLoading(false);
     } catch (error) {
-      toast.dark(
-        error.response?.data?.message[0]?.messages[0]?.message ||
-          'Signup failed'
-      )
-      setIsLoading(false)
-      console.log({ error })
+      toast.dark(error.message || 'Signup failed');
+      setIsLoading(false);
+      console.log(error);
+      throw new Error('Signup failed');
     }
-  }
+  };
 
   return (
     <Flex w="100%" minH="100vh" justify="center" align="center" py="5rem">
@@ -91,20 +89,38 @@ function Signup() {
           <Box w="100%" align="left">
             <Text
               as="label"
-              htmlFor="name"
+              htmlFor="firstname"
               fontWeight="400"
               fontSize="1.4rem"
               color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
             >
-              Full Name
+              First Name
+            </Text>
+            <CustomInput
+              placeholder="First Name"
+              name="firstname"
+              id="firstname"
+              register={register}
+            />
+            <ErrorMessage message={errors?.firstname?.message} />
+          </Box>
+          <Box w="100%" align="left">
+            <Text
+              as="label"
+              htmlFor="lastname"
+              fontWeight="400"
+              fontSize="1.4rem"
+              color={colorMode === 'light' ? 'brand.gray300' : 'brand.gray200'}
+            >
+              Last Name
             </Text>
             <CustomInput
               placeholder="Name"
-              name="name"
-              id="name"
+              name="lastname"
+              id="lastname"
               register={register}
             />
-            <ErrorMessage message={errors?.name?.message} />
+            <ErrorMessage message={errors?.lastname?.message} />
           </Box>
           <Box w="100%" align="left">
             <Text
@@ -125,7 +141,7 @@ function Signup() {
             />
             <ErrorMessage message={errors?.email?.message} />
           </Box>
-          <Box w="100%" align="left">
+          {/* <Box w="100%" align="left">
             <Text
               as="label"
               htmlFor="dob"
@@ -150,7 +166,7 @@ function Signup() {
               }}
             />
             <ErrorMessage message={errors?.dob?.message} />
-          </Box>
+          </Box> */}
           <Box w="100%" align="left">
             <Text
               as="label"
@@ -205,7 +221,7 @@ function Signup() {
         </VStack>
       </Box>
     </Flex>
-  )
+  );
 }
 
-export { Signup }
+export { Signup };

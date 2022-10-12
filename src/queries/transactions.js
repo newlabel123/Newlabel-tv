@@ -1,8 +1,8 @@
-import axios from 'axios'
+import axios from './axios';
 // import qs from 'qs'
 
 const createTopup = async (token, user, txId) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
+  const BASE = process.env.REACT_APP_API_BASEURL;
 
   try {
     const { data } = await axios.post(
@@ -17,13 +17,13 @@ const createTopup = async (token, user, txId) => {
           Authorization: `Bearer ${token}`,
         },
       }
-    )
+    );
 
-    return data
+    return data;
   } catch (error) {
-    console.log({ error })
+    console.log({ error });
   }
-}
+};
 
 const createOrder = async (
   token,
@@ -37,9 +37,9 @@ const createOrder = async (
 ) => {
   // const BASE = process.env.REACT_APP_API_BASEURL
 
-  const BASE = 'http://localhost:1337'
+  const BASE = 'http://localhost:1337';
 
-  console.log(season)
+  console.log(season);
 
   const { data } = await axios.post(
     `${BASE}/orders`,
@@ -58,42 +58,39 @@ const createOrder = async (
         Authorization: `Bearer ${token}`,
       },
     }
-  )
+  );
 
-  return data
-}
+  return data;
+};
 
 const checkIfUserOwnsItem = async (token, user, product, season) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
+  const BASE = process.env.REACT_APP_API_BASEURL;
 
   const { data } = await axios.get(`${BASE}/orders?user=${user}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
+  });
 
-  const filtered = data.filter((item) => item.product.id === product)
+  const filtered = data.filter((item) => item.product.id === product);
 
   if (!season) {
-    return filtered.length > 0
+    return filtered.length > 0;
   } else {
-    console.log(filtered)
-    return filtered.length > 0 && filtered[0].details.includes(season)
+    console.log(filtered);
+    return filtered.length > 0 && filtered[0].details.includes(season);
   }
-}
+};
 
-const getUsersOrders = async (key, token, user) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
+const getUsersOrders = async () => {
+  const BASE = process.env.REACT_APP_API_BASEURL;
+  const { data } = await axios.get(`${BASE}/order/me`).then((res) => {
+    console.log(res);
+    return res;
+  });
 
-  const { data } = await axios.get(`${BASE}/orders?user=${user}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  return data
+};
 
-  return data.map((item) => item.product)
-}
-
-export { createTopup, createOrder, checkIfUserOwnsItem, getUsersOrders }
+export { createTopup, createOrder, checkIfUserOwnsItem, getUsersOrders };

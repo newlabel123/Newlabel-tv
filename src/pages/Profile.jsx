@@ -1,49 +1,52 @@
-import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
-import styled from '@emotion/styled'
-import { FlutterWaveButton } from 'flutterwave-react-v3'
-import { v4 as uuidv4 } from 'uuid'
+import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
+import styled from '@emotion/styled';
+import { FlutterWaveButton } from 'flutterwave-react-v3';
+import { v4 as uuidv4 } from 'uuid';
 
-import profileIcon from '../assets/icons/Profile.svg'
-import emailIcon from '../assets/icons/Email.svg'
-import locationIcon from '../assets/icons/Location.svg'
-import walletIcon from '../assets/icons/Wallet.svg'
-import { SectionWrapper } from '../components/layout'
+import profileIcon from '../assets/icons/Profile.svg';
+import emailIcon from '../assets/icons/Email.svg';
+import locationIcon from '../assets/icons/Location.svg';
+import walletIcon from '../assets/icons/Wallet.svg';
+import { SectionWrapper } from '../components/layout';
 
-import { AuthContext, UPDATE } from '../context/auth'
-import { createTopup, getUsersOrders } from '../queries'
-import { closePaymentModal } from '../util/helpers'
-import { LoadingScreen, LongCardSlider } from '../components/common'
-import { useQuery } from 'react-query'
-import { LocationContext } from '../context/location'
+import { AuthContext } from '../context/auth';
+import { createTopup, getSinglesData, getUsersOrders } from '../queries';
+import { closePaymentModal } from '../util/helpers';
+import { LoadingScreen, LongCardSlider } from '../components/common';
+import { useQuery } from 'react-query';
+import { LocationContext } from '../context/location';
 
 function Profile() {
-  const { country } = useContext(LocationContext)
-  const { authState, dispatch } = useContext(AuthContext)
-  const [isLoading, setIsLoading] = useState(false)
+  const { country } = useContext(LocationContext);
+  const { authState, dispatch } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isLoading: fetchingOrders, data, isError, error } = useQuery(
     ['myOrders', authState.jwt, authState.user.id],
-    getUsersOrders
-  )
+    getUsersOrders,
+    { refetchOnWindowFocus: 'false' }
+  );
+
+  const { data:movies } = useQuery('singles', getSinglesData)
 
   if (fetchingOrders) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (isError) {
-    console.log({ error })
+    console.log({ error });
   }
 
   async function saveTransaction(txId) {
     try {
-      setIsLoading(true)
-      const res = await createTopup(authState.jwt, authState.user.id, txId)
+      setIsLoading(true);
+      const res = await createTopup(authState.jwt, authState.user.id, txId);
 
-      dispatch({ type: UPDATE, payload: res.user })
-      setIsLoading(false)
+      dispatch({ type: 'UPDATE', payload: res.user });
+      setIsLoading(false);
     } catch (error) {
-      console.log({ error })
+      console.log({ error });
     }
   }
 
@@ -57,7 +60,7 @@ function Profile() {
     customer: {
       email: authState.user.email,
       phonenumber: authState.user.phone || '',
-      name: authState.user.name,
+      firstname: authState.user.name,
     },
     customizations: {
       title: 'Wallet Topup',
@@ -65,21 +68,21 @@ function Profile() {
       logo:
         'https://res.cloudinary.com/new-label/image/upload/v1609092832/newlabel_brand_icon_mark_qay8i6.png',
     },
-  }
+  };
 
   const fwConfig = {
     ...config,
     text: 'Topup',
     callback: (response) => {
-      console.log('PAYMENT COMPLETE........')
-      saveTransaction(response.transaction_id)
-      closePaymentModal()
+      console.log('PAYMENT COMPLETE........');
+      saveTransaction(response.transaction_id);
+      closePaymentModal();
     },
     onClose: () => {},
-  }
+  };
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   return (
@@ -101,22 +104,21 @@ function Profile() {
           borderRadius="5px"
         >
           <Text fontSize="10rem" color="#fff" fontWeight="300">
-            {authState.user.name.charAt(0)}
-            {authState.user.name.split(' ')[1].charAt(0)}
+            {authState.user?.firstname[0] + authState.user?.lastname[0]}
           </Text>
         </Flex>
         <DetailsBox mx="auto">
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image src={profileIcon} />
-            <Text>{authState.user.name}</Text>
+            <Text>{authState.user?.firstname +' ' + authState.user?.lastname}</Text>
           </HStack>
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image maxW="2rem" src={emailIcon} />
-            <Text>{authState.user.email}</Text>
+            <Text>{authState.user?.email}</Text>
           </HStack>
           <HStack mt="2.5rem" minW="130px" spacing="1.1rem">
             <Image src={locationIcon} />
-            <Text>{authState.user.location || 'No location'}</Text>
+            <Text>{authState.user?.location || 'No location'}</Text>
           </HStack>
           <HStack spacing="5rem" mt="4.5rem" align="flex-start">
             <HStack minW="130px" spacing="1.1rem">
@@ -124,7 +126,7 @@ function Profile() {
               <Text>Wallet Balance</Text>
             </HStack>
             <Box>
-              <Text>${authState.user.walletBalance}</Text>
+              <Text>${authState.user?.walletBalance}</Text>
               <Text
                 cursor="pointer"
                 color="brand.gray300"
@@ -139,14 +141,18 @@ function Profile() {
       </ProfileInfo>
       <Box>
         <SectionWrapper title="Your Feed" mt="0" w="100%">
-          <LongCardSlider items={data} />
+          {data && data.length > 0 ? <LongCardSlider items={data} /> : null}
+        </SectionWrapper>
+         <SectionWrapper title="Items you might Like" mt="30" w="100%">
+          {movies &&  <LongCardSlider items={movies.banner} /> }
         </SectionWrapper>
       </Box>
+
     </PageWrapper>
-  )
+  );
 }
 
-export { Profile }
+export { Profile };
 
 const ProfileInfo = styled(Flex)`
   @media (max-width: 550px) {
@@ -159,13 +165,13 @@ const ProfileInfo = styled(Flex)`
   @media (min-width: 900px) {
     flex-direction: column;
   }
-`
+`;
 
 const DetailsBox = styled(Box)`
   @media (min-width: 900px) {
     margin: 0;
   }
-`
+`;
 
 const PageWrapper = styled(Flex)`
   flex-direction: column;
@@ -173,4 +179,4 @@ const PageWrapper = styled(Flex)`
   @media (min-width: 900px) {
     flex-direction: row;
   }
-`
+`;

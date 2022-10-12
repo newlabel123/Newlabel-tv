@@ -36,7 +36,7 @@ function WideCardSlider({ items }) {
             index={i}
             key={item.id}
             item={item}
-            productType={item.type[0].__component}
+            // productType={item.type[0].__component}
             setShowModal={setShowModal}
             showModal={showModal}
             setCurrentItem={setCurrentItem}

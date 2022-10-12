@@ -1,23 +1,37 @@
-import axios from 'axios'
+import axios from 'axios';
+import {toast} from 'react-toastify';
 
-const { token } = JSON.parse(localStorage.getItem('auth')) || { token: null }
+const auth = localStorage.getItem('auth') ?? null;
+
+// const { token } = JSON.parse(localStorage.getItem("auth") ?? []) ?? {
+//   token: null,
+// };
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASEURL,
-})
+});
 
-instance.defaults.headers.common.Authorization = `Bearer ${token}`
+if (auth) {
+  const { jwt } = JSON.parse(auth);
+  instance.defaults.headers['c-authorization'] = `Bearer ${jwt}`;
+}
 
 instance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // console.log('res', response);
+    return response;
+  },
   (error) => {
-    if (error?.status === 401) {
-      console.log('UNAUTHORIZED')
-      window.location.replace('/login')
+    console.log('err', error.response);
+    if (error?.response.status === 401) {
+      console.log('UNAUTHORIZED');
+      toast.dark('Token expired. Please login again.')
+      // localStorage.removeItem('auth')
+      // window.location.replace('/login');
     } else {
-      throw error
+      throw error;
     }
   }
-)
+);
 
-export { instance }
+export default instance;

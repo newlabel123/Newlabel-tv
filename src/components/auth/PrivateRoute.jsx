@@ -4,15 +4,15 @@ import jwtDecode from 'jwt-decode'
 import { AuthContext } from '../../context/auth'
 
 function PrivateRoute({ path, exact, children }) {
-  const { authState } = useContext(AuthContext)
+  const { authState:{jwt} } = useContext(AuthContext)
 
   // Check is user is logged in
-  if (!authState.jwt) {
+  if (!jwt) {
     return <Redirect to="/login" />
   }
 
   // Check if token is expired
-  const { exp } = jwtDecode(authState.jwt)
+  const { exp } = jwtDecode(jwt)
   if (Date.now() >= exp * 1000) {
     return <Redirect to="/login" />
   }

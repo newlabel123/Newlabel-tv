@@ -21,22 +21,22 @@ import { ReactComponent as Caret } from '../../assets/icons/Arrow Down.svg'
 
 import logo from '../../assets/images/logo-green.svg'
 import { Btn, ThemeSwitch } from '../common'
-import { AuthContext, LOGOUT } from '../../context/auth'
+import { AuthContext } from '../../context/auth/authContext'
 
 function Header() {
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
 
   return <>{isLargerThan768 ? <DesktopHeader /> : <MobileHeader />}</>
 }
-
 export { Header }
 
 function DesktopHeader() {
   const { authState, dispatch } = useContext(AuthContext)
+
   const { colorMode } = useColorMode()
 
   const logout = () => {
-    dispatch({ type: LOGOUT, payload: '' })
+    dispatch({ type: 'LOGOUT', payload: '' })
     window.location.replace('/')
   }
 
@@ -87,7 +87,7 @@ function DesktopHeader() {
                   bg="brand.green"
                   color="#fff"
                   size="lg"
-                  name={authState.user.name}
+                  name={authState?.user?.firstname+ authState?.user?.lastname }
                   cursor="pointer"
                 />
                 <Caret />
@@ -115,7 +115,7 @@ function MobileHeader() {
   const { colorMode } = useColorMode()
 
   const logout = () => {
-    dispatch({ type: LOGOUT, payload: '' })
+    dispatch({ type: 'LOGOUT', payload: '' })
     window.location.replace('/')
   }
 

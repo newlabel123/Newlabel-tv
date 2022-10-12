@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Image,
@@ -9,17 +9,17 @@ import {
   InputRightElement,
   IconButton,
   useColorMode,
-} from '@chakra-ui/react'
-import { Link, useHistory } from 'react-router-dom'
-import { BsEye, BsEyeSlash } from 'react-icons/bs'
-import { useForm } from 'react-hook-form'
+} from '@chakra-ui/react';
+import { Link, useHistory } from 'react-router-dom';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { useForm } from 'react-hook-form';
 
-import { Btn, CustomInput, ErrorMessage } from '../components/common'
+import { Btn, CustomInput, ErrorMessage } from '../components/common';
 
-import logomark from '../assets/images/logomark-green.svg'
-import { login } from '../queries'
-import { AuthContext, LOGIN } from '../context/auth'
-import { toast } from 'react-toastify'
+import logomark from '../assets/images/logomark-green.svg';
+import { login } from '../queries';
+import { AuthContext} from '../context/auth';
+import { toast } from 'react-toastify';
 
 function PasswordToggle({ type, setType }) {
   if (type === 'text') {
@@ -35,7 +35,7 @@ function PasswordToggle({ type, setType }) {
         cursor="pointer"
         _hover={{ background: 'transparent' }}
       />
-    )
+    );
   }
 
   return (
@@ -51,37 +51,35 @@ function PasswordToggle({ type, setType }) {
       bg="transparent"
       _hover={{ background: 'transparent' }}
     />
-  )
+  );
 }
 
 function Login() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [type, setType] = useState('password')
-  const { dispatch } = useContext(AuthContext)
-  const history = useHistory()
-  const { colorMode } = useColorMode()
+  const [isLoading, setIsLoading] = useState(false);
+  const [type, setType] = useState('password');
+  const { dispatch } = useContext(AuthContext);
+  const history = useHistory();
+  const { colorMode } = useColorMode();
 
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      setIsLoading(true)
-      const res = await login(data)
-
-      dispatch({ type: LOGIN, payload: res })
-      setIsLoading(true)
-
-      history.push('/')
-
-      toast.dark('Login successful')
-    } catch (error) {
-      toast.dark(
-        error.response?.data?.message[0]?.messages[0]?.message || 'Login failed'
-      )
+      setIsLoading(true);
+      const res = await login(data);
+      if (res) {
+        dispatch({ type: 'LOGIN', payload: res.data });
+        setIsLoading(false);
+        history.push('/');
+        toast.dark('Login successful');
+      }
       setIsLoading(false)
-      console.log({ error })
+    } catch (error) {
+      toast.dark(error.message || 'Login failed');
+      setIsLoading(false);
+      console.log({ error });
     }
-  }
+  };
 
   return (
     <Flex w="100%" h="100vh" justify="center" align="center" py="5rem">
@@ -114,10 +112,10 @@ function Login() {
               type="email"
               placeholder="Email"
               id="email"
-              name="identifier"
+              name="email"
               register={register}
             />
-            <ErrorMessage message={errors?.identifier?.message} />
+            <ErrorMessage message={errors?.email?.message} />
           </Box>
           <Box w="100%" align="left">
             <Text
@@ -173,7 +171,7 @@ function Login() {
         </VStack>
       </Box>
     </Flex>
-  )
+  );
 }
 
-export { Login, PasswordToggle }
+export { Login, PasswordToggle };

@@ -1,19 +1,60 @@
-import axios from 'axios'
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const BASE = process.env.REACT_APP_API_BASEURL;
 
 const signup = async (formData) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
-
-  const { data } = await axios.post(`${BASE}/auth/local/register`, formData)
-
-  return data
-}
-
+  return await axios
+    .post(`${BASE}/auth/customer/signup`, formData)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.response, 'err')
+      const error = err.response;
+      toast.dark(
+        error.data.message[0] ||
+          error.data.error ||
+          error.message ||
+          "Signup failed"
+      );
+    });
+};
 const login = async (formData) => {
-  const BASE = process.env.REACT_APP_API_BASEURL
+  return await axios
+    .post(`${BASE}/auth/customer/login`, formData)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      // console.log(err.response, 'err')
+      const error = err.response;
+      toast.dark(
+        error.data.message ||
+          error.data.error ||
+          error.message ||
+          "Something went wrong"
+      );
+      // return err.response;
+    });
+};
+const getCustomerDetails = async (id) => {
+  return await axios
+    .get(`${BASE}/customer/${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      // console.log(err.response, 'err')
+      const error = err.response;
+      toast.dark(
+        error.data.message ||
+          error.data.error ||
+          error.message ||
+          "Something went wrong"
+      );
+      // return err.response;
+    });
+};
 
-  const { data } = await axios.post(`${BASE}/auth/local`, formData)
-
-  return data
-}
-
-export { signup, login }
+export { signup, login, getCustomerDetails };

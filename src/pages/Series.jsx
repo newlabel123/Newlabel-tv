@@ -24,9 +24,9 @@ function Series() {
   return (
     <Fade in={true}>
       <Box>
-        <Banner bannerData={data.banner} />
+        <Banner bannerData={data?.banner} />
         <Box>
-          {data.sections.map((item) => (
+          {data?.sections?.map((item) => (
             <SectionWrapper key={item.id} title={item.title}>
               {item.cardType === 'long' ? (
                 <LongCardSlider items={item.products} />

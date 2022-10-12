@@ -9,17 +9,18 @@ import { useHistory } from 'react-router-dom'
 import { truncate } from '../../util/helpers'
 import { LocationContext } from '../../context/location'
 
-function ProductLong({ index, item, productType, ...rest }) {
+function ProductLong({ index, item,  ...rest }) {
   const { country } = useContext(LocationContext)
   const history = useHistory()
 
   const handleClick = () => {
-    if (productType === 'product.single-item') {
+    // if (productType === 'product.single-item') {
       history.push(`/singles/${item.id}`)
-    } else {
-      history.push(`/series/${item.id}`)
-    }
+  //   } else {
+  //     history.push(`/series/${item.id}`)
+  //   }
   }
+  console.log(item, 'item')
 
   return (
     <CardBox
@@ -34,7 +35,7 @@ function ProductLong({ index, item, productType, ...rest }) {
       className="item"
     >
       <Image
-        src={item.poster?.url}
+        src={item.poster}
         alt="naruto"
         objectFit="cover"
         w="100%"
@@ -48,18 +49,18 @@ function ProductLong({ index, item, productType, ...rest }) {
             {truncate(item?.title, 25)}
           </Text>
           <Flex align="center">
-            {productType === 'product.single-item' ? (
-              <>
+            {/* {productType === 'product.single-item' ? (
+              <> */}
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
                     {country === 'Nigeria' ? '₦' : '$'}
                     {country === 'Nigeria'
-                      ? commafy(item.type[0].buyPrice * 470)
-                      : item.type[0].buyPrice}
+                      ? commafy(item.price * 470)
+                      : item.price}
                   </Text>
                 </HStack>
-              </>
+              {/* </>
             ) : (
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
@@ -71,16 +72,16 @@ function ProductLong({ index, item, productType, ...rest }) {
             )}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
-            </Box>
+            </Box> */}
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                {item.type[0].runtime || '45min'}
+                {item.runtime || '45min'}
               </Text>
             </HStack>
           </Flex>
           <Flex align="center">
-            {item.genres.map((genre) => (
+            {item.categories.map((genre) => (
               <HStack key={genre.id}>
                 <Text color="#fff" fontSize="1rem">
                   {genre.name}

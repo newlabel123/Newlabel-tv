@@ -117,7 +117,7 @@ function ProductDetailsBanner({ item, onToggle }) {
               <HStack>
                 <Icon color="#fff" as={BsClockHistory} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.type[0].runtime || '45min'}
+                  {item.runtime || '45min'}
                 </Text>
               </HStack>
             </Flex>
