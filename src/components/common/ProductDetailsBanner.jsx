@@ -64,7 +64,7 @@ function ProductDetailsBanner({ item, onToggle }) {
             <Box
               w="65%"
               h="100%"
-              bg={`url(${item.banner})`}
+              bg={`url(${item.banner || item.poster})`}
               bgSize="cover"
               borderRadius="0 .5rem .5rem 0"
             ></Box>
@@ -84,51 +84,46 @@ function ProductDetailsBanner({ item, onToggle }) {
               fontSize={['5rem', '7rem']}
               fontWeight="700"
             >
-              {item.title}
+              {item.name}
             </Text>
             <Text maxW="500px" fontSize={['1.2rem', null]}>
               {truncate(item.description, 250)}
             </Text>
             <Flex align="center" mt="2rem">
-            <HStack>
-                    <Icon color="#fff" as={BiCart} />
-                    <Text color="#fff" fontSize="1.2rem">
-                      {country === 'Nigeria' ? '₦' : '$'}
-                      {country === 'Nigeria'
-                        ? commafy(item.price * 470)
-                        : item.price}
-                    </Text>
-                  </HStack>
-              {/* {item.type === 'single' ? (
-                <>
-                  <HStack>
-                    <Icon color="#fff" as={BiCart} />
-                    <Text color="#fff" fontSize="1.2rem">
-                      {country === 'Nigeria' ? '₦' : '$'}
-                      {country === 'Nigeria'
-                        ? commafy(item.type[0].buyPrice * 470)
-                        : item.type[0].buyPrice}
-                    </Text>
-                  </HStack>
-                </>
-              ) : (
+            {item.itemType === 'Movie' ? (
+              <>
                 <HStack>
-                  <Icon color="#fff" as={RiMovieLine} />
+                  <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    {item.type[0].seasons.length}{' '}
-                    {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+                    ₦ {commafy(item.price)}
+                    {/* {country === 'Nigeria' ? '₦' : '$'}
+                    {country === 'Nigeria'
+                      ? commafy(item.price * 470)
+                      : item.price} */}
                   </Text>
                 </HStack>
-              )} */}
+              </>
+            ) : (
+              <HStack>
+                <Icon color="#fff" as={RiMovieLine} />
+                <Text color="#fff" fontSize="1.2rem">
+                  {item.seasons?.length > 1
+                    ? `${item.seasons?.length} Seasons`
+                    : `${item.seasons?.length} Season`}
+                </Text>
+              </HStack>
+            )}
               <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
                 .
               </Box>
+              {item.runtime ? (
               <HStack>
                 <Icon color="#fff" as={BsClockHistory} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.runtime || '45min'}
+                  {item.runtime || 'N/A'}
                 </Text>
               </HStack>
+            ) : null}
             </Flex>
             <Flex align="center" mt="1.5rem">
               {item.categories?.map((genre) => (
@@ -146,7 +141,7 @@ function ProductDetailsBanner({ item, onToggle }) {
               ))}
             </Flex>
             <HStack spacing="3rem" mt="2rem">
-              {item.type === 'single' && (
+              {item.itemType === 'Movie' && (
                 <Btn onClick={handleClick} p="1.6rem">
                   Watch now
                 </Btn>

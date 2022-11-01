@@ -25,7 +25,7 @@ import { closePaymentModal } from '../../util/helpers'
 import commafy from 'commafy'
 import { LocationContext } from '../../context/location'
 
-function CheckoutModal({ product, onToggle }) {
+function CheckoutModal({ item, onToggle }) {
   const { country } = useContext(LocationContext)
   const { authState } = useContext(AuthContext)
   const [coupon, setCoupon] = useState('')
@@ -34,12 +34,12 @@ function CheckoutModal({ product, onToggle }) {
   const [currentSeason, setCurrentSeason] = useState(1)
 
   let price = 0
-  const productType = product.type[0].__component
+  const productType = item.itemType
 
-  if (productType === 'product.single-item') {
-    price = product.type[0].buyPrice
+  if (productType === 'Movie') {
+    price = item.price
   } else {
-    price = product.type[0].seasons[currentSeason - 1].seasonPassPrice
+    price = item.seasonPassPrice
   }
 
   const history = useHistory()
@@ -56,22 +56,22 @@ function CheckoutModal({ product, onToggle }) {
       toast.dark('Insufficient funds')
     } else {
       try {
-        if (productType === 'product.single-item') {
+        if (productType === 'Movie') {
           await createOrder(
             authState.jwt,
             authState.user.id,
-            product.id,
+            item.id,
             price,
-            product.donation,
+            item.donation,
             'wallet'
           )
         } else {
           await createOrder(
             authState.jwt,
             authState.user.id,
-            product.id,
+            item.id,
             price,
-            product.donation,
+            item.donation,
             'wallet',
             null,
             currentSeason
@@ -100,7 +100,7 @@ function CheckoutModal({ product, onToggle }) {
       name: authState.user.name,
     },
     customizations: {
-      title: product.title,
+      title: item.name,
       description: 'Payment for items in cart',
       logo:
         'https://res.cloudinary.com/new-label/image/upload/v1609092832/newlabel_brand_icon_mark_qay8i6.png',
@@ -153,7 +153,7 @@ function CheckoutModal({ product, onToggle }) {
             w="100%"
             h="100%"
             objectFit="cover"
-            src={product?.widePoster?.url}
+            src={item?.poster}
           />
         </Box>
         <Box w="350px" p="2.5rem" color="#000">
@@ -169,7 +169,7 @@ function CheckoutModal({ product, onToggle }) {
             <Text color="#000">
               Title:{' '}
               <Text color="#505565" ml="1rem" as="span">
-                {product.title}
+                {item.name}
               </Text>
             </Text>
             {productType === 'product.series' && (
@@ -183,7 +183,7 @@ function CheckoutModal({ product, onToggle }) {
                 fontSize="1.3rem"
                 focusBorderColor="rgba(0,0,0,.5)"
               >
-                {product.type[0].seasons.map((season) => (
+                {item.seasons.map((season) => (
                   <option key={season.id} value={season.seasonNumber}>
                     Season {season.seasonNumber}
                   </option>
@@ -195,11 +195,11 @@ function CheckoutModal({ product, onToggle }) {
               <Text color="#505565" ml="1rem" as="span">
                 {country === 'Nigeria' ? '₦' : '$'}
                 {country === 'Nigeria'
-                  ? (product.type[0].buyPrice &&
-                      commafy(product.type[0].buyPrice * 470)) ||
-                    product.type[0].seasons[currentSeason - 1].seasonPassPrice
-                  : product.type[0].buyPrice ||
-                    product.type[0].seasons[currentSeason - 1].seasonPassPrice}
+                  ? (item.price &&
+                      commafy(item.price * 470)) ||
+                    item.seasons[currentSeason - 1].seasonPassPrice
+                  : item.price ||
+                    item.seasons[currentSeason - 1].seasonPassPrice}
               </Text>
             </Text>
           </Box>

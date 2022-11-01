@@ -26,15 +26,18 @@ function Series() {
       <Box>
         <Banner bannerData={data?.banner} />
         <Box>
-          {data?.sections?.map((item) => (
-            <SectionWrapper key={item.id} title={item.title}>
+          <SectionWrapper>
+            <LongCardSlider items={data?.sections}/>
+          </SectionWrapper>
+          {/* {data?.sections?.map((item) => (
+            <SectionWrapper key={item.id} title={item.name}>
               {item.cardType === 'long' ? (
                 <LongCardSlider items={item.products} />
               ) : (
                 <WideCardSlider items={item.products} />
               )}
             </SectionWrapper>
-          ))}
+          ))} */}
         </Box>
       </Box>
     </Fade>

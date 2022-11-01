@@ -14,17 +14,17 @@ function ProductLong({ index, item,  ...rest }) {
   const history = useHistory()
 
   const handleClick = () => {
-    // if (productType === 'product.single-item') {
-      history.push(`/singles/${item.id}`)
-  //   } else {
-  //     history.push(`/series/${item.id}`)
-  //   }
+    if (item.itemType === 'Movie') {
+      history.push(`/singles/${item.slug}`)
+    } else {
+      history.push(`/series/${item.slug}`)
+    }
   }
   console.log(item, 'item')
 
   return (
     <CardBox
-      w={['14rem', '17rem']}
+      w={['15rem', '18rem']}
       h={['20rem', '25rem']}
       mr="1rem"
       position="relative"
@@ -35,7 +35,7 @@ function ProductLong({ index, item,  ...rest }) {
       className="item"
     >
       <Image
-        src={item.poster}
+        src={item.poster || item.banner}
         alt="naruto"
         objectFit="cover"
         w="100%"
@@ -49,30 +49,31 @@ function ProductLong({ index, item,  ...rest }) {
             {truncate(item?.title, 25)}
           </Text>
           <Flex align="center">
-            {/* {productType === 'product.single-item' ? (
-              <> */}
+            {item.itemType === 'Movie' ? (
+              <>
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    {country === 'Nigeria' ? '₦' : '$'}
+                  ₦ {commafy(item.price)}
+                    {/* {country === 'Nigeria' ? '₦' : '$'}
                     {country === 'Nigeria'
                       ? commafy(item.price * 470)
-                      : item.price}
+                      : item.price} */}
                   </Text>
                 </HStack>
-              {/* </>
+              </>
             ) : (
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.type[0].seasons.length}{' '}
-                  {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+                  {item.seasons?.length}
+                  {item.seasons?.length > 1 ? 'Seasons' : 'Season'}
                 </Text>
               </HStack>
             )}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
-            </Box> */}
+            </Box>
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">

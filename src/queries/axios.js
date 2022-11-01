@@ -14,7 +14,10 @@ const instance = axios.create({
 if (auth) {
   const { jwt } = JSON.parse(auth);
   instance.defaults.headers['c-authorization'] = `Bearer ${jwt}`;
+  console.log('token', jwt)
+
 }
+
 
 instance.interceptors.response.use(
   (response) => {

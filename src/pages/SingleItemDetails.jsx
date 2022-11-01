@@ -25,7 +25,7 @@ function SingleItemDetails() {
   if (isLoading) {
     return <LoadingScreen />;
   }
-  if (isLoading) {
+  if (error) {
     console.log({error})
   }
 
@@ -37,7 +37,7 @@ function SingleItemDetails() {
       <Trailer />
       <Similar related={data.related} />
       <Fade in={isOpen} unmountOnExit={true}>
-        <CheckoutModal product={data.data} onToggle={onToggle} />
+        <CheckoutModal item={data.data} onToggle={onToggle} />
       </Fade>
     </Box>
   );

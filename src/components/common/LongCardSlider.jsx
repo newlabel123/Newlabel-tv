@@ -23,7 +23,7 @@ function LongCardSlider({ items }) {
   };
 
   const nextSlide = () => sliderRef.current.slickNext();
-  console.log('slider', items)
+  // console.log('slider', items)
 
   return (
     <Wrapper pos="relative">
@@ -33,7 +33,6 @@ function LongCardSlider({ items }) {
             index={i}
             key={item.id}
             item={item}
-            // productType={item.type[0].__component}
           />
         ))}
       </Slider>
