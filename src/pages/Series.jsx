@@ -1,24 +1,24 @@
-import { Box, Fade } from '@chakra-ui/react'
-import React from 'react'
-import { useQuery } from 'react-query'
+import { Box, Fade } from '@chakra-ui/react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import {
   Banner,
   LoadingScreen,
   LongCardSlider,
   WideCardSlider,
-} from '../components/common'
-import { SectionWrapper } from '../components/layout'
-import { getSeriesData } from '../queries'
+} from '../components/common';
+import { SectionWrapper } from '../components/layout';
+import { getSeriesData } from '../queries';
 
 function Series() {
-  const { isLoading, error, data } = useQuery('series', getSeriesData)
+  const { isLoading, error, data } = useQuery('series', getSeriesData);
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (error) {
-    console.log({ error })
+    console.log({ error });
   }
 
   return (
@@ -33,18 +33,17 @@ function Series() {
               ) : (
                 <WideCardSlider items={item.products} />
               )} */}
-               <LongCardSlider items={item.products} />
+              <LongCardSlider items={item.products} />
             </SectionWrapper>
-          ))} */}
+          ))}
+         
         </Box>
-        
       </Box>
     </Fade>
-  )
+  );
 }
 
-export { Series }
-
+export { Series };
 
 // <Box>
 //   {data?.sections?.map((item) => (
