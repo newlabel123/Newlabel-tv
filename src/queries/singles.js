@@ -10,7 +10,7 @@ const getSinglesData = async () => {
 
   return {
     banner: res.data.data,
-    sections: [],
+    sections: res.data.data,
   };
 };
 
@@ -23,20 +23,6 @@ const getSingleDetails = async (id) => {
 
   return { data: data.data, related: [] };
 };
-// const getSinglesData = async () => {
-//   const BASE = process.env.REACT_APP_API_BASEURL
 
-//   const [banner, sections] = await axios.all([
-//     // axios.get(`${BASE}/sliders/5fe208025a886c9408f8b1cf`),
-//     axios.get(`${BASE}/movies`),
-//   ])
-
-//   console.log()
-
-//   return {
-//     banner: banner.data,
-//     sections: sections.data,
-//   }
-// }
 
 export { getSinglesData, getSingleDetails };

@@ -1,44 +1,60 @@
-import { Box, Fade, Flex, HStack, Text, useDisclosure } from '@chakra-ui/react'
-import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import { Box, Fade, Flex, HStack, Text, useDisclosure } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import {
   Btn,
   CheckoutModal,
   LoadingScreen,
   Similar,
   Trailer,
-} from '../components/common'
-import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner'
-import { SectionWrapper } from '../components/layout'
-import { EpisodeGrid } from '../components/series'
-import { getProductDetails } from '../queries'
+} from '../components/common';
+import { ProductDetailsBanner } from '../components/common/ProductDetailsBanner';
+import { SectionWrapper } from '../components/layout';
+import { EpisodeGrid } from '../components/series';
+import { getSeriesDetails, getSeriesSeasons,getSeriesSeasonEpisodes } from '../queries';
 
 function SeriesDetails() {
-  const [activeTab, setActiveTab] = useState(0)
-  const [activeSeason, setActiveSeason] = useState(null)
-  const { id } = useParams()
-  const { isOpen, onToggle } = useDisclosure()
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeSeason, setActiveSeason] = useState(null);
+  const { id } = useParams();
+  const { isOpen, onToggle } = useDisclosure();
 
-  const { data, isLoading } = useQuery(
-    ['getProductDetails', id],
-    getProductDetails
-  )
+  const { data, isLoading, error } = useQuery(
+    [id, 'seriesDetails'],
+    getSeriesDetails
+  );
+
+  // const seriesSeasonId = data.data._id;
+
+  // const { seasonsData, isLoadingSeasons } = useQuery(
+  //   [seriesSeasonId, 'seriesSeasons'],
+  //   getSeriesSeasons,
+  //   {
+  //     // The query will not execute until the userId exists
+  //     enabled: !!seriesSeasonId,
+  //   }
+  // );
 
   useEffect(() => {
     if (data) {
-      setActiveSeason(data.type[0].seasons[0])
+      // console.log('tiem',data)
+      setActiveSeason(1);
     }
-  }, [data])
+  }, [data]);
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
+  }
+
+  if (error) {
+    console.log({ error });
   }
 
   return (
     <Box>
-      <ProductDetailsBanner onToggle={onToggle} item={data} />
+      <ProductDetailsBanner onToggle={onToggle} item={data.data} />
       <SectionWrapper mt="5rem">
         <HStack spacing="2rem" mb="2.5rem">
           <TabBtn
@@ -55,11 +71,11 @@ function SeriesDetails() {
           </TabBtn>
         </HStack>
       </SectionWrapper>
-      <SectionWrapper mt="1rem">
+      {/* <SectionWrapper mt="1rem">
         {activeTab === 0 ? (
           <>
             <Tabs>
-              {data.type[0].seasons.map((season, i) => (
+              {seasonsData.number.map((season, i) => (
                 <TabItem
                   key={season.id}
                   className={
@@ -94,15 +110,15 @@ function SeriesDetails() {
             <Similar related={data.related} />
           </>
         )}
-      </SectionWrapper>
-      <Fade in={isOpen} unmountOnExit={true}>
+      </SectionWrapper> */}
+      {/* <Fade in={isOpen} unmountOnExit={true}>
         <CheckoutModal product={data} onToggle={onToggle} />
-      </Fade>
+      </Fade> */}
     </Box>
-  )
+  );
 }
 
-export { SeriesDetails }
+export { SeriesDetails };
 
 const TabBtn = styled(Btn)`
   padding: 2rem;
@@ -111,11 +127,11 @@ const TabBtn = styled(Btn)`
     background: #f00;
     color: #fff;
   }
-`
+`;
 
 const Tabs = styled.div`
   display: flex;
-`
+`;
 
 const TabItem = styled.p`
   font-size: 1.4rem;
@@ -146,4 +162,4 @@ const TabItem = styled.p`
   &.active {
     border-bottom: 2px solid red;
   }
-`
+`;

@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 function ProductWide({
   index,
   item,
-  // productType,
+  itemType,
   showModal,
   setShowModal,
   currentItem,
@@ -29,11 +29,11 @@ function ProductWide({
       return
     }
 
-    // if (productType === 'product.single-item') {
+    if (itemType === 'Movie') {
       history.push(`/singles/${item.id}`)
-    // } else {
-    //   history.push(`/series/${item.id}`)
-    // }
+    } else {
+      history.push(`/series/${item.id}`)
+    }
   }
 
   return (

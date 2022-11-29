@@ -35,7 +35,7 @@ function Series() {
               )} */}
                <LongCardSlider items={item.products} />
             </SectionWrapper>
-          ))}
+          ))} */}
         </Box>
         
       </Box>

@@ -15,16 +15,16 @@ function ProductLong({ index, item, ...rest }) {
 
   const handleClick = () => {
     if (item.itemType === 'Movie') {
-      history.push(`/singles/${item.slug}`);
+      history.push(`/singles/${item.slug}`)
     } else {
-      history.push(`/series/${item.slug}`);
+      history.push(`/series/${item.slug}`)
     }
-  };
-  console.log(item, 'item');
+  }
+  console.log(item, 'item')
 
   return (
     <CardBox
-      w={['14rem', '17rem']}
+      w={['15rem', '18rem']}
       h={['20rem', '25rem']}
       mr="1rem"
       position="relative"
@@ -35,7 +35,7 @@ function ProductLong({ index, item, ...rest }) {
       className="item"
     >
       <Image
-        src={item.poster}
+        src={item.poster || item.banner}
         alt="naruto"
         objectFit="cover"
         w="100%"

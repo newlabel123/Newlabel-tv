@@ -29,14 +29,10 @@ function Slide({ item }) {
   const history = useHistory();
 
   const handleClick = () => {
-    if (item.type === 'single') {      
-      history.push(`/singles/${item?.slug}`);
+    if (item.itemType === 'Movie') {
+      history.push(`/singles/${item.slug}`);
     } else {
-      // history.push(`/series/${item?.id}`);
-      // console.log(item,' item')
-
-      history.push(`/singles/${item?.slug}`);
-
+      history.push(`/series/${item.slug}`);
     }
   };
 
@@ -79,24 +75,16 @@ function Slide({ item }) {
           </Text>
           <Text maxW="500px">{truncate(item.description, 250)}</Text>
           <Flex align="center" mt="2rem">
-          <HStack>
-                  <Icon color="#fff" as={BiCart} />
-                  <Text color="#fff" fontSize="1.2rem">
-                    {country === 'Nigeria' ? '₦' : '$'}
-                    {country === 'Nigeria'
-                      ? commafy(item.price * 470)
-                      : item.price}
-                  </Text>
-                </HStack>
-            {/* {item.type === 'single' ? (
+            {item.itemType === 'Movie' ? (
               <>
                 <HStack>
                   <Icon color="#fff" as={BiCart} />
                   <Text color="#fff" fontSize="1.2rem">
-                    {country === 'Nigeria' ? '₦' : '$'}
+                    ₦ {commafy(item.price)}
+                    {/* {country === 'Nigeria' ? '₦' : '$'}
                     {country === 'Nigeria'
                       ? commafy(item.price * 470)
-                      : item.price}
+                      : item.price} */}
                   </Text>
                 </HStack>
               </>
@@ -105,21 +93,23 @@ function Slide({ item }) {
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
                   {item.seasons?.length > 1
-                      ? `${item.seasons?.length} Seasons`
-                      : `${item.seasons?.length} Season`
-                   }
+                    ? `${item.seasons?.length} Seasons`
+                    : `${item.seasons?.length} Season`}
                 </Text>
               </HStack>
-            )} */}
+            )}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>
-            <HStack>
-              <Icon color="#fff" as={BsClockHistory} />
-              <Text color="#fff" fontSize="1.2rem">
-                {item.runtime || '45min'}
-              </Text>
-            </HStack>
+            {item.runtime ? (
+              <HStack>
+                <Icon color="#fff" as={BsClockHistory} />
+                <Text color="#fff" fontSize="1.2rem">
+                  {item.runtime || 'N/A'}
+                </Text>
+              </HStack>
+            ) : null}
+
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
             </Box>
