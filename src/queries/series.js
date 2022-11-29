@@ -8,8 +8,8 @@ const getSeriesData = async () => {
 
 
   return {
-    banner: [],
-    sections: [],
+    banner: res.data.data,
+    sections: res.data.data,
   }
 }
 // const getSeriesData = async () => {

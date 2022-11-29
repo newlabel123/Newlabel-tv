@@ -29,12 +29,9 @@ function Home() {
         {/* <ContinueWatching /> */}
         <Box>
           {data?.sections?.map((item) => (
-            <SectionWrapper key={item.id} title={item.title}>
-              {item.cardType === 'long' ? (
-                <LongCardSlider items={item.products} />
-              ) : (
-                <WideCardSlider items={item.products} />
-              )}
+            <SectionWrapper key={item.id} title={item.name}>
+                <LongCardSlider items={item.movies} />
+             
             </SectionWrapper>
           ))}
         </Box>

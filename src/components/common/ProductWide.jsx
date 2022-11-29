@@ -50,7 +50,7 @@ function ProductWide({
     >
       <Image
         borderRadius="5px"
-        src={item.widePoster?.url}
+        src={item.poster}
         alt={item.title}
         w="100%"
         h="100%"

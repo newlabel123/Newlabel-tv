@@ -1,26 +1,26 @@
-import React, { useContext } from 'react'
-import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react'
-import commafy from 'commafy'
-import { BiCart } from 'react-icons/bi'
-import { BsClockHistory } from 'react-icons/bs'
-import { RiMovieLine } from 'react-icons/ri'
-import styled from '@emotion/styled'
-import { useHistory } from 'react-router-dom'
-import { truncate } from '../../util/helpers'
-import { LocationContext } from '../../context/location'
+import React, { useContext } from 'react';
+import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react';
+import commafy from 'commafy';
+import { BiCart } from 'react-icons/bi';
+import { BsClockHistory } from 'react-icons/bs';
+import { RiMovieLine } from 'react-icons/ri';
+import styled from '@emotion/styled';
+import { useHistory } from 'react-router-dom';
+import { truncate } from '../../util/helpers';
+import { LocationContext } from '../../context/location';
 
-function ProductLong({ index, item,  ...rest }) {
-  const { country } = useContext(LocationContext)
-  const history = useHistory()
+function ProductLong({ index, item, ...rest }) {
+  const { country } = useContext(LocationContext);
+  const history = useHistory();
 
   const handleClick = () => {
-    // if (productType === 'product.single-item') {
-      history.push(`/singles/${item.id}`)
-  //   } else {
-  //     history.push(`/series/${item.id}`)
-  //   }
-  }
-  console.log(item, 'item')
+    if (item.itemType === 'Movie') {
+      history.push(`/singles/${item.slug}`);
+    } else {
+      history.push(`/series/${item.slug}`);
+    }
+  };
+  console.log(item, 'item');
 
   return (
     <CardBox
@@ -46,37 +46,35 @@ function ProductLong({ index, item,  ...rest }) {
       <Box id="overlay" transition="all .5s .4s">
         <Box className="details" pos="absolute" bottom="1.5rem" left="1.5rem">
           <Text color="#fff" fontSize="1.2rem" mt="1rem" fontWeight="500">
-            {truncate(item?.title, 25)}
+            {truncate(item?.name, 25)}
           </Text>
           <Flex align="center">
-            {/* {productType === 'product.single-item' ? (
-              <> */}
-                <HStack>
-                  <Icon color="#fff" as={BiCart} />
-                  <Text color="#fff" fontSize="1.2rem">
-                    {country === 'Nigeria' ? '₦' : '$'}
-                    {country === 'Nigeria'
-                      ? commafy(item.price * 470)
-                      : item.price}
-                  </Text>
-                </HStack>
-              {/* </>
+           {item.itemType === 'Movie' ? (
+              <> 
+            <HStack>
+              <Icon color="#fff" as={BiCart} />
+              <Text color="#fff" fontSize="1.2rem">
+                ₦{commafy(item.price)}
+                
+              </Text>
+            </HStack>
+           </>
             ) : (
               <HStack>
                 <Icon color="#fff" as={RiMovieLine} />
                 <Text color="#fff" fontSize="1.2rem">
-                  {item.type[0].seasons.length}{' '}
-                  {item.type[0].seasons.length > 1 ? 'Seasons' : 'Season'}
+                  {item.seasons.length}
+                  {item.seasons.length > 1 ? 'Seasons' : 'Season'}
                 </Text>
               </HStack>
             )}
             <Box color="#fff" fontWeight="800" fontSize="1.2rem" mx=".5rem">
               .
-            </Box> */}
+            </Box>
             <HStack>
               <Icon color="#fff" as={BsClockHistory} />
               <Text color="#fff" fontSize="1.2rem">
-                {item.runtime || '45min'}
+                {item.runtime || 'N/A'}
               </Text>
             </HStack>
           </Flex>
@@ -95,10 +93,10 @@ function ProductLong({ index, item,  ...rest }) {
         </Box>
       </Box>
     </CardBox>
-  )
+  );
 }
 
-export { ProductLong }
+export { ProductLong };
 
 const CardBox = styled(Box)`
   /* z-index: -1; */
@@ -130,4 +128,8 @@ const CardBox = styled(Box)`
       }
     }
   }
-`
+`;
+
+
+// {country === 'Nigeria' ? '₦' : '$'}
+// {country === 'Nigeria' ? commafy(item.price * 470) : item.price}
